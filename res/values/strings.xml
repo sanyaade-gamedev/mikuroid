@@ -3,4 +3,5 @@
     <string name="hello">Hello World, MikuroidActivity!</string>
     <string name="app_name">mikuroid</string>
     <string name="widget_loading">Loading mikuroid...</string>
+    <string name="widget_name">mikuroid widget</string>
 </resources>

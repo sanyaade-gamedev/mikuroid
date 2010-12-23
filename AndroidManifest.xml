@@ -12,15 +12,22 @@
             </intent-filter>
         </activity>
         
-        <receiver android:name="naga.project.android.mikuroid.widget.NormalAppWidgetProvider" >
+        <!-- Boradcast Receiver that will process MikuroidWidget updates -->
+        <receiver android:name=".widget.MikuroidWidgetProvider"
+        		  android:label="@string/widget_name" >
     		<intent-filter>
         		<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
     		</intent-filter>
     		<meta-data android:name="android.appwidget.provider"
-            		   android:resource="@xml/mikuroid_appwidget_info" />
+            		   android:resource="@xml/appwidget" />
 		</receiver>
+		
+		<!--  Service to perform web API queries -->
+		<service android:name=".widget.MikuroidWidgetProvider$UpdateService" />
 
     </application>
+
+	<uses-permission android:name="android.permission.INTERNET"	/>
     <uses-sdk android:minSdkVersion="8" />
 
 </manifest>
