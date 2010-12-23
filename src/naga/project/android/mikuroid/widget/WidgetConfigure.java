@@ -2,16 +2,11 @@ package naga.project.android.mikuroid.widget;
 
 import naga.project.android.mikuroid.R;
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
-import android.widget.EditText;
 
 public class WidgetConfigure extends Activity {
 
 	static final String TAG = "MikuroidWidgetConfigure";
-
-	int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-	EditText appWidgetPrefix;
 
 	public WidgetConfigure() {
 		super();
