@@ -13,7 +13,7 @@
         </activity>
         
         <!-- Boradcast Receiver that will process MikuroidWidget updates -->
-        <receiver android:name=".widget.MikuroidWidgetProvider"
+        <receiver android:name=".widget.WidgetProvider"
         		  android:label="@string/widget_name" >
     		<intent-filter>
         		<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -23,7 +23,7 @@
 		</receiver>
 		
 		<!--  Service to perform web API queries -->
-		<service android:name=".widget.MikuroidWidgetProvider$UpdateService" />
+		<service android:name=".widget.WidgetUpdateService" />
 
     </application>
 

@@ -56,7 +56,7 @@ public class WidgetUpdateService extends Service {
 
     public RemoteViews buildUpdate(Context context) {
         RemoteViews views = new RemoteViews(context.getPackageName(),
-                R.layout.widget_normal);
+                R.layout.widget_message);
 
         return views;
     }

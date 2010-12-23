@@ -1,19 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    style="@style/WidgetBackground">
-
-    <TextView  
-        android:id="@+id/message"
-        android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
+    
+    <FrameLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dip"
-        android:padding="10dip"
-        android:gravity="center"
-        android:text="@string/widget_loading"
-        style="@style/Text.Loading" />
+        android:visibility="invisible"
+        android:id="@+id/baloon0" >
 
-</LinearLayout>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/balloons0" />
+
+        <TextView
+            android:id="@+id/miku_message"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxWidth="378px"
+            android:maxHeight="178px"
+            android:scrollbars="vertical"
+            android:layout_marginTop="1dip"
+            android:padding="10dip"
+            android:gravity="left"
+            android:layout_gravity="center"
+            android:autoLink="web|map"
+            android:linksClickable="true"
+            style="@style/Text.Loading" />
+    </FrameLayout>
+    
+    <ImageView
+        android:id="@+id/miku"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/miku2" />
+
+</RelativeLayout>

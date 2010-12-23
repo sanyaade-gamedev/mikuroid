@@ -3,6 +3,7 @@ package naga.project.android.mikuroid.widget;
 import naga.project.android.mikuroid.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * The configuration screen for the WidgetProvider widget.
@@ -21,6 +22,8 @@ public class WidgetConfigure extends Activity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        
+        Log.d(WidgetConfigure.TAG, "onCreate()");
 
         // Set the result to CANCELED. This will cause the widget host to cancel
         // out of the widget placement if they press the back button.
