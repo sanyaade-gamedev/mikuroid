@@ -4,5 +4,5 @@
     android:minHeight="72dp"
     android:updatePeriodMillis="86400000"
     android:initialLayout="@layout/normal_appwidget"
-    android:configure="com.example.android.ExampleAppWidgetConfigure" >
+    android:configure="naga.project.mikuroid.widget.NormalAppWidgetConfigure" >
 </appwidget-provider>

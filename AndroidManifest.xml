@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="naga.project.mikuroid"
+      package="naga.project.android.mikuroid"
       android:versionCode="1"
       android:versionName="1.0">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
@@ -11,7 +11,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="MikuroidAppWidgetProvider" >
+        
+        <receiver android:name="naga.project.android.mikuroid.widget.NormalAppWidgetProvider" >
     		<intent-filter>
         		<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
     		</intent-filter>
@@ -22,4 +23,4 @@
     </application>
     <uses-sdk android:minSdkVersion="8" />
 
-</manifest> 
+</manifest>
