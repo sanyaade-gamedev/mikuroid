@@ -6,14 +6,14 @@ import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
 import android.widget.EditText;
 
-public class MikuroidWidgetConfigure extends Activity {
+public class WidgetConfigure extends Activity {
 
 	static final String TAG = "MikuroidWidgetConfigure";
 
 	int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 	EditText appWidgetPrefix;
 
-	public MikuroidWidgetConfigure() {
+	public WidgetConfigure() {
 		super();
 	}
 
