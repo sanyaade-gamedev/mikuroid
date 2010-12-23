@@ -13,29 +13,31 @@ import android.util.Log;
  * 
  */
 public class WidgetProvider extends AppWidgetProvider {
+    
+    private static final String TAG = "WidgetProvider";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManger,
             int[] appWidgetIds) {
-        Log.d("MikuroidWidget.MikuroidWidgetProvider", "onUpdate()");
+        Log.d(WidgetProvider.TAG, "onUpdate()");
         context.startService(new Intent(context, WidgetUpdateService.class));
     }
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
-        Log.d("MikuroidWidget.MikuroidWidgetProvider", "onDeleted");
+        Log.d(WidgetProvider.TAG, "onDeleted");
         super.onDeleted(context, appWidgetIds);
     }
 
     @Override
     public void onDisabled(Context context) {
-        Log.d("MikuroidWidget.MikuroidWidgetProvider", "onDisabled");
+        Log.d(WidgetProvider.TAG, "onDisabled");
         super.onDisabled(context);
     }
 
     @Override
     public void onEnabled(Context context) {
-        Log.d("MikuroidWidget.MikuroidWidgetProvider", "onEnabled");
+        Log.d(WidgetProvider.TAG, "onEnabled");
         super.onEnabled(context);
     }
 
