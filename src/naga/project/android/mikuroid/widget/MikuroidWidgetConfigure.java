@@ -10,9 +10,6 @@ public class MikuroidWidgetConfigure extends Activity {
 
 	static final String TAG = "MikuroidWidgetConfigure";
 
-	private static final String PREFS_NAME = "naga.project.android.mikuroid.widget.MikuroidWidgetProvider";
-	private static final String PREF_PREFIX_KEY = "prefix_";
-
 	int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 	EditText appWidgetPrefix;
 

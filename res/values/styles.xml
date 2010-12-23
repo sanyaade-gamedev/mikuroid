@@ -34,18 +34,4 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-
-    <style name="LookupProgress">
-        <item name="android:indeterminateOnly">true</item>
-        <item name="android:indeterminateDrawable">@drawable/progress_spin</item>
-        <item name="android:indeterminateBehavior">repeat</item>
-        <item name="android:indeterminateDuration">3500</item>
-    </style>
-
-    <style name="LookupTitle">
-        <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-
 </resources>

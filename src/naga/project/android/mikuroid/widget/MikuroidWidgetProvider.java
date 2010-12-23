@@ -42,7 +42,7 @@ public class MikuroidWidgetProvider extends AppWidgetProvider {
         }
         
         public RemoteViews buildUpdate(Context context) {
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_message);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_normal);
             
             return views;
         }
