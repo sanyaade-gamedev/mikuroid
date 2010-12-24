@@ -27,7 +27,6 @@ public class WidgetConfigure extends Activity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        
         Log.d(WidgetConfigure.TAG, "onCreate()");
 
         // Set the result to CANCELED. This will cause the widget host to cancel
