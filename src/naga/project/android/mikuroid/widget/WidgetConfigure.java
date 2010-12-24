@@ -40,7 +40,7 @@ public class WidgetConfigure extends Activity {
         
         this.miku.create((EditText)this.findViewById(R.id.miku_edittext));
     }
-    
+
     View.OnClickListener mikuClickListener = new View.OnClickListener() {
 
         public void onClick(View v) {
@@ -50,7 +50,7 @@ public class WidgetConfigure extends Activity {
         }
 
     };
-    
+
     /** Widget character Miku Hatsune. */
     private WidgetCharacter miku;
 

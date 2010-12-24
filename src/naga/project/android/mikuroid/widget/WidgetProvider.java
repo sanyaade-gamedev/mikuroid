@@ -13,7 +13,7 @@ import android.util.Log;
  * 
  */
 public class WidgetProvider extends AppWidgetProvider {
-    
+
     private static final String TAG = "WidgetProvider";
 
     @Override
@@ -45,7 +45,7 @@ public class WidgetProvider extends AppWidgetProvider {
         Log.d(WidgetProvider.TAG, "onReceive");
         super.onReceive(context, intent);
         
-     // Stop service when discard widget from home.
+        // Stop service when discard widget from home.
         if (AppWidgetManager.ACTION_APPWIDGET_DELETED.equals(intent.getAction())) {
             Log.d(WidgetProvider.TAG, "stop service");
             context.stopService(new Intent(context, WidgetUpdateService.class));

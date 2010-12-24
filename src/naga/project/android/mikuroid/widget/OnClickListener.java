@@ -15,7 +15,7 @@ public class OnClickListener implements View.OnClickListener {
         // that they
         // clicked OK.
     }
-    
+
     private WidgetConfigure widgetConfigure;
 
 }
