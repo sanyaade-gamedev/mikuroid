@@ -19,7 +19,7 @@ public class WidgetCharacter {
     WidgetCharacter(String name) {
         this.prefName = name;
     }
-    
+
     public void create(EditText et) {
         Log.d(WidgetCharacter.TAG, "create()");
         this.editText = et;
@@ -40,9 +40,14 @@ public class WidgetCharacter {
         prefs.commit();
     }
 
+    /** Preference name. */
     private String prefName;
 
     /** To edit text message. */
     private EditText editText;
+
+    public void setEditText(EditText editText) {
+        this.editText = editText;
+    }
 
 }
