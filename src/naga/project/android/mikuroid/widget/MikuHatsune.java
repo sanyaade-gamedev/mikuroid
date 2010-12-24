@@ -6,7 +6,7 @@ public class MikuHatsune extends WidgetCharacter {
         if (null == MikuHatsune.instance) {
             MikuHatsune.instance = new MikuHatsune();
         }
-        
+
         return MikuHatsune.instance;
     }
 

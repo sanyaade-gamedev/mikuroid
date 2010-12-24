@@ -17,13 +17,15 @@ public class WidgetProvider extends AppWidgetProvider {
     private static final String TAG = "WidgetProvider";
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManger, int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManger,
+            int[] appWidgetIds) {
         Log.d(WidgetProvider.TAG, "onUpdate()");
         context.startService(new Intent(context, WidgetService.class));
-        
+
         // onUpdate must be called at first and only once.
         if (null == this.miku) {
-            this.miku = new WidgetCharacter("naga.project.android.WidgetCharacter.MikuHatsune");
+            this.miku = new WidgetCharacter(
+                    "naga.project.android.WidgetCharacter.MikuHatsune");
         }
     }
 
@@ -49,14 +51,15 @@ public class WidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         Log.d(WidgetProvider.TAG, "onReceive");
         super.onReceive(context, intent);
-        
+
         // Stop service when discard widget from home.
-        if (AppWidgetManager.ACTION_APPWIDGET_DELETED.equals(intent.getAction())) {
+        if (AppWidgetManager.ACTION_APPWIDGET_DELETED
+                .equals(intent.getAction())) {
             Log.d(WidgetProvider.TAG, "stop service");
             context.stopService(new Intent(context, WidgetService.class));
         }
     }
-    
+
     /** Widget character Miku Hatsune. */
     private WidgetCharacter miku;
 
