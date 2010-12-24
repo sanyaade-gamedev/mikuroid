@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-public class WidgetUpdateService extends Service {
+public class WidgetService extends Service {
 
     private static final String TAG = "WidgetUpdateService";
 
@@ -23,17 +23,17 @@ public class WidgetUpdateService extends Service {
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
 
-        Log.d(WidgetUpdateService.TAG, "onStart()");
+        Log.d(WidgetService.TAG, "onStart()");
 
         // Build the widget update
         RemoteViews updateViews = this.buildUpdate(this);
-        Log.d(WidgetUpdateService.TAG, "update built");
+        Log.d(WidgetService.TAG, "update built");
 
         // Push update for this widget to the home screen
         ComponentName thiswiget = new ComponentName(this, WidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         manager.updateAppWidget(thiswiget, updateViews);
-        Log.d(WidgetUpdateService.TAG, "widget updated");
+        Log.d(WidgetService.TAG, "widget updated");
     }
 
     @Override
@@ -46,12 +46,12 @@ public class WidgetUpdateService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        Log.d(WidgetUpdateService.TAG, "onDestroy()");
+        Log.d(WidgetService.TAG, "onDestroy()");
     }
 
     @Override
     public void onLowMemory() {
-        Log.d(WidgetUpdateService.TAG, "onLowMemory()");
+        Log.d(WidgetService.TAG, "onLowMemory()");
     }
 
     public RemoteViews buildUpdate(Context context) {

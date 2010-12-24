@@ -32,7 +32,7 @@
 		</activity>
 
 		<!--  Service to perform web API queries -->
-		<service android:name=".widget.WidgetUpdateService">
+		<service android:name=".widget.WidgetService">
 		    <intent-filter>
 		        <action android:name="android.intent.action.VIEW" />
 		        <action android:name="android.intent.action.INSERT" />

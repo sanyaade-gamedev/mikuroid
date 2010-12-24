@@ -19,7 +19,7 @@ public class WidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManger, int[] appWidgetIds) {
         Log.d(WidgetProvider.TAG, "onUpdate()");
-        context.startService(new Intent(context, WidgetUpdateService.class));
+        context.startService(new Intent(context, WidgetService.class));
         
         // onUpdate must be called at first and only once.
         if (null == this.miku) {
@@ -53,7 +53,7 @@ public class WidgetProvider extends AppWidgetProvider {
         // Stop service when discard widget from home.
         if (AppWidgetManager.ACTION_APPWIDGET_DELETED.equals(intent.getAction())) {
             Log.d(WidgetProvider.TAG, "stop service");
-            context.stopService(new Intent(context, WidgetUpdateService.class));
+            context.stopService(new Intent(context, WidgetService.class));
         }
     }
     
