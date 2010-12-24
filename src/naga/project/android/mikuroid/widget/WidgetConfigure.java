@@ -35,7 +35,8 @@ public class WidgetConfigure extends Activity {
         setResult(Activity.RESULT_CANCELED);
 
         // Bind the action for the save button.
-        this.findViewById(R.id.widget);
+        Log.d(WidgetConfigure.TAG, "add onClickListener");
+        this.findViewById(R.drawable.miku2).setOnClickListener(this.mikuClickListener);
         
         this.miku.create((EditText)this.findViewById(R.id.miku_edittext));
     }

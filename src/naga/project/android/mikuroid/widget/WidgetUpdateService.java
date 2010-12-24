@@ -11,7 +11,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 public class WidgetUpdateService extends Service {
-    
+
     private static final String TAG = "WidgetUpdateService";
 
     @Override

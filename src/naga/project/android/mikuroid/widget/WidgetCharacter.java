@@ -2,6 +2,7 @@ package naga.project.android.mikuroid.widget;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -12,12 +13,15 @@ import android.widget.EditText;
  *
  */
 public class WidgetCharacter {
+    
+    private static final String TAG = "WidgetCharacter";
 
     WidgetCharacter(String name) {
         this.prefName = name;
     }
     
     public void create(EditText et) {
+        Log.d(WidgetCharacter.TAG, "create()");
         this.editText = et;
         
         this.editText.setText("はじめましてっ！みくだよっ！！");
@@ -25,6 +29,7 @@ public class WidgetCharacter {
 
     public void click(View v, Context context, int appWidgetId) {
         //String message = this.editText.getText().toString();
+        Log.d(WidgetCharacter.TAG, "click()");
         this.saveMessage(context, appWidgetId, "みくだよっ！");
     }
 
