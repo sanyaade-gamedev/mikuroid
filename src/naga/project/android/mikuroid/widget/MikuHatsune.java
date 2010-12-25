@@ -13,9 +13,15 @@ public class MikuHatsune extends WidgetCharacter {
 
   private static final int balloonId = R.id.baloon0;
 
+  private enum MikuSurfaces {
+    NORMAL,
+  }
+
   public MikuHatsune() {
     super();
     Log.d("MikuHatsune", "constructor");
+
+    this.currentSurface = MikuSurfaces.NORMAL;
 
     this.messageQueue.add("みっくみっくにしてあげる～♪");
     this.messageQueue.add("みっくみっくにしてやんよ～♪");
@@ -39,5 +45,7 @@ public class MikuHatsune extends WidgetCharacter {
   public static int getImageid() {
     return imageId;
   }
+
+  private MikuSurfaces currentSurface;
 
 }

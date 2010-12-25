@@ -38,6 +38,8 @@ public class WidgetCharacter {
       switch (msg.what) {
       case WidgetCharacter.SPEAK_MESSAGE:
         processTalk();
+        // View talking message.
+        WidgetManager.getInstance().view();
         break;
 
       case WidgetCharacter.SPEAK_STOP:
@@ -61,16 +63,16 @@ public class WidgetCharacter {
   private void processTalk() {
     Log.d("WidgetCharacter", "processTalk()");
 
-    this.messageIndex++;
-    int index = this.messageIndex;
-    if (index < 0) {
-      index = 0;
-    }
-    if (index >= this.currentMessage.length()) {
+    if (this.messageIndex >= this.currentMessage.length()) {
       this.talkHandler.sendEmptyMessage(WidgetCharacter.SPEAK_STOP);
       return;
     }
-    this.message.append(this.currentMessage.charAt(index));
+    // Return line.
+    if (this.messageIndex % 12 == 0) {
+      this.message.append("\n");
+    }
+    this.message.append(this.currentMessage.charAt(this.messageIndex));
+    this.messageIndex++;
 
     this.talkHandler.sendEmptyMessageDelayed(WidgetCharacter.SPEAK_MESSAGE,
         talkSpeed);
@@ -112,6 +114,6 @@ public class WidgetCharacter {
   private String currentMessage;
 
   /** Talking speed. milliseconds */
-  private long talkSpeed = 200;
+  private long talkSpeed = 100;
 
 }
