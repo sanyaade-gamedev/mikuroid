@@ -4,7 +4,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 /**
  * Widget character.
@@ -17,51 +16,50 @@ public class WidgetCharacter {
   public WidgetCharacter() {
     this.message = new StringBuilder();
     this.messageQueue = new ConcurrentLinkedQueue<String>();
-    this.speaking = false;
-    this.initSpeak();
+    this.talking = false;
+    this.initTalk();
   }
 
   public void Destroy() {
     this.message.setLength(0);
     this.messageQueue.clear();
-    this.speaking = false;
+    this.talking = false;
     this.forceStop();
   }
 
   static final int SPEAK_MESSAGE = 1;
   static final int SPEAK_STOP = 2;
 
-  private Handler handler = new Handler() {
-    private static final String TAG = "WidgetCharacter.Handler";
+  private Handler talkHandler = new Handler() {
 
     @Override
     public void handleMessage(Message msg) {
-      Log.d(TAG, "handlerMessage");
       switch (msg.what) {
       case WidgetCharacter.SPEAK_MESSAGE:
-        processSpeak();
+        processTalk();
         
         break;
 
       case WidgetCharacter.SPEAK_STOP:
         // Stop speaking.
-        synchronized (speaking) {
-          speaking = false;
+        synchronized (talking) {
+          talking = false;
         }
         
         break;
       }
     }
+
   };
 
-  private void initSpeak() {
+  private void initTalk() {
     this.messageIndex = 0;
     this.currentMessage = "";
   }
 
-  private void processSpeak() {
+  private void processTalk() {
     if (this.messageIndex >= this.currentMessage.length()) {
-      this.handler.sendEmptyMessage(WidgetCharacter.SPEAK_STOP);
+      this.talkHandler.sendEmptyMessage(WidgetCharacter.SPEAK_STOP);
       return;
     }
 
@@ -72,12 +70,12 @@ public class WidgetCharacter {
     }
     this.message.append(this.currentMessage.charAt(index));
     
-    this.handler.sendEmptyMessageDelayed(WidgetCharacter.SPEAK_MESSAGE, talkSpeed);
+    this.talkHandler.sendEmptyMessageDelayed(WidgetCharacter.SPEAK_MESSAGE, talkSpeed);
   }
 
   public synchronized void play() {
     // TODO Finish speaking and show all message.
-    if (this.speaking) {
+    if (this.talking) {
       return;
     }
 
@@ -87,14 +85,14 @@ public class WidgetCharacter {
       return;
     }
 
-    this.initSpeak();
+    this.initTalk();
 
-    this.handler.sendEmptyMessage(WidgetCharacter.SPEAK_MESSAGE);
+    this.talkHandler.sendEmptyMessage(WidgetCharacter.SPEAK_MESSAGE);
   }
 
   protected void forceStop() {
-    this.handler.removeMessages(WidgetCharacter.SPEAK_MESSAGE);
-    this.handler.removeMessages(WidgetCharacter.SPEAK_STOP);
+    this.talkHandler.removeMessages(WidgetCharacter.SPEAK_MESSAGE);
+    this.talkHandler.removeMessages(WidgetCharacter.SPEAK_STOP);
     this.messageQueue.clear();
   }
 
@@ -104,7 +102,7 @@ public class WidgetCharacter {
 
   private int messageIndex;
 
-  protected Boolean speaking;
+  protected Boolean talking;
 
   protected String currentMessage;
 
