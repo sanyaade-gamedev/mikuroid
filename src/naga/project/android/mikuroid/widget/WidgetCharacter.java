@@ -28,22 +28,22 @@ public class WidgetCharacter {
     this.forceStop();
   }
 
-  static final int SPEAK_MESSAGE = 1;
-  static final int SPEAK_STOP = 2;
+  static final int TALK_MESSAGE = 1;
+  static final int TALK_STOP = 2;
 
   private Handler talkHandler = new Handler() {
 
     @Override
     public void handleMessage(Message msg) {
       switch (msg.what) {
-      case WidgetCharacter.SPEAK_MESSAGE:
+      case WidgetCharacter.TALK_MESSAGE:
         processTalk();
         // View talking message.
         WidgetManager.getInstance().view();
         break;
 
-      case WidgetCharacter.SPEAK_STOP:
-        // Stop speaking.
+      case WidgetCharacter.TALK_STOP:
+        // Stop talking.
         synchronized (talking) {
           talking = false;
         }
@@ -64,7 +64,7 @@ public class WidgetCharacter {
     Log.d("WidgetCharacter", "processTalk()");
 
     if (this.messageIndex >= this.currentMessage.length()) {
-      this.talkHandler.sendEmptyMessage(WidgetCharacter.SPEAK_STOP);
+      this.talkHandler.sendEmptyMessage(WidgetCharacter.TALK_STOP);
       return;
     }
     // Return line.
@@ -74,13 +74,14 @@ public class WidgetCharacter {
     this.message.append(this.currentMessage.charAt(this.messageIndex));
     this.messageIndex++;
 
-    this.talkHandler.sendEmptyMessageDelayed(WidgetCharacter.SPEAK_MESSAGE,
+    this.talkHandler.sendEmptyMessageDelayed(WidgetCharacter.TALK_MESSAGE,
         talkSpeed);
   }
 
   public synchronized void play() {
-    // TODO Finish speaking and show all message.
+    // Finish speaking and show all message.
     if (this.talking) {
+      this.talkHandler.sendEmptyMessage(WidgetCharacter.TALK_STOP);
       return;
     }
 
@@ -94,12 +95,12 @@ public class WidgetCharacter {
 
     this.talking = true;
 
-    this.talkHandler.sendEmptyMessage(WidgetCharacter.SPEAK_MESSAGE);
+    this.talkHandler.sendEmptyMessage(WidgetCharacter.TALK_MESSAGE);
   }
 
   protected void forceStop() {
-    this.talkHandler.removeMessages(WidgetCharacter.SPEAK_MESSAGE);
-    this.talkHandler.removeMessages(WidgetCharacter.SPEAK_STOP);
+    this.talkHandler.removeMessages(WidgetCharacter.TALK_MESSAGE);
+    this.talkHandler.removeMessages(WidgetCharacter.TALK_STOP);
     this.messageQueue.clear();
   }
 
