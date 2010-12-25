@@ -114,6 +114,6 @@ public class WidgetCharacter {
   private String currentMessage;
 
   /** Talking speed. milliseconds */
-  private long talkSpeed = 70;
+  private long talkSpeed = 100;
 
 }
