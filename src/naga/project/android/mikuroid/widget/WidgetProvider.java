@@ -21,12 +21,6 @@ public class WidgetProvider extends AppWidgetProvider {
         Log.d(WidgetProvider.TAG, "onUpdate()");
         // Start WidgetService.
         context.startService(new Intent(context, WidgetService.class));
-
-        // onUpdate must be called at first and only once.
-        if (null == this.miku) {
-            this.miku =
-                new WidgetCharacter("naga.project.android.WidgetCharacter.MikuHatsune");
-        }
     }
 
     @Override
@@ -59,8 +53,5 @@ public class WidgetProvider extends AppWidgetProvider {
             context.stopService(new Intent(context, WidgetService.class));
         }
     }
-
-    /** Widget character Miku Hatsune. */
-    private WidgetCharacter miku;
 
 }
