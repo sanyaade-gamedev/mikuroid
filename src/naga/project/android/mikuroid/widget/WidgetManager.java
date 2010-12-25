@@ -19,6 +19,7 @@ public class WidgetManager {
     public static WidgetManager getInstance() {
         if (null == WidgetManager.instance) {
             WidgetManager.instance = new WidgetManager();
+            WidgetManager.instance.miku = new MikuHatsune();
         }
 
         return WidgetManager.instance;
@@ -67,10 +68,8 @@ public class WidgetManager {
 
         RemoteViews views =
             new RemoteViews(this.context.getPackageName(), R.layout.widget_message);
-
-        // Change surface.
-        // Resources res = context.getResources();
-        // int resID = res.getIdentifier(name, defType, defPackage);
+        
+        this.miku.updateRemoteViews(views);
 
         // Set pending intent to check has miku clicked.
         views.setOnClickPendingIntent(R.id.miku, this.pendingIntent);
@@ -86,5 +85,7 @@ public class WidgetManager {
     
     /** AppWidgetManager to manage this widget. */
     private AppWidgetManager appWidgetManager;
+    
+    private MikuHatsune miku;
 
 }
