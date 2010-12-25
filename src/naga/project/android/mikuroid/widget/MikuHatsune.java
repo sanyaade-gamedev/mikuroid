@@ -21,20 +21,17 @@ public class MikuHatsune extends WidgetCharacter {
 
     this.currentSurface = MikuSurfaces.NORMAL;
 
-    this.message.setLength(0);
-    this.message.append("みっくみっくにしてあげる～♪");
-  }
-
-  public void nextMessage() {
-    this.message.setLength(0);
+    this.messageQueue.add("みっくみっくにしてあげる～♪");
   }
 
   public void updateRemoteViews(RemoteViews views) {
-    if (this.message.length() == 0) {
+    this.play();
+    
+    if (this.currentMessage.length() == 0) {
       views.setViewVisibility(MikuHatsune.balloonId, ImageView.INVISIBLE);
     } else {
       views.setViewVisibility(MikuHatsune.balloonId, ImageView.VISIBLE);
-      views.setTextViewText(MikuHatsune.messageId, this.message.toString());
+      views.setTextViewText(MikuHatsune.messageId, this.currentMessage.toString());
     }
   }
 
