@@ -37,6 +37,7 @@
 		        <action android:name="android.intent.action.VIEW" />
 		        <action android:name="android.intent.action.INSERT" />
 		        <action android:name="android.intent.action.MEDIA_BUTTON" />
+		        <data android:mimeType="text/plain" />
 		    </intent-filter>
 		</service>
 
