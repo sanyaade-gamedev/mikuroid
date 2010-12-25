@@ -5,9 +5,25 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 
+/**
+ * Task manager class.
+ * 
+ * @author reciente
+ * 
+ */
 public class TaskManager {
+    
+    void Destroy() {
+    }
 
+    /**
+     * Get singleton instance.
+     * 
+     * @return
+     */
     public static TaskManager getInstance() {
         if (null == TaskManager.instance) {
             TaskManager.instance = new TaskManager();
@@ -16,6 +32,11 @@ public class TaskManager {
         return TaskManager.instance;
     }
 
+    /**
+     * Set Context. If context is not seted, set context and pending intent.
+     * 
+     * @param ct
+     */
     public synchronized void setContext(Context ct) {
         if (null == this.context) {
             this.context = ct;
@@ -30,6 +51,12 @@ public class TaskManager {
             this.appWidgetManager = AppWidgetManager.getInstance(context);
         }
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+        }
+    };
 
     private static TaskManager instance;
 

@@ -17,40 +17,40 @@ public class WidgetProvider extends AppWidgetProvider {
     private static final String TAG = "WidgetProvider";
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManger,
-            int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManger, int[] appWidgetIds) {
         Log.d(WidgetProvider.TAG, "onUpdate()");
+        // Start WidgetService.
         context.startService(new Intent(context, WidgetService.class));
 
         // onUpdate must be called at first and only once.
         if (null == this.miku) {
-            this.miku = new WidgetCharacter(
-                    "naga.project.android.WidgetCharacter.MikuHatsune");
+            this.miku =
+                new WidgetCharacter("naga.project.android.WidgetCharacter.MikuHatsune");
         }
     }
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
-        Log.d(WidgetProvider.TAG, "onDeleted");
         super.onDeleted(context, appWidgetIds);
+        Log.d(WidgetProvider.TAG, "onDeleted");
     }
 
     @Override
     public void onDisabled(Context context) {
-        Log.d(WidgetProvider.TAG, "onDisabled");
         super.onDisabled(context);
+        Log.d(WidgetProvider.TAG, "onDisabled");
     }
 
     @Override
     public void onEnabled(Context context) {
-        Log.d(WidgetProvider.TAG, "onEnabled");
         super.onEnabled(context);
+        Log.d(WidgetProvider.TAG, "onEnabled");
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(WidgetProvider.TAG, "onReceive");
         super.onReceive(context, intent);
+        Log.d(WidgetProvider.TAG, "onReceive");
 
         // Stop service when discard widget from home.
         if (AppWidgetManager.ACTION_APPWIDGET_DELETED

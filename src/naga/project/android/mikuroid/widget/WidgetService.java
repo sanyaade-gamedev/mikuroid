@@ -17,13 +17,15 @@ public class WidgetService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(WidgetService.TAG, "onCreate()");
     }
 
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-
         Log.d(WidgetService.TAG, "onStart()");
+        
+        TaskManager.getInstance().setContext(this);
 
         // Build the widget update
         RemoteViews updateViews = this.buildUpdate(this);
@@ -45,8 +47,10 @@ public class WidgetService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         Log.d(WidgetService.TAG, "onDestroy()");
+        
+        // Destroy task manager.
+        TaskManager.getInstance().Destroy();
     }
 
     @Override
