@@ -12,9 +12,21 @@ public class MikuHatsune extends WidgetCharacter {
 
     private static final int balloonId = R.id.baloon0;
 
+    private enum MikuSurfaces {
+        NORMAL,
+    }
+
     public MikuHatsune() {
+        super();
+
+        this.currentSurface = MikuSurfaces.NORMAL;
+
         this.message.setLength(0);
-        this.message.append("みっくみっく♪");
+        this.message.append("みっくみっくにしてあげる～♪");
+    }
+
+    public void nextMessage() {
+        this.message.setLength(0);
     }
 
     public void updateRemoteViews(RemoteViews views) {
@@ -22,12 +34,15 @@ public class MikuHatsune extends WidgetCharacter {
             views.setViewVisibility(MikuHatsune.balloonId, ImageView.INVISIBLE);
         } else {
             views.setViewVisibility(MikuHatsune.balloonId, ImageView.VISIBLE);
-            views.setTextViewText(MikuHatsune.messageId, this.message.toString());
+            views.setTextViewText(MikuHatsune.messageId,
+                    this.message.toString());
         }
     }
 
     public static int getImageid() {
         return imageId;
     }
+
+    private MikuSurfaces currentSurface;
 
 }

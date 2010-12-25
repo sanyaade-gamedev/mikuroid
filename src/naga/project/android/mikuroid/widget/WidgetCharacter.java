@@ -1,6 +1,6 @@
 package naga.project.android.mikuroid.widget;
 
-import android.util.Log;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Widget character.
@@ -10,17 +10,27 @@ import android.util.Log;
  */
 public class WidgetCharacter {
 
-    private static final String TAG = "WidgetCharacter";
-
     public WidgetCharacter() {
         this.message = new StringBuilder();
+        this.messageQueue = new ConcurrentLinkedQueue<String>();
+        this.speaking = false;
     }
 
-    public void create() {
-        Log.d(WidgetCharacter.TAG, "create()");
+    public void Destroy() {
         this.message.setLength(0);
+        this.messageQueue.clear();
+        this.speaking = false;
     }
+
+    public void processTalk() {
+    }
+
+    protected ConcurrentLinkedQueue<String> messageQueue;
 
     protected StringBuilder message;
+
+    protected boolean speaking;
+
+    private String currentMessage;
 
 }
