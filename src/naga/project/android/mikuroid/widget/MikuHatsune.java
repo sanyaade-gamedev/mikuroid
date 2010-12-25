@@ -25,7 +25,7 @@ public class MikuHatsune extends WidgetCharacter {
             views.setTextViewText(MikuHatsune.messageId, this.message.toString());
         }
     }
-    
+
     public static int getImageid() {
         return imageId;
     }

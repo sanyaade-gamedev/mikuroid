@@ -3,7 +3,7 @@
     android:id="@+id/widget"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    
+
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:linksClickable="true"
             style="@style/Text.Loading" />
     </FrameLayout>
-    
+
     <ImageView
         android:id="@+id/miku"
         android:layout_width="wrap_content" 
