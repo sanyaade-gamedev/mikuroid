@@ -10,8 +10,11 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 public class WidgetManager {
-    
-    static final String TAG = "WidgetManager";
+
+    /**
+     * TAG for Log.
+     */
+    private static final String TAG = "WidgetManager";
 
     public static WidgetManager getInstance() {
         if (null == WidgetManager.instance) {
@@ -43,8 +46,8 @@ public class WidgetManager {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_MEDIA_BUTTON);
         intent.setType("text/plain");
-        this.pendingIntent =
-            PendingIntent.getService(this.context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        this.pendingIntent = PendingIntent.getService(this.context, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         this.widget = new ComponentName(this.context, WidgetProvider.class);
         this.appWidgetManager = AppWidgetManager.getInstance(this.context);
     }
@@ -62,8 +65,8 @@ public class WidgetManager {
             return;
         }
 
-        RemoteViews views = new RemoteViews(this.context.getPackageName(),
-                R.layout.widget_message);
+        RemoteViews views =
+            new RemoteViews(this.context.getPackageName(), R.layout.widget_message);
 
         // Change surface.
         // Resources res = context.getResources();
@@ -71,14 +74,17 @@ public class WidgetManager {
 
         // Set pending intent to check has miku clicked.
         views.setOnClickPendingIntent(R.id.miku, this.pendingIntent);
-        
+
         this.appWidgetManager.updateAppWidget(this.widget, views);
     }
 
+    /** Context of WidgetProvider. */
     private Context context;
 
     private PendingIntent pendingIntent;
     private ComponentName widget;
+    
+    /** AppWidgetManager to manage this widget. */
     private AppWidgetManager appWidgetManager;
 
 }
