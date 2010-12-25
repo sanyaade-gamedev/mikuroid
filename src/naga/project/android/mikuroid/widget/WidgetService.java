@@ -1,10 +1,8 @@
 package naga.project.android.mikuroid.widget;
 
-import naga.project.android.mikuroid.R;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
@@ -25,10 +23,10 @@ public class WidgetService extends Service {
         super.onStart(intent, startId);
         Log.d(WidgetService.TAG, "onStart()");
         
-        TaskManager.getInstance().setContext(this);
+        WidgetManager.getInstance().setContext(this);
 
         // Build the widget update
-        RemoteViews updateViews = this.buildUpdate(this);
+        RemoteViews updateViews = WidgetManager.getInstance().buildUpdate(this);
         Log.d(WidgetService.TAG, "update built");
 
         // Push update for this widget to the home screen
@@ -36,6 +34,8 @@ public class WidgetService extends Service {
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         manager.updateAppWidget(thiswiget, updateViews);
         Log.d(WidgetService.TAG, "widget updated");
+        
+        WidgetManager.getInstance().updateRemoteViews();
     }
 
     @Override
@@ -56,13 +56,6 @@ public class WidgetService extends Service {
     @Override
     public void onLowMemory() {
         Log.d(WidgetService.TAG, "onLowMemory()");
-    }
-
-    public RemoteViews buildUpdate(Context context) {
-        RemoteViews views = new RemoteViews(context.getPackageName(),
-                R.layout.widget_message);
-
-        return views;
     }
 
 }
