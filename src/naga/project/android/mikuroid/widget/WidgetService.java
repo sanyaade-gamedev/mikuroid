@@ -22,6 +22,7 @@ public class WidgetService extends Service {
     Log.d(WidgetService.TAG, "onStart()");
 
     WidgetManager.getInstance().update();
+    WidgetManager.getInstance().view();
   }
 
   @Override

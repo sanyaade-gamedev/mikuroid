@@ -61,15 +61,18 @@ public class WidgetManager {
   }
 
   public void update() {
-    Log.d(WidgetManager.TAG, "updateRemoteViews");
-    if (null == this.context) {
-      return;
-    }
+    Log.d(WidgetManager.TAG, "update()");
+
+    this.miku.update();
+  }
+
+  public void view() {
+    Log.d(WidgetManager.TAG, "view()");
 
     RemoteViews views = new RemoteViews(this.context.getPackageName(),
         R.layout.widget_message);
 
-    this.miku.update(views);
+    this.miku.view(views);
 
     // Set pending intent to check has miku clicked.
     views.setOnClickPendingIntent(R.id.miku, this.pendingIntent);
