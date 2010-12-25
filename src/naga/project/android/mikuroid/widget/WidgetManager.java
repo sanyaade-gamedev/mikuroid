@@ -60,7 +60,7 @@ public class WidgetManager {
     return views;
   }
 
-  public void updateRemoteViews() {
+  public void update() {
     Log.d(WidgetManager.TAG, "updateRemoteViews");
     if (null == this.context) {
       return;

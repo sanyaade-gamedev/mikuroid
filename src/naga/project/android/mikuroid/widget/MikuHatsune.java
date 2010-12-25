@@ -32,11 +32,11 @@ public class MikuHatsune extends WidgetCharacter {
   public void update(RemoteViews views) {
     this.play();
 
-    if (this.currentMessage.length() == 0) {
+    if (this.message.length() == 0) {
       views.setViewVisibility(MikuHatsune.balloonId, ImageView.INVISIBLE);
     } else {
       views.setViewVisibility(MikuHatsune.balloonId, ImageView.VISIBLE);
-      views.setTextViewText(MikuHatsune.messageId, this.currentMessage.toString());
+      views.setTextViewText(MikuHatsune.messageId, this.message.toString());
     }
   }
 
