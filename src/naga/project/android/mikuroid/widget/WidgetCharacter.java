@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 /**
  * Widget character.
@@ -58,15 +59,14 @@ public class WidgetCharacter {
   }
 
   private void processTalk() {
-    if (this.messageIndex >= this.currentMessage.length()) {
-      this.talkHandler.sendEmptyMessage(WidgetCharacter.SPEAK_STOP);
-      return;
-    }
-
     this.messageIndex++;
-    int index = messageIndex;
+    int index = this.messageIndex;
     if (index < 0) {
       index = 0;
+    }
+    if (index >= this.currentMessage.length()) {
+      this.talkHandler.sendEmptyMessage(WidgetCharacter.SPEAK_STOP);
+      return;
     }
     this.message.append(this.currentMessage.charAt(index));
     
@@ -74,18 +74,19 @@ public class WidgetCharacter {
   }
 
   public synchronized void play() {
+    Log.d("play", "messageQueue.size() : " + this.messageQueue.size());
     // TODO Finish speaking and show all message.
     if (this.talking) {
       return;
     }
+    
+    this.initTalk();
 
     this.currentMessage = this.messageQueue.poll();
     if (null == this.currentMessage) {
       this.currentMessage = "";
       return;
     }
-
-    this.initTalk();
 
     this.talkHandler.sendEmptyMessage(WidgetCharacter.SPEAK_MESSAGE);
   }
@@ -107,6 +108,6 @@ public class WidgetCharacter {
   protected String currentMessage;
 
   /** Talking speed. milliseconds */
-  private int talkSpeed = 30;
+  private int talkSpeed = 1000;
 
 }
