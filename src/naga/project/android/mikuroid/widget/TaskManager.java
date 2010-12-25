@@ -8,22 +8,22 @@ package naga.project.android.mikuroid.widget;
  */
 public class TaskManager {
 
-    void Destroy() {
+  void Destroy() {
+  }
+
+  /**
+   * Get singleton instance.
+   * 
+   * @return
+   */
+  public static TaskManager getInstance() {
+    if (null == TaskManager.instance) {
+      TaskManager.instance = new TaskManager();
     }
 
-    /**
-     * Get singleton instance.
-     * 
-     * @return
-     */
-    public static TaskManager getInstance() {
-        if (null == TaskManager.instance) {
-            TaskManager.instance = new TaskManager();
-        }
+    return TaskManager.instance;
+  }
 
-        return TaskManager.instance;
-    }
-
-    private static TaskManager instance;
+  private static TaskManager instance;
 
 }

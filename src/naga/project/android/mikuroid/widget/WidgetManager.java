@@ -11,81 +11,81 @@ import android.widget.RemoteViews;
 
 public class WidgetManager {
 
-    /**
-     * TAG for Log.
-     */
-    private static final String TAG = "WidgetManager";
+  /**
+   * TAG for Log.
+   */
+  private static final String TAG = "WidgetManager";
 
-    public static WidgetManager getInstance() {
-        if (null == WidgetManager.instance) {
-            WidgetManager.instance = new WidgetManager();
-            WidgetManager.instance.miku = new MikuHatsune();
-        }
-
-        return WidgetManager.instance;
+  public static WidgetManager getInstance() {
+    if (null == WidgetManager.instance) {
+      WidgetManager.instance = new WidgetManager();
+      WidgetManager.instance.miku = new MikuHatsune();
     }
 
-    private WidgetManager() {
-        super();
+    return WidgetManager.instance;
+  }
+
+  private WidgetManager() {
+    super();
+  }
+
+  private static WidgetManager instance;
+
+  /**
+   * Set Context. If context is not seted, set context and pending intent.
+   * 
+   * @param ct
+   */
+  public synchronized void setContext(Context ct) {
+    if (null != this.context) {
+      return;
     }
 
-    private static WidgetManager instance;
+    this.context = ct;
 
-    /**
-     * Set Context. If context is not seted, set context and pending intent.
-     * 
-     * @param ct
-     */
-    public synchronized void setContext(Context ct) {
-        if (null != this.context) {
-            return;
-        }
+    // Create an Intent to launch Activity
+    Intent intent = new Intent();
+    intent.setAction(Intent.ACTION_MEDIA_BUTTON);
+    intent.setType("text/plain");
+    this.pendingIntent = PendingIntent.getService(this.context, 0, intent,
+        PendingIntent.FLAG_UPDATE_CURRENT);
+    this.widget = new ComponentName(this.context, WidgetProvider.class);
+    this.appWidgetManager = AppWidgetManager.getInstance(this.context);
+  }
 
-        this.context = ct;
+  public RemoteViews buildUpdate(Context context) {
+    RemoteViews views = new RemoteViews(context.getPackageName(),
+        R.layout.widget_message);
 
-        // Create an Intent to launch Activity
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_MEDIA_BUTTON);
-        intent.setType("text/plain");
-        this.pendingIntent = PendingIntent.getService(this.context, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        this.widget = new ComponentName(this.context, WidgetProvider.class);
-        this.appWidgetManager = AppWidgetManager.getInstance(this.context);
+    return views;
+  }
+
+  public void updateRemoteViews() {
+    Log.d(WidgetManager.TAG, "updateRemoteViews");
+    if (null == this.context) {
+      return;
     }
 
-    public RemoteViews buildUpdate(Context context) {
-        RemoteViews views = new RemoteViews(context.getPackageName(),
-                R.layout.widget_message);
+    RemoteViews views = new RemoteViews(this.context.getPackageName(),
+        R.layout.widget_message);
 
-        return views;
-    }
+    this.miku.updateRemoteViews(views);
 
-    public void updateRemoteViews() {
-        Log.d(WidgetManager.TAG, "updateRemoteViews");
-        if (null == this.context) {
-            return;
-        }
+    // Set pending intent to check has miku clicked.
+    views.setOnClickPendingIntent(R.id.miku, this.pendingIntent);
 
-        RemoteViews views =
-            new RemoteViews(this.context.getPackageName(), R.layout.widget_message);
-        
-        this.miku.updateRemoteViews(views);
+    this.appWidgetManager.updateAppWidget(this.widget, views);
+  }
 
-        // Set pending intent to check has miku clicked.
-        views.setOnClickPendingIntent(R.id.miku, this.pendingIntent);
+  /** Context of WidgetProvider. */
+  private Context context;
 
-        this.appWidgetManager.updateAppWidget(this.widget, views);
-    }
+  private PendingIntent pendingIntent;
+  private ComponentName widget;
 
-    /** Context of WidgetProvider. */
-    private Context context;
+  /** AppWidgetManager to manage this widget. */
+  private AppWidgetManager appWidgetManager;
 
-    private PendingIntent pendingIntent;
-    private ComponentName widget;
-    
-    /** AppWidgetManager to manage this widget. */
-    private AppWidgetManager appWidgetManager;
-    
-    private MikuHatsune miku;
+  private MikuHatsune miku;
 
 }
