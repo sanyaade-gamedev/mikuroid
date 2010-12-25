@@ -10,7 +10,7 @@ public class MikuHatsune extends WidgetCharacter {
 
     private static final int messageId = R.id.miku_message;
 
-    private static final int baloonId = R.id.baloon0;
+    private static final int balloonId = R.id.baloon0;
 
     public MikuHatsune() {
         this.message.setLength(0);
@@ -19,9 +19,9 @@ public class MikuHatsune extends WidgetCharacter {
 
     public void updateRemoteViews(RemoteViews views) {
         if (this.message.length() == 0) {
-            views.setViewVisibility(MikuHatsune.baloonId, ImageView.INVISIBLE);
+            views.setViewVisibility(MikuHatsune.balloonId, ImageView.INVISIBLE);
         } else {
-            views.setViewVisibility(MikuHatsune.baloonId, ImageView.VISIBLE);
+            views.setViewVisibility(MikuHatsune.balloonId, ImageView.VISIBLE);
             views.setTextViewText(MikuHatsune.messageId, this.message.toString());
         }
     }
