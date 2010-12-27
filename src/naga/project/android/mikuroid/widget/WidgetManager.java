@@ -53,13 +53,6 @@ public class WidgetManager {
     this.appWidgetManager = AppWidgetManager.getInstance(this.context);
   }
 
-  public RemoteViews buildUpdate(Context context) {
-    RemoteViews views = new RemoteViews(context.getPackageName(),
-        R.layout.widget_message);
-
-    return views;
-  }
-
   public void update() {
     Log.d(WidgetManager.TAG, "update()");
 
@@ -83,7 +76,9 @@ public class WidgetManager {
   /** Context of WidgetProvider. */
   private Context context;
 
+  /** Pending intent to set intent action. */
   private PendingIntent pendingIntent;
+
   private ComponentName widget;
 
   /** AppWidgetManager to manage this widget. */
