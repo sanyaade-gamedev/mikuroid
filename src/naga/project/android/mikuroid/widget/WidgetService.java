@@ -1,7 +1,10 @@
 package naga.project.android.mikuroid.widget;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -14,6 +17,8 @@ public class WidgetService extends Service {
     super.onCreate();
     Log.d(WidgetService.TAG, "onCreate()");
     WidgetManager.getInstance().setContext(this);
+    this.registerReceiver(this.batteryReceiver, new IntentFilter(
+        Intent.ACTION_BATTERY_CHANGED));
   }
 
   @Override
@@ -44,5 +49,21 @@ public class WidgetService extends Service {
   public void onLowMemory() {
     Log.d(WidgetService.TAG, "onLowMemory()");
   }
+
+  private int currentBatteryLevel = 0;
+
+  public int getCurrentBatteryLevel() {
+    return currentBatteryLevel;
+  }
+
+  private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      Log.d("WidgetService$batteryReceiver", "onReceive");
+      currentBatteryLevel = intent.getIntExtra("level", 0);
+      Log.d("Power Level", Integer.toString(currentBatteryLevel));
+    }
+  };
 
 }
