@@ -14,12 +14,10 @@ import android.util.Log;
  */
 public class WidgetProvider extends AppWidgetProvider {
 
-  private static final String TAG = "WidgetProvider";
-
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManger,
       int[] appWidgetIds) {
-    Log.d(WidgetProvider.TAG, "onUpdate()");
+    Log.d("WidgetProvider", "onUpdate()");
     // Start WidgetService.
     context.startService(new Intent(context, WidgetService.class));
   }
@@ -27,29 +25,33 @@ public class WidgetProvider extends AppWidgetProvider {
   @Override
   public void onDeleted(Context context, int[] appWidgetIds) {
     super.onDeleted(context, appWidgetIds);
-    Log.d(WidgetProvider.TAG, "onDeleted");
+    Log.d("WidgetProvider", "onDeleted");
   }
 
   @Override
   public void onDisabled(Context context) {
     super.onDisabled(context);
-    Log.d(WidgetProvider.TAG, "onDisabled");
+    Log.d("WidgetProvider", "onDisabled");
   }
 
   @Override
   public void onEnabled(Context context) {
     super.onEnabled(context);
-    Log.d(WidgetProvider.TAG, "onEnabled");
+    Log.d("WidgetProvider", "onEnabled");
   }
 
   @Override
   public void onReceive(Context context, Intent intent) {
     super.onReceive(context, intent);
-    Log.d(WidgetProvider.TAG, "onReceive");
+    Log.d("WidgetProvider", "onReceive");
+
+    String action = intent.getAction();
 
     // Stop service when discard widget from home.
-    if (AppWidgetManager.ACTION_APPWIDGET_DELETED.equals(intent.getAction())) {
-      Log.d(WidgetProvider.TAG, "stop service");
+    if (action.equals(Intent.ACTION_BATTERY_CHANGED)) {
+      Log.d("WidgetProvider", "battery changed");
+    } else if (AppWidgetManager.ACTION_APPWIDGET_DELETED.equals(action)) {
+      Log.d("WidgetProvider", "stop service");
       context.stopService(new Intent(context, WidgetService.class));
     }
   }
