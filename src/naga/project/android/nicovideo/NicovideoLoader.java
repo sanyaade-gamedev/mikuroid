@@ -2,7 +2,10 @@ package naga.project.android.nicovideo;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -15,6 +18,8 @@ abstract public class NicovideoLoader {
 
   private static String ENCODING = "UTF-8";
 
+  private static final String DATE_FORMAT = "yyyy--MMdd-HH:mm:ss+09:00";
+
   public static List<NicovideoEntry> LoadEntryFromFeed(InputStream is) {
     XmlPullParser parser = Xml.newPullParser();
     try {
@@ -25,6 +30,8 @@ abstract public class NicovideoLoader {
     }
 
     List<NicovideoEntry> entryList = new ArrayList<NicovideoEntry>();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+        NicovideoLoader.DATE_FORMAT);
 
     int eventType;
     try {
@@ -52,7 +59,23 @@ abstract public class NicovideoLoader {
               entry.setId(parser.nextText());
               Log.d("id", entry.getId());
             } else if ("published".equals(name)) {
+              Date date = null;
+              try {
+                date = simpleDateFormat.parse(parser.nextText());
+              } catch (ParseException e) {
+                e.printStackTrace();
+                date = null;
+              }
+              entry.setPublished(date);
             } else if ("updated".equals(name)) {
+              Date date = null;
+              try {
+                date = simpleDateFormat.parse(parser.nextText());
+              } catch (ParseException e) {
+                e.printStackTrace();
+                date = null;
+              }
+              entry.setUpdated(date);
             } else if ("content".equals(name)) {
               entry.setContent(parser.nextText());
             }
