@@ -10,12 +10,10 @@ import android.util.Log;
 
 public class WidgetService extends Service {
 
-  private static final String TAG = "WidgetUpdateService";
-
   @Override
   public void onCreate() {
     super.onCreate();
-    Log.d(WidgetService.TAG, "onCreate()");
+    Log.d("WidgetUpdateService", "onCreate()");
     WidgetManager.getInstance().setContext(this);
 
     // Register battery receiver.
@@ -26,7 +24,7 @@ public class WidgetService extends Service {
   @Override
   public void onStart(Intent intent, int startId) {
     super.onStart(intent, startId);
-    Log.d(WidgetService.TAG, "onStart()");
+    Log.d("WidgetUpdateService", "onStart()");
 
     WidgetManager.getInstance().update();
     WidgetManager.getInstance().view();
@@ -41,7 +39,7 @@ public class WidgetService extends Service {
   @Override
   public void onDestroy() {
     super.onDestroy();
-    Log.d(WidgetService.TAG, "onDestroy()");
+    Log.d("WidgetUpdateService", "onDestroy()");
 
     // Unregister battery receiver.
     this.unregisterReceiver(this.batteryReceiver);
@@ -52,7 +50,7 @@ public class WidgetService extends Service {
 
   @Override
   public void onLowMemory() {
-    Log.d(WidgetService.TAG, "onLowMemory()");
+    Log.d("WidgetUpdateService", "onLowMemory()");
   }
 
   private int currentBatteryLevel = 0;
