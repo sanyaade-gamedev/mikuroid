@@ -19,7 +19,7 @@ import android.graphics.BitmapFactory;
 
 public class NetworkManager {
 
-  static NetworkManager getInstance() {
+  public static NetworkManager getInstance() {
     if (null == NetworkManager.instance) {
       NetworkManager.instance = new NetworkManager();
     }
@@ -32,7 +32,7 @@ public class NetworkManager {
 
   private static NetworkManager instance;
 
-  public static Bitmap load(String url) {
+  public Bitmap load(String url) {
     HttpGet get = null;
     try {
       get = new HttpGet(new URL(url).toURI());

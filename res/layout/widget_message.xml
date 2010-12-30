@@ -3,7 +3,7 @@
     android:id="@+id/widget"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    
+
   <ImageView
     android:id="@+id/nicovideo_image"
     android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
     <ImageView
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:src="@drawable/balloons0" />
+      android:src="@drawable/balloons0"/>
 
     <TextView
       android:id="@+id/miku_message"
