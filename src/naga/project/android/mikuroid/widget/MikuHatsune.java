@@ -4,7 +4,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import naga.project.android.mikuroid.R;
-import naga.project.android.nicovideo.NicovideoRequest;
+import naga.project.android.network.NetworkNicovideo;
 
 public class MikuHatsune extends WidgetCharacter {
 
@@ -20,7 +20,7 @@ public class MikuHatsune extends WidgetCharacter {
 
     this.messageQueue.add("みっくみっくにしてあげる～♪");
 
-    this.nicoEntryQueue.addAll(NicovideoRequest.requestDailyRankingVOCALOID());
+    this.nicoEntryQueue.addAll(NetworkNicovideo.requestDailyRankingVOCALOID());
   }
 
   public void update() {
