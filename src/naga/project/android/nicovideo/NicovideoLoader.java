@@ -35,6 +35,7 @@ abstract public class NicovideoLoader {
     try {
       int eventType = parser.getEventType();
       NicovideoEntry entry = null;
+
       while (eventType != XmlPullParser.END_DOCUMENT) {
         String name = null;
 

@@ -1,12 +1,15 @@
 package naga.project.android.mikuroid.widget;
 
-import android.graphics.Bitmap;
+import java.util.List;
+
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import naga.project.android.mikuroid.R;
-import naga.project.android.network.NetworkManager;
+import naga.project.android.network.DownloadImageTask;
 import naga.project.android.network.NetworkNicovideo;
+import naga.project.android.nicovideo.NicovideoEntry;
+import naga.project.android.nicovideo.NicovideoUtil;
 
 public class MikuHatsune extends WidgetCharacter {
 
@@ -24,7 +27,10 @@ public class MikuHatsune extends WidgetCharacter {
 
     //this.messageQueue.add("みっくみっくにしてあげる～♪");
 
-    this.nicoEntryQueue.addAll(NetworkNicovideo.requestDailyRankingVOCALOID());
+    List<NicovideoEntry> entryList = NetworkNicovideo.requestDailyRankingVOCALOID();
+    this.nicoEntryQueue.addAll(entryList);
+    
+    new DownloadImageTask().execute(NicovideoUtil.generateThumbnailUrls(entryList));
   }
 
   public void update() {
@@ -35,6 +41,7 @@ public class MikuHatsune extends WidgetCharacter {
     if (this.message.length() == 0) {
       views.setViewVisibility(MikuHatsune.balloonId, ImageView.INVISIBLE);
 
+      /*
       Bitmap bitmap = NetworkManager.getInstance().load(
           "http://tn-skr2.smilevideo.jp/smile?i=13136668");
 
@@ -42,6 +49,7 @@ public class MikuHatsune extends WidgetCharacter {
         views.setViewVisibility(MikuHatsune.nicovideoImageId, ImageView.VISIBLE);
         views.setImageViewBitmap(MikuHatsune.nicovideoImageId, bitmap);
       }
+      */
     } else {
       views.setViewVisibility(MikuHatsune.balloonId, ImageView.VISIBLE);
       views.setTextViewText(MikuHatsune.messageId, this.message.toString());

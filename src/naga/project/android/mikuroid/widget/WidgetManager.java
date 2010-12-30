@@ -1,29 +1,44 @@
 package naga.project.android.mikuroid.widget;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 import naga.project.android.mikuroid.R;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.RemoteViews;
 
 public class WidgetManager {
 
+  /**
+   * Return singleton instance.
+   * 
+   * @return Singleton instance.
+   */
   public static WidgetManager getInstance() {
     if (null == WidgetManager.instance) {
       WidgetManager.instance = new WidgetManager();
       WidgetManager.instance.miku = new MikuHatsune();
+      WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
     }
 
     return WidgetManager.instance;
   }
 
+  /**
+   * Constructor.
+   */
   private WidgetManager() {
     super();
   }
 
+  /**
+   * Singleton instance.
+   */
   private static WidgetManager instance;
 
   /**
@@ -68,17 +83,35 @@ public class WidgetManager {
     this.appWidgetManager.updateAppWidget(this.widget, views);
   }
 
-  /** Context of WidgetProvider. */
+  /**
+   * Context of WidgetProvider.
+   */
   private Context context;
 
-  /** Pending intent to set intent action. */
+  /**
+   * Pending intent to set intent action.
+   */
   private PendingIntent pendingIntent;
 
   private ComponentName widget;
 
-  /** AppWidgetManager to manage this widget. */
+  /**
+   * AppWidgetManager to manage this widget.
+   */
   private AppWidgetManager appWidgetManager;
 
+  /**
+   * Widget character Miku Hatsune.
+   */
   private MikuHatsune miku;
+
+  /**
+   * Thread-safe image store.
+   */
+  private ConcurrentHashMap<Integer, Bitmap> images;
+
+  public ConcurrentHashMap<Integer, Bitmap> getImages() {
+    return images;
+  }
 
 }

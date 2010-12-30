@@ -18,7 +18,9 @@ import android.util.Log;
 
 public class NetworkNicovideo {
 
-  private static String DAILY_RANKING_VOCALOID = "http://www.nicovideo.jp/ranking/fav/daily/vocaloid?rss=atom";
+  private static final String DAILY_RANKING_VOCALOID = "http://www.nicovideo.jp/ranking/fav/daily/vocaloid?rss=atom";
+
+  public static final String IMAGE_HOST = "tn-skr1.smilevideo.jp";
 
   public static List<NicovideoEntry> requestDailyRankingVOCALOID() {
     final HttpClient httpClient = new DefaultHttpClient();
