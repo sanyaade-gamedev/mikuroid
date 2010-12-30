@@ -10,21 +10,16 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpParams;
 
 import android.util.Log;
 
 public class NicovideoRequest {
 
-  private static String DAILY_RANKING_VOCALOID = "http://www.nicovideo.jp/ranking/fav/daily/vocaloid";
+  private static String DAILY_RANKING_VOCALOID = "http://www.nicovideo.jp/ranking/fav/daily/vocaloid?rss=atom";
 
   public static List<NicovideoEntry> requestDailyRankingVOCALOID() {
     final HttpClient httpClient = new DefaultHttpClient();
     HttpGet httpGet = new HttpGet(NicovideoRequest.DAILY_RANKING_VOCALOID);
-
-    // Get HttpParams instance and set params.
-    HttpParams httpParams = httpClient.getParams();
-    httpParams.setParameter("res", "atom");
 
     HttpResponse httpResponse = null;
     try {
@@ -43,8 +38,8 @@ public class NicovideoRequest {
       return null;
     }
 
-    Log.d("NicovideoRequest",
-        Integer.toString(httpResponse.getStatusLine().getStatusCode()));
+    Log.d("NicovideoRequest", "HTTP STATUS : "
+        + httpResponse.getStatusLine().getStatusCode());
 
     // Check HTTP response status.
     if (HttpStatus.SC_OK != httpResponse.getStatusLine().getStatusCode()) {
