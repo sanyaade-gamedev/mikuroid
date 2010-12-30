@@ -4,22 +4,34 @@ import java.util.Date;
 
 public class NicovideoEntry {
 
-  /** Entry title. */
+  /**
+   * Entry title.
+   */
   private String title;
 
-  /** Link to entry. */
+  /**
+   * Link to entry.
+   */
   private String link;
 
-  /** Entry ID. */
+  /**
+   * Entry ID.
+   */
   private String Id;
 
-  /** Published date. */
+  /**
+   * Published date.
+   */
   private Date published;
 
-  /** Updated date. */
+  /**
+   * Updated date.
+   */
   private Date updated;
 
-  /** Content by HTML. */
+  /**
+   * Content by HTML.
+   */
   private String content;
 
   public String getTitle() {

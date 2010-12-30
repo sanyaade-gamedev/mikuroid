@@ -6,7 +6,6 @@ import naga.project.android.nicovideo.NicovideoEntry;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 /**
  * Widget character.
@@ -64,8 +63,6 @@ public class WidgetCharacter {
   }
 
   private void processTalk() {
-    Log.d("WidgetCharacter", "processTalk()");
-
     if (this.messageIndex >= this.currentMessage.length()) {
       this.talkHandler.sendEmptyMessage(WidgetCharacter.TALK_STOP);
       return;
@@ -119,7 +116,9 @@ public class WidgetCharacter {
 
   private String currentMessage;
 
-  /** Talking speed. milliseconds */
+  /**
+   * Talking speed. milliseconds
+   */
   private long talkSpeed = 100;
 
 }

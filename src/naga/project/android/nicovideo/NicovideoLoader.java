@@ -11,7 +11,6 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.util.Log;
 import android.util.Xml;
 
 abstract public class NicovideoLoader {
@@ -51,13 +50,10 @@ abstract public class NicovideoLoader {
           if (null != entry) {
             if ("title".equals(name)) {
               entry.setTitle(parser.nextText());
-              Log.d("title", entry.getTitle());
             } else if ("link".equals(name)) {
               entry.setLink(parser.getAttributeValue(null, "href"));
-              Log.d("link", entry.getLink());
             } else if ("id".equals(name)) {
               entry.setId(parser.nextText());
-              Log.d("id", entry.getId());
             } else if ("published".equals(name)) {
               Date date = null;
               try {

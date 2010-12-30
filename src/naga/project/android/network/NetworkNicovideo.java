@@ -1,8 +1,11 @@
-package naga.project.android.nicovideo;
+package naga.project.android.network;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
+import naga.project.android.nicovideo.NicovideoEntry;
+import naga.project.android.nicovideo.NicovideoLoader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -13,13 +16,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
 
-public class NicovideoRequest {
+public class NetworkNicovideo {
 
   private static String DAILY_RANKING_VOCALOID = "http://www.nicovideo.jp/ranking/fav/daily/vocaloid?rss=atom";
 
   public static List<NicovideoEntry> requestDailyRankingVOCALOID() {
     final HttpClient httpClient = new DefaultHttpClient();
-    HttpGet httpGet = new HttpGet(NicovideoRequest.DAILY_RANKING_VOCALOID);
+    HttpGet httpGet = new HttpGet(NetworkNicovideo.DAILY_RANKING_VOCALOID);
 
     HttpResponse httpResponse = null;
     try {
@@ -67,6 +70,7 @@ public class NicovideoRequest {
         } catch (IOException e) {
           e.printStackTrace();
         }
+        is = null;
       }
     }
 
