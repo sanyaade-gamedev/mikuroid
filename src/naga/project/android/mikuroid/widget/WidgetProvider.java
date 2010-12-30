@@ -48,9 +48,11 @@ public class WidgetProvider extends AppWidgetProvider {
     String action = intent.getAction();
 
     // Stop service when discard widget from home.
-    if (action.equals(Intent.ACTION_BATTERY_CHANGED)) {
+    if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
+      // Battery was changed.
       Log.d("WidgetProvider", "battery changed");
     } else if (AppWidgetManager.ACTION_APPWIDGET_DELETED.equals(action)) {
+      // Widget was deleted.
       Log.d("WidgetProvider", "stop service");
       context.stopService(new Intent(context, WidgetService.class));
     }
