@@ -1,9 +1,12 @@
 package naga.project.android.mikuroid.widget;
 
+import java.util.List;
+
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import naga.project.android.mikuroid.R;
+import naga.project.android.nicovideo.NicovideoEntry;
 import naga.project.android.nicovideo.NicovideoRequest;
 
 public class MikuHatsune extends WidgetCharacter {
@@ -20,7 +23,11 @@ public class MikuHatsune extends WidgetCharacter {
 
     this.messageQueue.add("みっくみっくにしてあげる～♪");
 
-    NicovideoRequest.requestDailyRankingVOCALOID();
+    List<NicovideoEntry> entryList = NicovideoRequest
+        .requestDailyRankingVOCALOID();
+    for (NicovideoEntry entry : entryList) {
+      this.messageQueue.add(entry.getTitle());
+    }
   }
 
   public void update() {
