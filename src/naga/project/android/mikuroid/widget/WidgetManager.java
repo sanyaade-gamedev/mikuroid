@@ -11,11 +11,6 @@ import android.widget.RemoteViews;
 
 public class WidgetManager {
 
-  /**
-   * TAG for Log.
-   */
-  private static final String TAG = "WidgetManager";
-
   public static WidgetManager getInstance() {
     if (null == WidgetManager.instance) {
       WidgetManager.instance = new WidgetManager();
@@ -54,13 +49,13 @@ public class WidgetManager {
   }
 
   public void update() {
-    Log.d(WidgetManager.TAG, "update()");
+    Log.d("WidgetManager", "update()");
 
     this.miku.update();
   }
 
   public void view() {
-    Log.d(WidgetManager.TAG, "view()");
+    Log.d("WidgetManager", "view()");
 
     RemoteViews views = new RemoteViews(this.context.getPackageName(),
         R.layout.widget_message);
