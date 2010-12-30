@@ -22,7 +22,7 @@ public class MikuHatsune extends WidgetCharacter {
     super();
     Log.d("MikuHatsune", "constructor");
 
-    this.messageQueue.add("みっくみっくにしてあげる～♪");
+    //this.messageQueue.add("みっくみっくにしてあげる～♪");
 
     this.nicoEntryQueue.addAll(NetworkNicovideo.requestDailyRankingVOCALOID());
   }
