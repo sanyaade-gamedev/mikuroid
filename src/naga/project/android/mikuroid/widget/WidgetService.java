@@ -17,7 +17,7 @@ public class WidgetService extends Service {
     super.onCreate();
     Log.d(WidgetService.TAG, "onCreate()");
     WidgetManager.getInstance().setContext(this);
-    
+
     // Register battery receiver.
     this.registerReceiver(this.batteryReceiver, new IntentFilter(
         Intent.ACTION_BATTERY_CHANGED));
@@ -42,7 +42,7 @@ public class WidgetService extends Service {
   public void onDestroy() {
     super.onDestroy();
     Log.d(WidgetService.TAG, "onDestroy()");
-    
+
     // Unregister battery receiver.
     this.unregisterReceiver(this.batteryReceiver);
 
