@@ -2,18 +2,24 @@ package naga.project.android.nicovideo;
 
 import java.util.Date;
 
-public class Entry {
+public class NicovideoEntry {
 
+  /** Entry title. */
   private String title;
 
+  /** Link to entry. */
   private String link;
 
+  /** Entry ID. */
   private String Id;
 
+  /** Published date. */
   private Date published;
 
+  /** Updated date. */
   private Date updated;
 
+  /** HTML */
   private String contentHTML;
 
   public String getTitle() {

@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import naga.project.android.mikuroid.R;
+import naga.project.android.nicovideo.NicovideoRequest;
 
 public class MikuHatsune extends WidgetCharacter {
 
@@ -18,9 +19,8 @@ public class MikuHatsune extends WidgetCharacter {
     Log.d("MikuHatsune", "constructor");
 
     this.messageQueue.add("みっくみっくにしてあげる～♪");
-    this.messageQueue.add("みっくみっくにしてやんよ～♪");
-    this.messageQueue.add("みっくみっくにしてやるにゃ～♪");
-    this.messageQueue.add("みっくみっくにしてほしい～♪");
+
+    NicovideoRequest.requestDailyRankingVOCALOID();
   }
 
   public void update() {
