@@ -108,12 +108,24 @@ public class WidgetCharacter {
 
   protected ConcurrentLinkedQueue<NicovideoEntry> nicoEntryQueue;
 
+  /**
+   * Message to show display.
+   */
   protected StringBuilder message;
 
+  /**
+   * True when character is talking.
+   */
   protected Boolean talking;
 
+  /**
+   * Use to talk. Index of currentMessage. To show message step by step.
+   */
   private int messageIndex;
 
+  /**
+   * Current message that character is talking.
+   */
   private String currentMessage;
 
   /**

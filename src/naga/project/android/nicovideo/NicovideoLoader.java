@@ -32,9 +32,8 @@ abstract public class NicovideoLoader {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
         NicovideoLoader.DATE_FORMAT);
 
-    int eventType;
     try {
-      eventType = parser.getEventType();
+      int eventType = parser.getEventType();
       NicovideoEntry entry = null;
       while (eventType != XmlPullParser.END_DOCUMENT) {
         String name = null;
