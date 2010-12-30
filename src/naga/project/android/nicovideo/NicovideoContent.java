@@ -1,6 +1,6 @@
 package naga.project.android.nicovideo;
 
-public class Content {
+public class NicovideoContent {
 
   private String imgSrc;
 

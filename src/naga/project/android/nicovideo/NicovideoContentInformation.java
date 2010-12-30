@@ -1,6 +1,6 @@
 package naga.project.android.nicovideo;
 
-public class ContentInformation {
+public class NicovideoContentInformation {
 
   private Integer number;
 
