@@ -1,6 +1,6 @@
 package naga.project.android.nicovideo;
 
-import java.io.StringReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +11,17 @@ import android.util.Xml;
 
 abstract public class NicovideoLoader {
 
-  private List<NicovideoEntry> LoadEntryFromFeed(String xml) {
-    List<NicovideoEntry> entryList = new ArrayList<NicovideoEntry>();
+  private static String ENCODING = "UTF-8";
 
+  public static List<NicovideoEntry> LoadEntryFromFeed(InputStream is) {
     XmlPullParser parser = Xml.newPullParser();
     try {
-      parser.setInput(new StringReader(xml));
+      parser.setInput(is, NicovideoLoader.ENCODING);
     } catch (XmlPullParserException e) {
       e.printStackTrace();
     }
+
+    List<NicovideoEntry> entryList = new ArrayList<NicovideoEntry>();
 
     return entryList;
   }
