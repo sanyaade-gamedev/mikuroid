@@ -19,8 +19,8 @@ public class NicovideoEntry {
   /** Updated date. */
   private Date updated;
 
-  /** HTML */
-  private String contentHTML;
+  /** Content by HTML. */
+  private String content;
 
   public String getTitle() {
     return title;
@@ -62,12 +62,12 @@ public class NicovideoEntry {
     this.updated = updated;
   }
 
-  public String getContentHTML() {
-    return contentHTML;
+  public String getContent() {
+    return content;
   }
 
-  public void setContentHTML(String contentHTML) {
-    this.contentHTML = contentHTML;
+  public void setContent(String content) {
+    this.content = content;
   }
 
 }
