@@ -2,6 +2,8 @@ package naga.project.android.mikuroid.widget;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import naga.project.android.nicovideo.NicovideoEntry;
+
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -17,6 +19,7 @@ public class WidgetCharacter {
   public WidgetCharacter() {
     this.message = new StringBuilder();
     this.messageQueue = new ConcurrentLinkedQueue<String>();
+    this.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
     this.talking = false;
     this.initTalk();
   }
@@ -105,6 +108,8 @@ public class WidgetCharacter {
   }
 
   protected ConcurrentLinkedQueue<String> messageQueue;
+
+  protected ConcurrentLinkedQueue<NicovideoEntry> nicoEntryQueue;
 
   protected StringBuilder message;
 

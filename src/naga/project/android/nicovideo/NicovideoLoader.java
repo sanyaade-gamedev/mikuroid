@@ -16,9 +16,9 @@ import android.util.Xml;
 
 abstract public class NicovideoLoader {
 
-  private static String ENCODING = "UTF-8";
+  private static final String ENCODING = "UTF-8";
 
-  private static final String DATE_FORMAT = "yyyy--MMdd-HH:mm:ss+09:00";
+  private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss+09:00";
 
   public static List<NicovideoEntry> LoadEntryFromFeed(InputStream is) {
     XmlPullParser parser = Xml.newPullParser();
