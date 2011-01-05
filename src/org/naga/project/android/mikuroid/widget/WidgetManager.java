@@ -51,6 +51,7 @@ public class WidgetManager implements TalkView {
    * Set Context. If context is not seted, set context and pending intent.
    * 
    * @param ct
+   *          Android context.
    */
   public synchronized void setContext(Context ct) {
     if (null != this.context) {
