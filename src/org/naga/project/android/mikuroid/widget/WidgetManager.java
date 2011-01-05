@@ -137,14 +137,18 @@ public class WidgetManager implements TalkView {
   /**
    * Current battery level.
    */
-  private int currentBatteryLevel = 0;
+  private Integer currentBatteryLevel = 0;
 
   public int getCurrentBatteryLevel() {
-    return currentBatteryLevel;
+    synchronized (currentBatteryLevel) {
+      return currentBatteryLevel;
+    }
   }
 
   public void setCurrentBatteryLevel(int currentBatteryLevel) {
-    this.currentBatteryLevel = currentBatteryLevel;
+    synchronized (this.currentBatteryLevel) {
+      this.currentBatteryLevel = currentBatteryLevel;
+    }
   }
 
 }
