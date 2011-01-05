@@ -1,4 +1,4 @@
-package naga.project.android.network;
+package org.naga.project.android.network;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package naga.project.android.mikuroid.widget;
+package org.naga.project.android.mikuroid.widget;
 
 /**
  * Task manager class.

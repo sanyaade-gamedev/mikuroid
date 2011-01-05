@@ -1,4 +1,4 @@
-package naga.project.android.mikuroid.widget;
+package org.naga.project.android.mikuroid.widget;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;

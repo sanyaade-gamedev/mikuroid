@@ -1,4 +1,4 @@
-package naga.project.android.nicovideo;
+package org.naga.project.android.nicovideo;
 
 import java.io.IOException;
 import java.io.InputStream;

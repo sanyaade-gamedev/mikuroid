@@ -1,9 +1,10 @@
-package naga.project.android.nicovideo;
+package org.naga.project.android.nicovideo;
 
 import java.util.List;
 import java.util.StringTokenizer;
 
-import naga.project.android.network.NetworkNicovideo;
+import org.naga.project.android.network.NetworkNicovideo;
+
 
 import android.util.Log;
 

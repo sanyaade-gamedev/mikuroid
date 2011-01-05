@@ -1,6 +1,6 @@
-package naga.project.android.mikuroid;
+package org.naga.project.android.mikuroid;
 
-import naga.project.android.mikuroid.R;
+import org.naga.project.android.mikuroid.R;
 import android.app.Activity;
 import android.os.Bundle;
 
