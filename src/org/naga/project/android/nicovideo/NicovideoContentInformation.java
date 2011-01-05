@@ -1,4 +1,4 @@
-package naga.project.android.nicovideo;
+package org.naga.project.android.nicovideo;
 
 public class NicovideoContentInformation {
 

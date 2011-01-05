@@ -19,7 +19,7 @@
     <ImageView
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:src="@drawable/balloons0"/>
+      android:src="@drawable/balloons1"/>
 
     <TextView
       android:id="@+id/miku_message"

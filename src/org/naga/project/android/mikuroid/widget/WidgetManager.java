@@ -1,8 +1,8 @@
-package naga.project.android.mikuroid.widget;
+package org.naga.project.android.mikuroid.widget;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import naga.project.android.mikuroid.R;
+import org.naga.project.android.mikuroid.R;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;

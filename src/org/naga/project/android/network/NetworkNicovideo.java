@@ -1,11 +1,9 @@
-package naga.project.android.network;
+package org.naga.project.android.network;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import naga.project.android.nicovideo.NicovideoEntry;
-import naga.project.android.nicovideo.NicovideoLoader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -13,6 +11,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.naga.project.android.nicovideo.NicovideoEntry;
+import org.naga.project.android.nicovideo.NicovideoLoader;
 
 import android.util.Log;
 

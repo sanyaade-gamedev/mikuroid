@@ -1,15 +1,16 @@
-package naga.project.android.mikuroid.widget;
+package org.naga.project.android.mikuroid.widget;
 
 import java.util.List;
+
+import org.naga.project.android.network.DownloadImageTask;
+import org.naga.project.android.network.NetworkNicovideo;
+import org.naga.project.android.nicovideo.NicovideoEntry;
+import org.naga.project.android.nicovideo.NicovideoUtil;
 
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
-import naga.project.android.mikuroid.R;
-import naga.project.android.network.DownloadImageTask;
-import naga.project.android.network.NetworkNicovideo;
-import naga.project.android.nicovideo.NicovideoEntry;
-import naga.project.android.nicovideo.NicovideoUtil;
+import org.naga.project.android.mikuroid.R;
 
 public class MikuHatsune extends WidgetCharacter {
 
