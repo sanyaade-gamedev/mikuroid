@@ -50,6 +50,9 @@ public class WidgetService extends Service {
     Log.d("WidgetUpdateService", "onLowMemory()");
   }
 
+  /**
+   * Current battery level.
+   */
   private int currentBatteryLevel = 0;
 
   public int getCurrentBatteryLevel() {
