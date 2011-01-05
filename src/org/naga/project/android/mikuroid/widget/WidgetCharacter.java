@@ -2,7 +2,7 @@ package org.naga.project.android.mikuroid.widget;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.naga.project.android.nicovideo.NicovideoEntry;
+import org.naga.project.nicovideo.NicovideoEntry;
 
 import android.os.Handler;
 import android.os.Message;
