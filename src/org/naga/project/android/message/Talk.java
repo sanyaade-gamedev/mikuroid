@@ -4,7 +4,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 public class Talk {
 
@@ -88,7 +87,6 @@ public class Talk {
    * Process talk.
    */
   public void process() {
-    Log.d("Talk", "process");
     // Finish speaking and show all message.
     if (this.talking) {
       this.talkHandler.sendEmptyMessage(Talk.SHOW_MESSAGE);
@@ -111,8 +109,7 @@ public class Talk {
   /**
    * Stop taling and show message.
    */
-  public void showAll() {
-    Log.d("Talk", "showAll");
+  private void showAll() {
     this.talking = false;
 
     // Add a remaining characters.
