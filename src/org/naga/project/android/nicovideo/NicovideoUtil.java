@@ -29,8 +29,6 @@ public abstract class NicovideoUtil {
 
     Integer id = new Integer(buff.substring(2));
 
-    Log.d("NicovideoUtil$getId", id.toString());
-
     return id;
   }
 
@@ -44,7 +42,6 @@ public abstract class NicovideoUtil {
       }
 
       urls[i] = "http://" + NetworkNicovideo.IMAGE_HOST + "/smile?i=" + id;
-      Log.d("getThumbnailUrls", urls[i]);
     }
 
     return urls;
