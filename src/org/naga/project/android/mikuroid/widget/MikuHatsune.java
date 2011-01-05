@@ -2,8 +2,8 @@ package org.naga.project.android.mikuroid.widget;
 
 import java.util.List;
 
-import org.naga.project.android.network.DownloadImageTask;
 import org.naga.project.android.network.NetworkManager;
+import org.naga.project.android.task.DownloadImageTask;
 
 import android.graphics.Bitmap;
 import android.util.Log;
