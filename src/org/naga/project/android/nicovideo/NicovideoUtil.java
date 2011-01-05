@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 
 import org.naga.project.android.network.NetworkNicovideo;
 
-
 import android.util.Log;
 
 public abstract class NicovideoUtil {

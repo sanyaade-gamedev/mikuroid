@@ -4,7 +4,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.naga.project.android.nicovideo.NicovideoEntry;
 
-
 import android.os.Handler;
 import android.os.Message;
 
