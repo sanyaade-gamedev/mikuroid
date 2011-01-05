@@ -43,9 +43,6 @@ public class WidgetService extends Service {
 
     // Unregister battery receiver.
     this.unregisterReceiver(this.batteryReceiver);
-
-    // Destroy task manager.
-    TaskManager.getInstance().Destroy();
   }
 
   @Override
