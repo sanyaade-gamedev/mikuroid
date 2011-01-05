@@ -6,17 +6,19 @@ import android.widget.RemoteViews;
 
 import org.naga.project.android.message.Talk;
 import org.naga.project.android.mikuroid.R;
+import org.naga.project.android.mikuroid.widget.WidgetManager.WidgetMode;
 
 public class MikuHatsune {
 
   public MikuHatsune() {
     super();
-
     Log.d("MikuHatsune", "constructor");
   }
 
   public boolean create() {
     Log.d("MikuHatsune", "create()");
+
+    this.mode = WidgetMode.TALK;
 
     this.talk = new Talk(WidgetManager.getInstance(), 100, 20);
     this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
@@ -40,7 +42,15 @@ public class MikuHatsune {
   }
 
   public void update() {
-    this.talk.process();
+    switch (this.mode) {
+    case TALK:
+      this.talk.process();
+      break;
+
+    case NICOVIDEO_RANKING:
+      // TODO View nicovideo ranking.
+      break;
+    }
   }
 
   public void view(RemoteViews views) {
@@ -48,7 +58,6 @@ public class MikuHatsune {
       views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
 
       /*
-       * 
        * Bitmap bitmap = NetworkManager.getInstance().load(
        * "http://tn-skr2.smilevideo.jp/smile?i=13136668");
        * 
@@ -64,6 +73,8 @@ public class MikuHatsune {
           .toString());
     }
   }
+
+  private WidgetMode mode;
 
   private Talk talk;
 
