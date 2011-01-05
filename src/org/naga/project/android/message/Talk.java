@@ -7,9 +7,10 @@ import android.os.Message;
 
 public class Talk {
 
-  public Talk(TalkView tv, long tspeed) {
+  public Talk(TalkView tv, long tspeed, int rindex) {
     this.talkView = tv;
     this.talkSpeed = tspeed;
+    this.returnIndex = rindex;
 
     this.messageQueue = new ConcurrentLinkedQueue<String>();
     this.message = new StringBuilder();
@@ -74,7 +75,7 @@ public class Talk {
       return;
     }
     // Return line.
-    if (this.messageIndex % 12 == 0) {
+    if (this.messageIndex % this.returnIndex == 0) {
       this.message.append("\n");
     }
     this.message.append(this.currentMessage.charAt(this.messageIndex));
@@ -115,7 +116,7 @@ public class Talk {
     // Add a remaining characters.
     while (this.messageIndex < this.currentMessage.length()) {
       // Return line.
-      if (this.messageIndex % 12 == 0) {
+      if (this.messageIndex % this.returnIndex == 0) {
         this.message.append("\n");
       }
       this.message.append(this.currentMessage.charAt(this.messageIndex));
@@ -163,6 +164,8 @@ public class Talk {
    * Talking speed. milliseconds
    */
   private long talkSpeed;
+
+  private int returnIndex;
 
   public StringBuilder getMessage() {
     return message;

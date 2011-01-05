@@ -18,7 +18,7 @@ public class MikuHatsune {
   public boolean create() {
     Log.d("MikuHatsune", "create()");
 
-    this.talk = new Talk(WidgetManager.getInstance(), 100);
+    this.talk = new Talk(WidgetManager.getInstance(), 100, 20);
     this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
     this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
     this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
