@@ -1,20 +1,11 @@
 package org.naga.project.android.mikuroid.widget;
 
-import java.util.List;
-
-import org.naga.project.android.network.NetworkManager;
-import org.naga.project.android.task.DownloadImageTask;
-
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
 import org.naga.project.android.message.Talk;
 import org.naga.project.android.mikuroid.R;
-import org.naga.project.nicovideo.NicovideoEntry;
-import org.naga.project.nicovideo.NicovideoNetwork;
-import org.naga.project.nicovideo.NicovideoUtil;
 
 public class MikuHatsune {
 
@@ -25,15 +16,25 @@ public class MikuHatsune {
   }
 
   public boolean create() {
+    Log.d("MikuHatsune", "create()");
+
     this.talk = new Talk(WidgetManager.getInstance(), 100);
     this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
+    this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
+    this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
+    this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
+    this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
+    this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
+    this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
+    this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
 
-    List<NicovideoEntry> entryList = NicovideoNetwork
-        .requestDailyRankingVOCALOID();
-    // this.nicoEntryQueue.addAll(entryList);
-
-    new DownloadImageTask().execute(NicovideoUtil
-        .generateThumbnailUrls(entryList));
+    /*
+     * List<NicovideoEntry> entryList = NicovideoNetwork
+     * .requestDailyRankingVOCALOID(); this.nicoEntryQueue.addAll(entryList);
+     * 
+     * new DownloadImageTask().execute(NicovideoUtil
+     * .generateThumbnailUrls(entryList));
+     */
 
     return true;
   }

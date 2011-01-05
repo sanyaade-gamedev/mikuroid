@@ -36,11 +36,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>edu.umd.cs.findbugs.plugin.eclipse.findbugsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>NagaEngineAndroid_src</name>
-			<type>2</type>
-			<locationURI>_android_NagaEngineAndroid_5b4030e0/src</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
