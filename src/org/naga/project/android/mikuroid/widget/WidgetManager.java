@@ -1,8 +1,12 @@
 package org.naga.project.android.mikuroid.widget;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.naga.project.android.message.TalkView;
 import org.naga.project.android.mikuroid.R;
+import org.naga.project.nicovideo.NicovideoEntry;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -12,7 +16,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-public class WidgetManager {
+public class WidgetManager implements TalkView {
 
   /**
    * Return singleton instance.
@@ -23,6 +27,7 @@ public class WidgetManager {
     if (null == WidgetManager.instance) {
       WidgetManager.instance = new WidgetManager();
       WidgetManager.instance.miku = new MikuHatsune();
+      WidgetManager.instance.miku.create();
       WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
     }
 
@@ -104,6 +109,8 @@ public class WidgetManager {
    * Widget character Miku Hatsune.
    */
   private MikuHatsune miku;
+
+  private ConcurrentLinkedQueue<NicovideoEntry> nicoEntryQueue;
 
   /**
    * Thread-safe image store.
