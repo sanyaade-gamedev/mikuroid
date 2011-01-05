@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public class Talk {
 
@@ -29,6 +30,7 @@ public class Talk {
   public static final int TALK_MESSAGE = 1;
   public static final int SHOW_MESSAGE = 2;
   public static final int TALK_STOP = 3;
+  public static final int TALK_FORCE_STOP = 4;
 
   private Handler talkHandler = new Handler() {
 
@@ -48,8 +50,13 @@ public class Talk {
 
       case Talk.TALK_STOP:
         // Stop talking.
-        forceStop();
+        talking = false;
+        break;
 
+      case Talk.TALK_FORCE_STOP:
+        // Force stop talking.
+        talking = false;
+        forceStop();
         break;
       }
     }
@@ -81,6 +88,7 @@ public class Talk {
    * Process talk.
    */
   public void process() {
+    Log.d("Talk", "process");
     // Finish speaking and show all message.
     if (this.talking) {
       this.talkHandler.sendEmptyMessage(Talk.SHOW_MESSAGE);
@@ -104,21 +112,25 @@ public class Talk {
    * Stop taling and show message.
    */
   public void showAll() {
-    synchronized (talking) {
-      talking = false;
+    Log.d("Talk", "showAll");
+    this.talking = false;
+
+    // Add a remaining characters.
+    while (this.messageIndex < this.currentMessage.length()) {
+      // Return line.
+      if (this.messageIndex % 12 == 0) {
+        this.message.append("\n");
+      }
+      this.message.append(this.currentMessage.charAt(this.messageIndex));
+      this.messageIndex++;
     }
-    
-    this.messageIndex = 0;
-    
   }
 
   /**
    * Stop taling and clear data.
    */
   private void forceStop() {
-    synchronized (talking) {
-      talking = false;
-    }
+    talking = false;
     this.talkHandler.removeMessages(Talk.TALK_MESSAGE);
     this.talkHandler.removeMessages(Talk.TALK_STOP);
     this.messageQueue.clear();
@@ -138,7 +150,7 @@ public class Talk {
   /**
    * True when character is talking.
    */
-  private Boolean talking;
+  private boolean talking;
 
   /**
    * Use to talk. Index of currentMessage. To show message step by step.

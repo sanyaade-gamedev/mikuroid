@@ -45,8 +45,9 @@ public class MikuHatsune {
 
   public void view(RemoteViews views) {
     if (this.talk.getMessage().length() == 0) {
+      views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
+
       /*
-       * views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
        * 
        * Bitmap bitmap = NetworkManager.getInstance().load(
        * "http://tn-skr2.smilevideo.jp/smile?i=13136668");
