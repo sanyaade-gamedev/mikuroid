@@ -28,6 +28,7 @@ public class WidgetManager implements TalkView {
       WidgetManager.instance = new WidgetManager();
       WidgetManager.instance.miku = new MikuHatsune();
       WidgetManager.instance.miku.create();
+      WidgetManager.instance.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
       WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
     }
 
@@ -110,7 +111,14 @@ public class WidgetManager implements TalkView {
    */
   private MikuHatsune miku;
 
+  /**
+   * Thread-safe nicovideo entry store.
+   */
   private ConcurrentLinkedQueue<NicovideoEntry> nicoEntryQueue;
+
+  public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {
+    return nicoEntryQueue;
+  }
 
   /**
    * Thread-safe image store.
