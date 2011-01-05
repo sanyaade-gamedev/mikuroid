@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.naga.project.android.network.DownloadImageTask;
 import org.naga.project.android.network.NetworkManager;
-import org.naga.project.android.network.NetworkNicovideo;
-import org.naga.project.android.nicovideo.NicovideoEntry;
-import org.naga.project.android.nicovideo.NicovideoUtil;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import org.naga.project.android.mikuroid.R;
+import org.naga.project.nicovideo.NicovideoEntry;
+import org.naga.project.nicovideo.NicovideoNetwork;
+import org.naga.project.nicovideo.NicovideoUtil;
 
 public class MikuHatsune extends WidgetCharacter {
 
@@ -22,7 +22,7 @@ public class MikuHatsune extends WidgetCharacter {
 
     this.messageQueue.add("みっくみっくにしてあげる～♪");
 
-    List<NicovideoEntry> entryList = NetworkNicovideo
+    List<NicovideoEntry> entryList = NicovideoNetwork
         .requestDailyRankingVOCALOID();
     this.nicoEntryQueue.addAll(entryList);
 
