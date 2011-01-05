@@ -50,22 +50,15 @@ public class WidgetService extends Service {
     Log.d("WidgetUpdateService", "onLowMemory()");
   }
 
-  /**
-   * Current battery level.
-   */
-  private int currentBatteryLevel = 0;
-
-  public int getCurrentBatteryLevel() {
-    return currentBatteryLevel;
-  }
-
   private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
 
     @Override
     public void onReceive(Context context, Intent intent) {
       Log.d("WidgetService$batteryReceiver", "onReceive");
-      currentBatteryLevel = intent.getIntExtra("level", 0);
-      Log.d("Power Level", Integer.toString(currentBatteryLevel));
+
+      int batteryLevel = intent.getIntExtra("level", 0);
+      WidgetManager.getInstance().setCurrentBatteryLevel(batteryLevel);
+      Log.d("Power Level", Integer.toString(batteryLevel));
     }
   };
 

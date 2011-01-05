@@ -19,8 +19,7 @@ import android.widget.RemoteViews;
 public class WidgetManager implements TalkView {
 
   public static enum WidgetMode {
-    TALK,
-    NICOVIDEO_RANKING,
+    TALK, NICOVIDEO_RANKING,
   }
 
   /**
@@ -133,6 +132,19 @@ public class WidgetManager implements TalkView {
 
   public ConcurrentHashMap<Integer, Bitmap> getImages() {
     return images;
+  }
+
+  /**
+   * Current battery level.
+   */
+  private int currentBatteryLevel = 0;
+
+  public int getCurrentBatteryLevel() {
+    return currentBatteryLevel;
+  }
+
+  public void setCurrentBatteryLevel(int currentBatteryLevel) {
+    this.currentBatteryLevel = currentBatteryLevel;
   }
 
 }
