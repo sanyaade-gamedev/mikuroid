@@ -18,6 +18,11 @@ import android.widget.RemoteViews;
 
 public class WidgetManager implements TalkView {
 
+  public static enum WidgetMode {
+    TALK,
+    NICOVIDEO_RANKING,
+  }
+
   /**
    * Return singleton instance.
    * 
