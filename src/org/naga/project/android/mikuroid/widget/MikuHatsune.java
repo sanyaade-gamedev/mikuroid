@@ -63,7 +63,8 @@ public class MikuHatsune extends WidgetCharacter {
       }
 
     } else {
-      views.setViewVisibility(R.id.nicovideo_image, ImageView.VISIBLE);
+      views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
+      views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
       views.setTextViewText(R.id.miku_message, this.message.toString());
     }
   }
