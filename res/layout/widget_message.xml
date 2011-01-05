@@ -11,12 +11,6 @@
     android:id="@+id/baloon0" >
 
     <ImageView
-      android:id="@+id/nicovideo_image"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:clickable="true" />
-
-    <ImageView
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:src="@drawable/balloons1"/>
@@ -36,6 +30,12 @@
       android:linksClickable="true"
       style="@style/Text.Loading" />
   </FrameLayout>
+
+  <ImageView
+    android:id="@+id/nicovideo_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true" />
 
   <ImageView
     android:id="@+id/miku"

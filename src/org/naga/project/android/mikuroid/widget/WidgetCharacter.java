@@ -33,7 +33,7 @@ public class WidgetCharacter {
   static final int TALK_MESSAGE = 1;
   static final int TALK_STOP = 2;
 
-  private Handler talkHandler = new Handler() {
+  protected Handler talkHandler = new Handler() {
 
     @Override
     public void handleMessage(Message msg) {
@@ -56,7 +56,7 @@ public class WidgetCharacter {
 
   };
 
-  private void initTalk() {
+  protected void initTalk() {
     this.messageIndex = 0;
     this.currentMessage = "";
     this.message.setLength(0);
@@ -76,26 +76,6 @@ public class WidgetCharacter {
 
     this.talkHandler.sendEmptyMessageDelayed(WidgetCharacter.TALK_MESSAGE,
         talkSpeed);
-  }
-
-  public synchronized void play() {
-    // Finish speaking and show all message.
-    if (this.talking) {
-      this.talkHandler.sendEmptyMessage(WidgetCharacter.TALK_STOP);
-      return;
-    }
-
-    this.initTalk();
-
-    this.currentMessage = this.messageQueue.poll();
-    if (null == this.currentMessage) {
-      this.currentMessage = "";
-      return;
-    }
-
-    this.talking = true;
-
-    this.talkHandler.sendEmptyMessage(WidgetCharacter.TALK_MESSAGE);
   }
 
   protected void forceStop() {
@@ -126,7 +106,7 @@ public class WidgetCharacter {
   /**
    * Current message that character is talking.
    */
-  private String currentMessage;
+  protected String currentMessage;
 
   /**
    * Talking speed. milliseconds

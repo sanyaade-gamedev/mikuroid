@@ -16,19 +16,11 @@ import org.naga.project.android.mikuroid.R;
 
 public class MikuHatsune extends WidgetCharacter {
 
-  private static final int imageId = R.id.miku;
-
-  private static final int messageId = R.id.miku_message;
-
-  private static final int balloonId = R.id.baloon0;
-
-  private static final int nicovideoImageId = R.id.nicovideo_image;
-
   public MikuHatsune() {
     super();
     Log.d("MikuHatsune", "constructor");
 
-    // this.messageQueue.add("みっくみっくにしてあげる～♪");
+    this.messageQueue.add("みっくみっくにしてあげる～♪");
 
     List<NicovideoEntry> entryList = NetworkNicovideo
         .requestDailyRankingVOCALOID();
@@ -39,30 +31,41 @@ public class MikuHatsune extends WidgetCharacter {
   }
 
   public void update() {
-    this.play();
+    // Finish speaking and show all message.
+    if (this.talking) {
+      this.talkHandler.sendEmptyMessage(WidgetCharacter.TALK_STOP);
+      return;
+    }
+
+    this.initTalk();
+
+    this.currentMessage = this.messageQueue.poll();
+    if (null == this.currentMessage) {
+      this.currentMessage = "";
+      return;
+    }
+
+    this.talking = true;
+
+    this.talkHandler.sendEmptyMessage(WidgetCharacter.TALK_MESSAGE);
   }
 
   public void view(RemoteViews views) {
     if (this.message.length() == 0) {
-      views.setViewVisibility(MikuHatsune.balloonId, ImageView.INVISIBLE);
+      views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
 
       Bitmap bitmap = NetworkManager.getInstance().load(
           "http://tn-skr2.smilevideo.jp/smile?i=13136668");
 
       if (null != bitmap) {
-        views
-            .setViewVisibility(MikuHatsune.nicovideoImageId, ImageView.VISIBLE);
-        views.setImageViewBitmap(MikuHatsune.nicovideoImageId, bitmap);
+        views.setViewVisibility(R.id.nicovideo_image, ImageView.VISIBLE);
+        views.setImageViewBitmap(R.id.nicovideo_image, bitmap);
       }
 
     } else {
-      views.setViewVisibility(MikuHatsune.balloonId, ImageView.VISIBLE);
-      views.setTextViewText(MikuHatsune.messageId, this.message.toString());
+      views.setViewVisibility(R.id.nicovideo_image, ImageView.VISIBLE);
+      views.setTextViewText(R.id.miku_message, this.message.toString());
     }
-  }
-
-  public static int getImageid() {
-    return imageId;
   }
 
 }
