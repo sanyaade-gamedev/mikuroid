@@ -12,6 +12,9 @@ import org.naga.project.android.mikuroid.widget.WidgetManager.WidgetMode;
 
 public class MikuHatsune {
 
+  private static final int SURFACE_SURPRISED = R.drawable.mikuroid001;
+  private static final int SURFACE_ANGRY = R.drawable.mikuroid002;
+
   public MikuHatsune() {
     super();
     Log.d("MikuHatsune", "constructor");
@@ -85,11 +88,23 @@ public class MikuHatsune {
     }
   }
 
+  static int count = 0;
+
   private void talkView(RemoteViews views) {
     if (this.talk.getMessage().length() == 0) {
       views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
 
     } else {
+      ++count;
+      if (count > 10) {
+        views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_ANGRY);
+        if (count > 20) {
+          count = 0;
+        }
+      } else {
+        views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_SURPRISED);
+      }
+
       views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
       views.setTextViewText(R.id.miku_message, this.talk.getMessage()
