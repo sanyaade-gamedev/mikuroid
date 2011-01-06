@@ -27,14 +27,6 @@ public class MikuHatsune {
     Resources res = WidgetManager.getInstance().getContext().getResources();
     this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
     this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
 
     /*
      * List<NicovideoEntry> entryList = NicovideoNetwork
@@ -50,7 +42,15 @@ public class MikuHatsune {
   public void update() {
     switch (this.mode) {
     case TALK:
-      this.talk.process();
+      if (!this.talk.process()) {
+        // Nothing to talk.
+        // Add talk message.
+        String message = MikuMessage.generateBatteryMessage();
+        if (null != message) {
+          this.talk.getMessageQueue().add(message);
+          this.talk.process();
+        }
+      }
       break;
 
     case NICOVIDEO_RANKING:

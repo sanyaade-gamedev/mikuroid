@@ -86,12 +86,14 @@ public class Talk {
 
   /**
    * Process talk.
+   * 
+   * @return Return true when process talk. Return false when nothing to talk.
    */
-  public void process() {
+  public boolean process() {
     // Finish speaking and show all message.
     if (this.talking) {
       this.talkHandler.sendEmptyMessage(Talk.SHOW_MESSAGE);
-      return;
+      return true;
     }
 
     this.initTalk();
@@ -99,12 +101,15 @@ public class Talk {
     this.currentMessage = this.messageQueue.poll();
     if (null == this.currentMessage) {
       this.currentMessage = "";
-      return;
+      // Nothing to talk.
+      return false;
     }
 
     this.talking = true;
 
     this.talkHandler.sendEmptyMessage(Talk.TALK_MESSAGE);
+
+    return true;
   }
 
   /**
