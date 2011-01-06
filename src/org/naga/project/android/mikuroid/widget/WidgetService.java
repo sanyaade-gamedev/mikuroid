@@ -15,6 +15,7 @@ public class WidgetService extends Service {
     super.onCreate();
     Log.d("WidgetUpdateService", "onCreate()");
     WidgetManager.getInstance().setContext(this);
+    WidgetManager.getInstance().create();
 
     // Register battery receiver.
     this.registerReceiver(this.batteryReceiver, new IntentFilter(

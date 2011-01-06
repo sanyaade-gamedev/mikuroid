@@ -30,13 +30,18 @@ public class WidgetManager implements TalkView {
   public static WidgetManager getInstance() {
     if (null == WidgetManager.instance) {
       WidgetManager.instance = new WidgetManager();
-      WidgetManager.instance.miku = new MikuHatsune();
-      WidgetManager.instance.miku.create();
-      WidgetManager.instance.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
-      WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
     }
 
     return WidgetManager.instance;
+  }
+
+  public boolean create() {
+    WidgetManager.instance.miku = new MikuHatsune();
+    WidgetManager.instance.miku.create();
+    WidgetManager.instance.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
+    WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
+    
+    return true;
   }
 
   /**
@@ -72,6 +77,10 @@ public class WidgetManager implements TalkView {
         PendingIntent.FLAG_UPDATE_CURRENT);
     this.widget = new ComponentName(this.context, WidgetProvider.class);
     this.appWidgetManager = AppWidgetManager.getInstance(this.context);
+  }
+
+  public Context getContext() {
+    return context;
   }
 
   public void update() {
