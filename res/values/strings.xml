@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hello">Hello World, MikuroidActivity!</string>
-  <string name="app_name">Mikuroid</string>
-  <string name="widget_loading">Loading mikuroid...</string>
-  <string name="widget_name">Mikuroid widget</string>
-  <string name="mikumiku1">みっくみっくにしてあげる～♪</string>
-  <string name="mikumiku2">みっくみっくにしてやんよ～♪</string>
+	<string name="hello">Hello World, MikuroidActivity!</string>
+	<string name="app_name">Mikuroid</string>
+	<string name="widget_loading">Loading mikuroid...</string>
+	<string name="widget_name">Mikuroid widget</string>
+	<string name="mikumiku1">みっくみっくにしてあげる～♪</string>
+	<string name="mikumiku2">みっくみっくにしてやんよ～♪</string>
+	<string name="battery_low">バッテリーが少ないよ。そろそろ危険かな？</string>
+	<string name="battery_good">バッテリーは十分あるね。まだまだ余裕だよ～♪</string>
 </resources>
