@@ -1,4 +1,4 @@
-package org.naga.project.android.mikuroid.widget;
+package org.naga.project.android.mikuroid.character;
 
 import android.content.res.Resources;
 import android.util.Log;
@@ -7,6 +7,7 @@ import android.widget.RemoteViews;
 
 import org.naga.project.android.message.Talk;
 import org.naga.project.android.mikuroid.R;
+import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.WidgetManager.WidgetMode;
 
 public class MikuHatsune {
@@ -53,23 +54,35 @@ public class MikuHatsune {
       break;
 
     case NICOVIDEO_RANKING:
-      // TODO View nicovideo ranking.
+      // TODO Update nicovideo ranking process.
       break;
     }
   }
 
   public void view(RemoteViews views) {
+    switch (this.mode) {
+    case TALK:
+      this.talkView(views);
+      break;
+
+    case NICOVIDEO_RANKING:
+      // TODO View nicovideo ranking.
+      break;
+    }
+
+    /*
+     * Bitmap bitmap = NetworkManager.getInstance().load(
+     * "http://tn-skr2.smilevideo.jp/smile?i=13136668");
+     * 
+     * if (null != bitmap) { views.setViewVisibility(R.id.nicovideo_image,
+     * ImageView.VISIBLE); views.setImageViewBitmap(R.id.nicovideo_image,
+     * bitmap); }
+     */
+  }
+
+  private void talkView(RemoteViews views) {
     if (this.talk.getMessage().length() == 0) {
       views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
-
-      /*
-       * Bitmap bitmap = NetworkManager.getInstance().load(
-       * "http://tn-skr2.smilevideo.jp/smile?i=13136668");
-       * 
-       * if (null != bitmap) { views.setViewVisibility(R.id.nicovideo_image,
-       * ImageView.VISIBLE); views.setImageViewBitmap(R.id.nicovideo_image,
-       * bitmap); }
-       */
 
     } else {
       views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);

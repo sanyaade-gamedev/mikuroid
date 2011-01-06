@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.naga.project.android.message.TalkView;
 import org.naga.project.android.mikuroid.R;
+import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.nicovideo.NicovideoEntry;
 
 import android.app.PendingIntent;
