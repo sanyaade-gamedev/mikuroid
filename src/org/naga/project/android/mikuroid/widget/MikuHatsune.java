@@ -1,5 +1,6 @@
 package org.naga.project.android.mikuroid.widget;
 
+import android.content.res.Resources;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
@@ -21,14 +22,18 @@ public class MikuHatsune {
     this.mode = WidgetMode.TALK;
 
     this.talk = new Talk(WidgetManager.getInstance(), 100, 20);
-    this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
-    this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
-    this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
-    this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
-    this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
-    this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
-    this.talk.getMessageQueue().add("みっくみっくにしてあげる～♪");
-    this.talk.getMessageQueue().add("みっくみっくにしてやんよ～♪");
+
+    Resources res = WidgetManager.getInstance().getContext().getResources();
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
 
     /*
      * List<NicovideoEntry> entryList = NicovideoNetwork
