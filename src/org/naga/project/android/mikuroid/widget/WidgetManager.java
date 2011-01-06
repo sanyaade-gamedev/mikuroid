@@ -32,6 +32,13 @@ public class WidgetManager implements TalkView {
     return WidgetManager.instance;
   }
 
+  /**
+   * Constructor.
+   */
+  private WidgetManager() {
+    super();
+  }
+
   public boolean create() {
     WidgetManager.instance.miku = new MikuHatsune();
     WidgetManager.instance.miku.create();
@@ -39,13 +46,6 @@ public class WidgetManager implements TalkView {
     WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
 
     return true;
-  }
-
-  /**
-   * Constructor.
-   */
-  private WidgetManager() {
-    super();
   }
 
   /**
@@ -110,6 +110,9 @@ public class WidgetManager implements TalkView {
    */
   private PendingIntent pendingIntent;
 
+  /**
+   * Widget component name.
+   */
   private ComponentName widget;
 
   /**
@@ -127,23 +130,23 @@ public class WidgetManager implements TalkView {
    */
   private ConcurrentLinkedQueue<NicovideoEntry> nicoEntryQueue;
 
-  public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {
-    return nicoEntryQueue;
-  }
-
   /**
    * Thread-safe image store.
    */
   private ConcurrentHashMap<Integer, Bitmap> images;
 
-  public ConcurrentHashMap<Integer, Bitmap> getImages() {
-    return images;
-  }
-
   /**
    * Current battery level.
    */
   private Integer currentBatteryLevel = 0;
+
+  public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {
+    return nicoEntryQueue;
+  }
+
+  public ConcurrentHashMap<Integer, Bitmap> getImages() {
+    return images;
+  }
 
   public int getCurrentBatteryLevel() {
     synchronized (currentBatteryLevel) {

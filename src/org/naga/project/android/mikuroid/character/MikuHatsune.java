@@ -50,7 +50,6 @@ public class MikuHatsune {
 
     case TALK:
       this.talkUpdate();
-
       break;
 
     case NICOVIDEO_RANKING:
@@ -113,9 +112,9 @@ public class MikuHatsune {
       views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
     } else {
       ++count;
-      if (count > 2) {
+      if (count > 10) {
         views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_ANGRY);
-        if (count > 4) {
+        if (count > 20) {
           count = 0;
         }
       } else {
