@@ -8,7 +8,7 @@ import android.widget.RemoteViews;
 import org.naga.project.android.message.Talk;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
-import org.naga.project.android.mikuroid.widget.WidgetManager.WidgetMode;
+import org.naga.project.android.mikuroid.widget.WidgetObject;
 
 public class MikuHatsune {
 
@@ -23,7 +23,7 @@ public class MikuHatsune {
   public boolean create() {
     Log.d("MikuHatsune", "create()");
 
-    this.mode = WidgetMode.TALK;
+    this.mode = WidgetObject.WidgetMode.TALK;
 
     this.talk = new Talk(WidgetManager.getInstance(), 100, 20);
 
@@ -44,6 +44,10 @@ public class MikuHatsune {
 
   public void update() {
     switch (this.mode) {
+    case WAIT:
+      this.waitUpdate();
+      break;
+
     case TALK:
       this.talkUpdate();
 
@@ -57,6 +61,9 @@ public class MikuHatsune {
 
   public void view(RemoteViews views) {
     switch (this.mode) {
+    case WAIT:
+      this.waitView(views);
+
     case TALK:
       this.talkView(views);
       break;
@@ -76,15 +83,26 @@ public class MikuHatsune {
      */
   }
 
+  private void waitUpdate() {
+    // Add talk message.
+    String message = MikuMessage.generateBatteryMessage();
+    if (null != message) {
+      // Finish to talk.
+      this.mode = WidgetObject.WidgetMode.TALK;
+      this.talk.getMessageQueue().add(message);
+      this.talk.process();
+    }
+  }
+
+  private void waitView(RemoteViews views) {
+    views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
+    views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_SURPRISED);
+  }
+
   private void talkUpdate() {
     if (!this.talk.process()) {
       // Nothing to talk.
-      // Add talk message.
-      String message = MikuMessage.generateBatteryMessage();
-      if (null != message) {
-        this.talk.getMessageQueue().add(message);
-        this.talk.process();
-      }
+      this.mode = WidgetObject.WidgetMode.WAIT;
     }
   }
 
@@ -93,12 +111,11 @@ public class MikuHatsune {
   private void talkView(RemoteViews views) {
     if (this.talk.getMessage().length() == 0) {
       views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
-
     } else {
       ++count;
-      if (count > 10) {
+      if (count > 2) {
         views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_ANGRY);
-        if (count > 20) {
+        if (count > 4) {
           count = 0;
         }
       } else {
@@ -112,7 +129,7 @@ public class MikuHatsune {
     }
   }
 
-  private WidgetMode mode;
+  private WidgetObject.WidgetMode mode;
 
   private Talk talk;
 

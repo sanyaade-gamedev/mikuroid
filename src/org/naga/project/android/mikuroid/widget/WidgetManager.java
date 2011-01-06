@@ -19,10 +19,6 @@ import android.widget.RemoteViews;
 
 public class WidgetManager implements TalkView {
 
-  public static enum WidgetMode {
-    TALK, NICOVIDEO_RANKING,
-  }
-
   /**
    * Return singleton instance.
    * 
@@ -41,7 +37,7 @@ public class WidgetManager implements TalkView {
     WidgetManager.instance.miku.create();
     WidgetManager.instance.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
     WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
-    
+
     return true;
   }
 
