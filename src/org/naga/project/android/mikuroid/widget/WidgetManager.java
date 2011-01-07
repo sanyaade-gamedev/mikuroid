@@ -101,6 +101,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     case TALK:
       this.miku.talkUpdate();
       break;
+
     case NICOVIDEO_RANKING:
       break;
 
