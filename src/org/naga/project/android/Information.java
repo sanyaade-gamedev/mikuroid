@@ -6,31 +6,41 @@ public class Information {
     super();
 
     this.batteryLevel = 0;
-    this.powerConnected = false;
+    this.batteryStatus = 0;
   }
 
+  /**
+   * Battery level.
+   */
   private Integer batteryLevel;
 
-  public int getBatteryLevel() {
+  /**
+   * Battery status. Charging etc.
+   */
+  private Integer batteryStatus;
+
+  public Integer getBatteryLevel() {
     synchronized (batteryLevel) {
       return batteryLevel;
     }
   }
 
   public void setBatteryLevel(Integer level) {
-    synchronized (this.batteryLevel) {
-      this.batteryLevel = level;
+    synchronized (batteryLevel) {
+      batteryLevel = level;
     }
   }
 
-  private Boolean powerConnected;
-
-  public Boolean getPowerConnected() {
-    return powerConnected;
+  public Integer getBatteryStatus() {
+    synchronized (batteryStatus) {
+      return batteryStatus;
+    }
   }
 
-  public void setPowerConnected(Boolean powerConnected) {
-    this.powerConnected = powerConnected;
+  public void setBatteryStatus(Integer status) {
+    synchronized (batteryStatus) {
+      batteryStatus = status;
+    }
   }
 
 }

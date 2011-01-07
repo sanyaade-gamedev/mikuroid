@@ -51,7 +51,7 @@ public class MikuHatsune {
 
   public void waitUpdate() {
     // Add talk message.
-    String message = MikuMessage.generateBatteryMessage();
+    String message = MikuMessage.generateBatteryLevelMessage();
     if (null != message) {
       // Finish to talk.
       // Change widget mode immediately.
