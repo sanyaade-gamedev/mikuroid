@@ -6,6 +6,7 @@
 	<string name="widget_name">Mikuroid widget</string>
 	<string name="mikumiku1">みっくみっくにしてあげる～♪</string>
 	<string name="mikumiku2">みっくみっくにしてやんよ～♪</string>
-	<string name="battery_low">バッテリーが減ってきてるよ。大丈夫かな？</string>
+	<string name="battery_full">バッテリーは満タンだね♪</string>
 	<string name="battery_good">バッテリーは十分にあるよ。まだまだ余裕だね♪</string>
+	<string name="battery_low">バッテリーが減ってきてるよ。大丈夫かな？</string>
 </resources>
