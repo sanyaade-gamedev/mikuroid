@@ -139,6 +139,9 @@ public class Talk {
     this.messageQueue.clear();
   }
 
+  /**
+   * Thread-safe message queue.
+   */
   private ConcurrentLinkedQueue<String> messageQueue;
 
   public ConcurrentLinkedQueue<String> getMessageQueue() {
@@ -170,6 +173,9 @@ public class Talk {
    */
   private long talkSpeed;
 
+  /**
+   * Number of line return index.
+   */
   private int returnIndex;
 
   public StringBuilder getMessage() {
