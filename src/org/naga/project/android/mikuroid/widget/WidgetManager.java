@@ -54,8 +54,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     }
 
     // Set default mode.
-    this.currentMode = WidgetObject.WidgetMode.TALK;
-    this.reservedMode = WidgetObject.WidgetMode.NONE;
+    this.mode = WidgetObject.WidgetMode.TALK;
 
     return true;
   }
@@ -96,7 +95,20 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   public boolean onUpdate() {
     Log.d("WidgetManager", "onUpdate()");
 
-    this.miku.update();
+    switch (this.mode) {
+    case WAIT:
+      this.miku.waitUpdate();
+      break;
+
+    case TALK:
+      this.miku.talkUpdate();
+      break;
+    case NICOVIDEO_RANKING:
+      break;
+
+    case NONE:
+      break;
+    }
 
     return true;
   }
@@ -106,7 +118,21 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     RemoteViews views = new RemoteViews(this.context.getPackageName(),
         R.layout.widget_message);
 
-    this.miku.view(views);
+    switch (this.mode) {
+    case WAIT:
+      this.miku.waitView(views);
+      break;
+
+    case TALK:
+      this.miku.talkView(views);
+      break;
+
+    case NICOVIDEO_RANKING:
+      break;
+
+    case NONE:
+      break;
+    }
 
     // Set pending intent to check has miku clicked.
     views.setOnClickPendingIntent(R.id.miku, this.pendingIntent);
@@ -172,9 +198,16 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     return images;
   }
 
-  private WidgetObject.WidgetMode currentMode;
+  private WidgetObject.WidgetMode mode;
 
-  private WidgetObject.WidgetMode reservedMode;
+  /**
+   * Thread-safe setter. Change widget mode immediately.
+   * 
+   * @param mode
+   */
+  public synchronized void setMode(WidgetObject.WidgetMode mode) {
+    this.mode = mode;
+  }
 
   public int getBatteryLevel() {
     synchronized (batteryLevel) {
