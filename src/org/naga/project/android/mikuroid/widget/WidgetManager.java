@@ -33,6 +33,11 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   }
 
   /**
+   * Singleton instance.
+   */
+  private static WidgetManager instance;
+
+  /**
    * Constructor.
    */
   private WidgetManager() {
@@ -56,11 +61,6 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
 
     return true;
   }
-
-  /**
-   * Singleton instance.
-   */
-  private static WidgetManager instance;
 
   /**
    * Set Context. If context is not seted, set context and pending intent.
