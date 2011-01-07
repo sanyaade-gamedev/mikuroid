@@ -17,9 +17,13 @@ public class WidgetService extends Service {
     WidgetManager.getInstance().setContext(this);
     WidgetManager.getInstance().create();
 
-    // Register battery receiver.
+    // Register receivers.
     this.registerReceiver(this.batteryReceiver, new IntentFilter(
         Intent.ACTION_BATTERY_CHANGED));
+    this.registerReceiver(this.powerConnectReceiver, new IntentFilter(
+        Intent.ACTION_POWER_CONNECTED));
+    this.registerReceiver(this.powerDisconnectReceiver, new IntentFilter(
+        Intent.ACTION_POWER_DISCONNECTED));
   }
 
   @Override
@@ -41,8 +45,10 @@ public class WidgetService extends Service {
     super.onDestroy();
     Log.d("WidgetUpdateService", "onDestroy()");
 
-    // Unregister battery receiver.
+    // Unregister receivers.
     this.unregisterReceiver(this.batteryReceiver);
+    this.unregisterReceiver(this.powerConnectReceiver);
+    this.unregisterReceiver(this.powerDisconnectReceiver);
   }
 
   @Override
@@ -54,12 +60,31 @@ public class WidgetService extends Service {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-      Log.d("WidgetService$batteryReceiver", "onReceive");
+      Log.d("WidgetService", "batteryReceiver");
 
       int batteryLevel = intent.getIntExtra("level", 0);
-      WidgetManager.getInstance().setCurrentBatteryLevel(batteryLevel);
+      WidgetManager.getInstance().setBatteryLevel(batteryLevel);
       Log.d("Power Level", Integer.toString(batteryLevel));
     }
+
+  };
+
+  private BroadcastReceiver powerConnectReceiver = new BroadcastReceiver() {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      Log.d("WidgetService", "powerConnectReceiver");
+    }
+
+  };
+
+  private BroadcastReceiver powerDisconnectReceiver = new BroadcastReceiver() {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      Log.d("WidgetService", "powerDisconnectReceiver");
+    }
+
   };
 
 }

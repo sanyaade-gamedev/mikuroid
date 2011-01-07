@@ -3,10 +3,8 @@ package org.naga.project.android.mikuroid.widget;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.naga.project.android.framework.scene.TalkScene;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
-import org.naga.project.android.mikuroid.widget.WidgetObject.WidgetMode;
 import org.naga.project.nicovideo.NicovideoEntry;
 
 import android.app.PendingIntent;
@@ -56,7 +54,8 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     }
 
     // Set default mode.
-    this.mode = WidgetMode.TALK;
+    this.currentMode = WidgetObject.WidgetMode.TALK;
+    this.reservedMode = WidgetObject.WidgetMode.NONE;
 
     return true;
   }
@@ -73,6 +72,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    *          Android context.
    */
   public synchronized void setContext(Context ct) {
+    // Context is already exists.
     if (null != this.context) {
       return;
     }
@@ -97,6 +97,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     Log.d("WidgetManager", "onUpdate()");
 
     this.miku.update();
+
     return true;
   }
 
@@ -159,9 +160,9 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   private ConcurrentHashMap<Integer, Bitmap> images;
 
   /**
-   * Current battery level.
+   * Battery level.
    */
-  private Integer currentBatteryLevel = 0;
+  private Integer batteryLevel = 0;
 
   public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {
     return nicoEntryQueue;
@@ -171,19 +172,19 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     return images;
   }
 
-  private WidgetObject.WidgetMode mode;
+  private WidgetObject.WidgetMode currentMode;
 
-  private TalkScene talkScene;
+  private WidgetObject.WidgetMode reservedMode;
 
-  public int getCurrentBatteryLevel() {
-    synchronized (currentBatteryLevel) {
-      return currentBatteryLevel;
+  public int getBatteryLevel() {
+    synchronized (batteryLevel) {
+      return batteryLevel;
     }
   }
 
-  public void setCurrentBatteryLevel(int currentBatteryLevel) {
-    synchronized (this.currentBatteryLevel) {
-      this.currentBatteryLevel = currentBatteryLevel;
+  public void setBatteryLevel(int level) {
+    synchronized (this.batteryLevel) {
+      this.batteryLevel = level;
     }
   }
 
