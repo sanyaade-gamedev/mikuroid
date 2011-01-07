@@ -3,6 +3,7 @@ package org.naga.project.android.mikuroid.widget;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.naga.project.android.Information;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.nicovideo.NicovideoEntry;
@@ -36,6 +37,10 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    */
   private WidgetManager() {
     super();
+
+    this.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
+    this.images = new ConcurrentHashMap<Integer, Bitmap>();
+    this.information = new Information();
   }
 
   public boolean create() {
@@ -44,13 +49,6 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     if (null == WidgetManager.instance.miku) {
       WidgetManager.instance.miku = new MikuHatsune();
       WidgetManager.instance.miku.create();
-    }
-
-    if (null == WidgetManager.instance.nicoEntryQueue) {
-      WidgetManager.instance.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
-    }
-    if (null == WidgetManager.instance.images) {
-      WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
     }
 
     // Set default mode.
@@ -185,17 +183,21 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    */
   private ConcurrentHashMap<Integer, Bitmap> images;
 
-  /**
-   * Battery level.
-   */
-  private Integer batteryLevel = 0;
-
   public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {
     return nicoEntryQueue;
   }
 
   public ConcurrentHashMap<Integer, Bitmap> getImages() {
     return images;
+  }
+
+  /**
+   * Android information.
+   */
+  private Information information;
+
+  public Information getInformation() {
+    return information;
   }
 
   private WidgetObject.WidgetMode mode;
@@ -207,18 +209,6 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    */
   public synchronized void setMode(WidgetObject.WidgetMode mode) {
     this.mode = mode;
-  }
-
-  public int getBatteryLevel() {
-    synchronized (batteryLevel) {
-      return batteryLevel;
-    }
-  }
-
-  public void setBatteryLevel(int level) {
-    synchronized (this.batteryLevel) {
-      this.batteryLevel = level;
-    }
   }
 
 }

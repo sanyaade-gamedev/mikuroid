@@ -63,7 +63,8 @@ public class WidgetService extends Service {
       Log.d("WidgetService", "batteryReceiver");
 
       int batteryLevel = intent.getIntExtra("level", 0);
-      WidgetManager.getInstance().setBatteryLevel(batteryLevel);
+      WidgetManager.getInstance().getInformation()
+          .setBatteryLevel(batteryLevel);
       Log.d("Power Level", Integer.toString(batteryLevel));
     }
 
