@@ -40,10 +40,19 @@ public class WidgetManager implements TalkView {
   }
 
   public boolean create() {
-    WidgetManager.instance.miku = new MikuHatsune();
-    WidgetManager.instance.miku.create();
-    WidgetManager.instance.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
-    WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
+    // create will call any times.
+    // so check null to not overload object.
+    if (null == WidgetManager.instance.miku) {
+      WidgetManager.instance.miku = new MikuHatsune();
+      WidgetManager.instance.miku.create();
+    }
+
+    if (null == WidgetManager.instance.nicoEntryQueue) {
+      WidgetManager.instance.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
+    }
+    if (null == WidgetManager.instance.images) {
+      WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
+    }
 
     return true;
   }
@@ -147,6 +156,8 @@ public class WidgetManager implements TalkView {
   public ConcurrentHashMap<Integer, Bitmap> getImages() {
     return images;
   }
+
+  WidgetObject.WidgetMode mode;
 
   public int getCurrentBatteryLevel() {
     synchronized (currentBatteryLevel) {
