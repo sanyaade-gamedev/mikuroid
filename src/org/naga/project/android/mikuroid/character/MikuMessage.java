@@ -5,19 +5,19 @@ import org.naga.project.android.mikuroid.widget.WidgetManager;
 
 public abstract class MikuMessage {
 
-  private static final Integer BATTERY_LOW_LEVEL = 30;
-  private static final Integer BATTERY_FULL_LEVEL = 100;
+  private static final int BATTERY_LOW_LEVEL = 30;
+  private static final int BATTERY_FULL_LEVEL = 100;
 
-  public static String generateBatteryMessage() {
+  public static String generateBatteryLevelMessage() {
     Integer batteryLevel = WidgetManager.getInstance().getInformation()
         .getBatteryLevel();
 
     String message = null;
 
-    if (batteryLevel < MikuMessage.BATTERY_LOW_LEVEL) {
+    if (batteryLevel.intValue() < MikuMessage.BATTERY_LOW_LEVEL) {
       message = WidgetManager.getInstance().getContext().getResources()
           .getString(R.string.battery_low);
-    } else if (batteryLevel == MikuMessage.BATTERY_FULL_LEVEL) {
+    } else if (batteryLevel.intValue() == MikuMessage.BATTERY_FULL_LEVEL) {
       message = WidgetManager.getInstance().getContext().getResources()
           .getString(R.string.battery_full);
     } else {
