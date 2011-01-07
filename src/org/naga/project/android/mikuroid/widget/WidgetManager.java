@@ -3,9 +3,10 @@ package org.naga.project.android.mikuroid.widget;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.naga.project.android.message.TalkView;
+import org.naga.project.android.framework.scene.TalkScene;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
+import org.naga.project.android.mikuroid.widget.WidgetObject.WidgetMode;
 import org.naga.project.nicovideo.NicovideoEntry;
 
 import android.app.PendingIntent;
@@ -17,7 +18,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-public class WidgetManager implements TalkView {
+public class WidgetManager implements WidgetUpdate, WidgetView {
 
   /**
    * Return singleton instance.
@@ -54,6 +55,9 @@ public class WidgetManager implements TalkView {
       WidgetManager.instance.images = new ConcurrentHashMap<Integer, Bitmap>();
     }
 
+    // Set default mode.
+    this.mode = WidgetMode.TALK;
+
     return true;
   }
 
@@ -89,15 +93,15 @@ public class WidgetManager implements TalkView {
     return context;
   }
 
-  public void update() {
-    Log.d("WidgetManager", "update()");
+  public boolean onUpdate() {
+    Log.d("WidgetManager", "onUpdate()");
 
     this.miku.update();
+    return true;
   }
 
-  public void view() {
-    Log.d("WidgetManager", "view()");
-
+  public boolean onView() {
+    Log.d("WidgetManager", "onView()");
     RemoteViews views = new RemoteViews(this.context.getPackageName(),
         R.layout.widget_message);
 
@@ -107,6 +111,16 @@ public class WidgetManager implements TalkView {
     views.setOnClickPendingIntent(R.id.miku, this.pendingIntent);
 
     this.appWidgetManager.updateAppWidget(this.widget, views);
+
+    return true;
+  }
+
+  public void execute() {
+    if (!this.onUpdate()) {
+      // Skip view when result is false.
+      return;
+    }
+    this.onView();
   }
 
   /**
@@ -157,7 +171,9 @@ public class WidgetManager implements TalkView {
     return images;
   }
 
-  WidgetObject.WidgetMode mode;
+  private WidgetObject.WidgetMode mode;
+
+  private TalkScene talkScene;
 
   public int getCurrentBatteryLevel() {
     synchronized (currentBatteryLevel) {

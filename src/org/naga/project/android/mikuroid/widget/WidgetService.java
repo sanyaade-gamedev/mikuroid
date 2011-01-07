@@ -27,8 +27,7 @@ public class WidgetService extends Service {
     super.onStart(intent, startId);
     Log.d("WidgetUpdateService", "onStart()");
 
-    WidgetManager.getInstance().update();
-    WidgetManager.getInstance().view();
+    WidgetManager.getInstance().execute();
   }
 
   @Override
