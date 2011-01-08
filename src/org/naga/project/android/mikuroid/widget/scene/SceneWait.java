@@ -44,7 +44,6 @@ public class SceneWait extends Scene {
         .getContext().getPackageName(), R.layout.widget_miku);
 
     if (this.talk.isTalking()) {
-      Log.d("SceneWait", "taking");
       views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_ANGRY);
 
       views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
