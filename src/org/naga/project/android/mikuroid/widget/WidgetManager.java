@@ -101,7 +101,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     return context;
   }
 
-  public boolean onUpdate() {
+  public boolean onUpdate(Intent intent) {
     Log.d("WidgetManager", "onUpdate()");
 
     switch (this.mode.intValue()) {
@@ -123,7 +123,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     return true;
   }
 
-  public boolean onView() {
+  public boolean onView(Intent intent) {
     Log.d("WidgetManager", "onView()");
     RemoteViews views = new RemoteViews(this.context.getPackageName(),
         R.layout.widget_miku);
@@ -153,12 +153,12 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     return true;
   }
 
-  public void execute() {
-    if (!this.onUpdate()) {
+  public void execute(Intent intent) {
+    if (!this.onUpdate(intent)) {
       // Skip view when result is false.
       return;
     }
-    this.onView();
+    this.onView(intent);
   }
 
   /**

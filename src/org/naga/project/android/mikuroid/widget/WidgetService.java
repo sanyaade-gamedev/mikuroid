@@ -33,7 +33,7 @@ public class WidgetService extends Service {
       Log.d("WidgetUpdateService", intent.getAction());
     }
 
-    WidgetManager.getInstance().execute();
+    WidgetManager.getInstance().execute(intent);
   }
 
   @Override
