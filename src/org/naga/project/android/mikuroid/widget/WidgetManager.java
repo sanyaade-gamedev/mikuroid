@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.naga.project.android.Information;
-import org.naga.project.android.mikuroid.Mikuroid;
+import org.naga.project.android.mikuroid.MikuroidIntent;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.nicovideo.NicovideoEntry;
@@ -84,12 +84,12 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
 
     // Create an Intent to get touch event.
     Intent intentMiku = new Intent();
-    intentMiku.setAction(Mikuroid.ACTION_MIKU_TOUCH);
+    intentMiku.setAction(MikuroidIntent.ACTION_MIKU_TOUCH);
     this.pendingIntentMiku = PendingIntent.getService(this.context, 0,
         intentMiku, PendingIntent.FLAG_UPDATE_CURRENT);
 
     Intent intentYes = new Intent();
-    intentYes.setAction(Mikuroid.ACTION_YES);
+    intentYes.setAction(MikuroidIntent.ACTION_YES);
     this.pendingIntentYes = PendingIntent.getService(this.context, 0,
         intentYes, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -167,10 +167,13 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   private Context context;
 
   /**
-   * Pending intent to set intent action.
+   * Pending intent to set intent action. Miku ImageView intent.
    */
   private PendingIntent pendingIntentMiku;
 
+  /**
+   * Pending intent to set intent action. Yes ImageButton intent.
+   */
   private PendingIntent pendingIntentYes;
 
   /**
