@@ -63,7 +63,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   }
 
   /**
-   * Set Context. If context is not seted, set context and pending intent.
+   * Set Context. If context is not exist, set context and pending intent.
    * 
    * @param ct
    *          Android context.
@@ -76,10 +76,9 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
 
     this.context = ct;
 
-    // Create an Intent to launch Activity
+    // Create an Intent to get touch event.
     Intent intent = new Intent();
     intent.setAction(Intent.ACTION_MEDIA_BUTTON);
-    intent.setType("text/plain");
     this.pendingIntent = PendingIntent.getService(this.context, 0, intent,
         PendingIntent.FLAG_UPDATE_CURRENT);
     this.widget = new ComponentName(this.context, WidgetProvider.class);
