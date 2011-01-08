@@ -146,10 +146,6 @@ public class Talk {
    */
   private ConcurrentLinkedQueue<String> messageQueue;
 
-  public ConcurrentLinkedQueue<String> getMessageQueue() {
-    return messageQueue;
-  }
-
   /**
    * Message to show display.
    */
@@ -180,8 +176,8 @@ public class Talk {
    */
   private int returnIndex;
 
-  public boolean isTalking() {
-    return talking;
+  public ConcurrentLinkedQueue<String> getMessageQueue() {
+    return messageQueue;
   }
 
   public StringBuilder getMessage() {
