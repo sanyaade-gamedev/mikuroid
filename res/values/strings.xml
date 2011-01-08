@@ -10,4 +10,5 @@
 	<string name="battery_good">バッテリーは十分にあるよ。まだまだ余裕だね♪</string>
 	<string name="battery_low">バッテリーが減ってきてるよ。大丈夫かな？</string>
 	<string name="battery_charging">充電中だよ。たくさん充電してね！</string>
+	<string name="yesno">Yesなら青、Noなら赤の音符をタッチしてね。</string>
 </resources>

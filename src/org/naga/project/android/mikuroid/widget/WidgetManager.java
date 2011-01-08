@@ -7,6 +7,8 @@ import org.naga.project.android.Information;
 import org.naga.project.android.mikuroid.MikuroidIntent;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
+import org.naga.project.android.mikuroid.widget.scene.Scene;
+import org.naga.project.android.mikuroid.widget.scene.SceneWait;
 import org.naga.project.nicovideo.NicovideoEntry;
 
 import android.app.PendingIntent;
@@ -15,10 +17,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.widget.RemoteViews;
 
-public class WidgetManager implements WidgetUpdate, WidgetView {
+public class WidgetManager {
 
   public static final int WIDGET_MODE_NONE = 0;
   public static final int WIDGET_MODE_WAIT = 1;
@@ -63,8 +64,11 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
       this.miku.create();
     }
 
-    // Set default mode.
-    this.mode = WidgetManager.WIDGET_MODE_TALK;
+    if (null == this.mainScene) {
+      // Set start up scene.
+      this.mainScene = new SceneWait(null);
+      this.mainScene.create();
+    }
 
     return true;
   }
@@ -94,72 +98,27 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     this.pendingIntentYes = PendingIntent.getService(this.context, 0,
         intentYes, PendingIntent.FLAG_UPDATE_CURRENT);
 
+    Intent intentNo = new Intent();
+    intentNo.setAction(MikuroidIntent.ACTION_NO);
+    this.pendingIntentNo = PendingIntent.getService(this.context, 0, intentNo,
+        PendingIntent.FLAG_UPDATE_CURRENT);
+
     this.widget = new ComponentName(this.context, WidgetProvider.class);
     this.appWidgetManager = AppWidgetManager.getInstance(this.context);
   }
 
-  public Context getContext() {
-    return context;
+  public void execute(Intent intent) {
+    this.mainScene.onUpdate();
+    this.mainScene.onView();
   }
 
-  public boolean onUpdate(Intent intent) {
-    Log.d("WidgetManager", "onUpdate()");
-
-    switch (this.mode.intValue()) {
-    case WidgetManager.WIDGET_MODE_WAIT:
-      this.miku.waitUpdate();
-      break;
-
-    case WidgetManager.WIDGET_MODE_TALK:
-      this.miku.talkUpdate();
-      break;
-
-    case WidgetManager.WIDGET_MODE_NICOVIDEO_RANKING:
-      break;
-
-    case WidgetManager.WIDGET_MODE_NONE:
-      break;
-    }
-
-    return true;
-  }
-
-  public boolean onView(Intent intent) {
-    Log.d("WidgetManager", "onView()");
-    RemoteViews views = new RemoteViews(this.context.getPackageName(),
-        R.layout.widget_miku);
-
-    switch (this.mode.intValue()) {
-    case WidgetManager.WIDGET_MODE_WAIT:
-      this.miku.waitView(views);
-      break;
-
-    case WidgetManager.WIDGET_MODE_TALK:
-      this.miku.talkView(views);
-      break;
-
-    case WidgetManager.WIDGET_MODE_NICOVIDEO_RANKING:
-      break;
-
-    case WidgetManager.WIDGET_MODE_NONE:
-      break;
-    }
-
+  public void updateAppWidget(RemoteViews views) {
     // Set pending intent to check has miku clicked.
     views.setOnClickPendingIntent(R.id.miku, this.pendingIntentMiku);
     views.setOnClickPendingIntent(R.id.yes, this.pendingIntentYes);
+    views.setOnClickPendingIntent(R.id.no, this.pendingIntentNo);
 
     this.appWidgetManager.updateAppWidget(this.widget, views);
-
-    return true;
-  }
-
-  public void execute(Intent intent) {
-    if (!this.onUpdate(intent)) {
-      // Skip view when result is false.
-      return;
-    }
-    this.onView(intent);
   }
 
   /**
@@ -178,6 +137,11 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   private PendingIntent pendingIntentYes;
 
   /**
+   * Pending intent to set intent action. No ImageButton intent.
+   */
+  private PendingIntent pendingIntentNo;
+
+  /**
    * Widget component name.
    */
   private ComponentName widget;
@@ -191,6 +155,11 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    * Widget character Miku Hatsune.
    */
   private MikuHatsune miku;
+
+  /**
+   * Widget main scene.
+   */
+  private Scene mainScene;
 
   /**
    * Thread-safe nicovideo entry store.
@@ -207,13 +176,8 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    */
   private Information information;
 
-  /**
-   * Widget mode.
-   */
-  private Integer mode;
-
-  public PendingIntent getPendingIntent() {
-    return pendingIntentMiku;
+  public Context getContext() {
+    return context;
   }
 
   public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {
@@ -228,13 +192,12 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     return information;
   }
 
-  /**
-   * Thread-safe setter. Change widget mode immediately.
-   * 
-   * @param mode
-   */
-  public synchronized void setMode(int mode) {
-    this.mode = mode;
+  public PendingIntent getPendingIntentYes() {
+    return pendingIntentYes;
+  }
+
+  public PendingIntent getPendingIntentNo() {
+    return pendingIntentNo;
   }
 
 }

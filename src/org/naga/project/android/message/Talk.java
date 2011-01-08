@@ -2,15 +2,15 @@ package org.naga.project.android.message;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.naga.project.android.mikuroid.widget.WidgetView;
+import org.naga.project.android.mikuroid.widget.scene.Scene;
 
 import android.os.Handler;
 import android.os.Message;
 
 public class Talk {
 
-  public Talk(WidgetView wv, long tspeed, int rindex) {
-    this.widgetView = wv;
+  public Talk(Scene sc, long tspeed, int rindex) {
+    this.scene = sc;
     this.talkSpeed = tspeed;
     this.returnIndex = rindex;
 
@@ -20,7 +20,7 @@ public class Talk {
     this.initTalk();
   }
 
-  private WidgetView widgetView;
+  private Scene scene;
 
   public void Destroy() {
     this.message.setLength(0);
@@ -41,8 +41,8 @@ public class Talk {
       switch (msg.what) {
       case Talk.TALK_MESSAGE:
         processTalking();
-        // View talking message.
-        widgetView.onView(null);
+        // Execute scene's view process.
+        scene.onView();
         break;
 
       case Talk.SHOW_MESSAGE:
@@ -179,6 +179,10 @@ public class Talk {
    * Number of line return index.
    */
   private int returnIndex;
+
+  public boolean isTalking() {
+    return talking;
+  }
 
   public StringBuilder getMessage() {
     return message;
