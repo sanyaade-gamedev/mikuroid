@@ -86,7 +86,7 @@ public class MikuHatsune {
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
       views.setTextViewText(R.id.miku_message, this.talk.getMessage()
           .toString());
-      
+
       views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
 
       // Set pending intent to check has miku clicked.
