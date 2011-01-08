@@ -31,10 +31,10 @@ public abstract class Scene {
       // Child view.
       this.scene.onView();
 
-      /*
-       * // Child scene is finished? if (this.scene.finish) { this.scene = null;
-       * }
-       */
+      // Child scene is finished?
+      if (this.scene.finish) {
+        this.scene = null;
+      }
     } else {
       // My view.
       this.onViewProcess();
