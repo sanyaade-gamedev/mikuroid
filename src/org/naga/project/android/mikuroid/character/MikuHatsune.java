@@ -18,12 +18,6 @@ public class MikuHatsune {
     Log.d("MikuHatsune", "create()");
 
     /*
-    Resources res = WidgetManager.getInstance().getContext().getResources();
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
-    */
-
-    /*
      * List<NicovideoEntry> entryList = NicovideoNetwork
      * .requestDailyRankingVOCALOID(); this.nicoEntryQueue.addAll(entryList);
      * 

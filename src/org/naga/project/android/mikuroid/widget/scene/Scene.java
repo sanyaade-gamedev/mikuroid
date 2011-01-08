@@ -1,5 +1,7 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
+import android.content.Intent;
+
 public abstract class Scene {
 
   public Scene(Scene sc) {
@@ -11,13 +13,13 @@ public abstract class Scene {
 
   public abstract boolean create();
 
-  public void onUpdate() {
+  public void onUpdate(Intent intent) {
     if (null != this.scene) {
       // Child update.
-      this.scene.onUpdate();
+      this.scene.onUpdate(intent);
     } else {
       // My update.
-      this.onUpdateProcess();
+      this.onUpdateProcess(intent);
     }
   }
 
@@ -36,7 +38,7 @@ public abstract class Scene {
     }
   }
 
-  protected abstract void onUpdateProcess();
+  protected abstract void onUpdateProcess(Intent intent);
 
   protected abstract void onViewProcess();
 

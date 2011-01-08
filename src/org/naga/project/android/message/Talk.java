@@ -9,6 +9,10 @@ import android.os.Message;
 
 public class Talk {
 
+  public static final int TALKING = 1;
+  public static final int SHOW_ALL = 2;
+  public static final int NOTHING = 3;
+
   public Talk(Scene sc, long tspeed, int rindex) {
     this.scene = sc;
     this.talkSpeed = tspeed;
@@ -27,21 +31,16 @@ public class Talk {
     this.forceStop();
   }
 
-  public static final int TALK_MESSAGE = 1;
-  public static final int SHOW_MESSAGE = 2;
-  public static final int TALK_STOP = 3;
-  public static final int TALK_FORCE_STOP = 4;
-
   /**
    * Process talk.
    * 
    * @return Return true when process talk. Return false when nothing to talk.
    */
-  public boolean execute() {
+  public int execute() {
     // Finish speaking and show all message.
     if (this.talking) {
-      this.talkHandler.sendEmptyMessage(Talk.SHOW_MESSAGE);
-      return true;
+      this.talkHandler.sendEmptyMessage(Talk.HANDLE_SHOW_MESSAGE);
+      return Talk.SHOW_ALL;
     }
 
     this.initTalk();
@@ -50,14 +49,14 @@ public class Talk {
     if (null == this.currentMessage) {
       this.currentMessage = "";
       // Nothing to talk.
-      return false;
+      return Talk.NOTHING;
     }
 
     this.talking = true;
 
-    this.talkHandler.sendEmptyMessage(Talk.TALK_MESSAGE);
+    this.talkHandler.sendEmptyMessage(Talk.HANDLE_TALK_MESSAGE);
 
-    return true;
+    return Talk.TALKING;
   }
 
   public boolean hasNext() {
@@ -68,28 +67,33 @@ public class Talk {
     return true;
   }
 
+  public static final int HANDLE_TALK_MESSAGE = 1;
+  public static final int HANDLE_SHOW_MESSAGE = 2;
+  public static final int HANDLE_TALK_STOP = 3;
+  public static final int HANDLE_TALK_FORCE_STOP = 4;
+
   private Handler talkHandler = new Handler() {
 
     @Override
     public void handleMessage(Message msg) {
       switch (msg.what) {
-      case Talk.TALK_MESSAGE:
+      case Talk.HANDLE_TALK_MESSAGE:
         processTalking();
         // Execute scene's view process.
         scene.onView();
         break;
 
-      case Talk.SHOW_MESSAGE:
+      case Talk.HANDLE_SHOW_MESSAGE:
         // Stop taling and show all.
         showAll();
         break;
 
-      case Talk.TALK_STOP:
+      case Talk.HANDLE_TALK_STOP:
         // Stop talking.
         talking = false;
         break;
 
-      case Talk.TALK_FORCE_STOP:
+      case Talk.HANDLE_TALK_FORCE_STOP:
         // Force stop talking.
         talking = false;
         forceStop();
@@ -107,7 +111,7 @@ public class Talk {
 
   private void processTalking() {
     if (this.messageIndex >= this.currentMessage.length()) {
-      this.talkHandler.sendEmptyMessage(Talk.TALK_STOP);
+      this.talkHandler.sendEmptyMessage(Talk.HANDLE_TALK_STOP);
       return;
     }
     // Return line.
@@ -117,7 +121,8 @@ public class Talk {
     this.message.append(this.currentMessage.charAt(this.messageIndex));
     this.messageIndex++;
 
-    this.talkHandler.sendEmptyMessageDelayed(Talk.TALK_MESSAGE, talkSpeed);
+    this.talkHandler.sendEmptyMessageDelayed(Talk.HANDLE_TALK_MESSAGE,
+        talkSpeed);
   }
 
   /**
@@ -142,8 +147,8 @@ public class Talk {
    */
   private void forceStop() {
     talking = false;
-    this.talkHandler.removeMessages(Talk.TALK_MESSAGE);
-    this.talkHandler.removeMessages(Talk.TALK_STOP);
+    this.talkHandler.removeMessages(Talk.HANDLE_TALK_MESSAGE);
+    this.talkHandler.removeMessages(Talk.HANDLE_TALK_STOP);
     this.messageQueue.clear();
   }
 

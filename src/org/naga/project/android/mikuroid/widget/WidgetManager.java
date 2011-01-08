@@ -102,7 +102,7 @@ public class WidgetManager {
   }
 
   public void execute(Intent intent) {
-    this.mainScene.onUpdate();
+    this.mainScene.onUpdate(intent);
     this.mainScene.onView();
   }
 
