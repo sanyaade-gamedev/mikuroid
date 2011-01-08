@@ -64,6 +64,8 @@ public class MikuHatsune {
   public void waitView(RemoteViews views) {
     views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
     views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_SURPRISED);
+
+    views.setViewVisibility(R.id.yesno, ImageView.VISIBLE);
   }
 
   public void talkUpdate() {
@@ -84,6 +86,12 @@ public class MikuHatsune {
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
       views.setTextViewText(R.id.miku_message, this.talk.getMessage()
           .toString());
+      
+      views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
+
+      // Set pending intent to check has miku clicked.
+      // views.setOnClickPendingIntent(R.id.miku,
+      // WidgetManager.getInstance().getPendingIntent());
     }
   }
 

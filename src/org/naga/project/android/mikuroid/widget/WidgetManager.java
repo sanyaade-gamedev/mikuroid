@@ -51,9 +51,9 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   public boolean create() {
     // create will call any times.
     // so check null to not overload object.
-    if (null == WidgetManager.instance.miku) {
-      WidgetManager.instance.miku = new MikuHatsune();
-      WidgetManager.instance.miku.create();
+    if (null == this.miku) {
+      this.miku = new MikuHatsune();
+      this.miku.create();
     }
 
     // Set default mode.
@@ -114,7 +114,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   public boolean onView() {
     Log.d("WidgetManager", "onView()");
     RemoteViews views = new RemoteViews(this.context.getPackageName(),
-        R.layout.widget_message);
+        R.layout.widget_miku);
 
     switch (this.mode) {
     case WAIT:
@@ -183,6 +183,17 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    */
   private ConcurrentHashMap<Integer, Bitmap> images;
 
+  /**
+   * Android information.
+   */
+  private Information information;
+
+  private WidgetObject.WidgetMode mode;
+
+  public PendingIntent getPendingIntent() {
+    return pendingIntent;
+  }
+
   public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {
     return nicoEntryQueue;
   }
@@ -191,16 +202,9 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     return images;
   }
 
-  /**
-   * Android information.
-   */
-  private Information information;
-
   public Information getInformation() {
     return information;
   }
-
-  private WidgetObject.WidgetMode mode;
 
   /**
    * Thread-safe setter. Change widget mode immediately.
