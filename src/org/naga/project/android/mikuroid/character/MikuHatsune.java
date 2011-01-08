@@ -1,18 +1,15 @@
 package org.naga.project.android.mikuroid.character;
 
-import android.content.res.Resources;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
-import org.naga.project.android.message.Talk;
 import org.naga.project.android.mikuroid.R;
-import org.naga.project.android.mikuroid.widget.WidgetManager;
 
 public class MikuHatsune {
 
-  private static final int SURFACE_SURPRISED = R.drawable.mikuroid001;
-  private static final int SURFACE_ANGRY = R.drawable.mikuroid002;
+  public static final int SURFACE_SURPRISED = R.drawable.mikuroid001;
+  public static final int SURFACE_ANGRY = R.drawable.mikuroid002;
 
   public MikuHatsune() {
     super();
@@ -22,11 +19,11 @@ public class MikuHatsune {
   public boolean create() {
     Log.d("MikuHatsune", "create()");
 
-    this.talk = new Talk(WidgetManager.getInstance(), 100, 20);
-
+    /*
     Resources res = WidgetManager.getInstance().getContext().getResources();
     this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
     this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
+    */
 
     /*
      * List<NicovideoEntry> entryList = NicovideoNetwork
@@ -49,6 +46,7 @@ public class MikuHatsune {
    */
 
   public void waitUpdate() {
+    /*
     // Add talk message.
     String message = MikuMessage.generateBatteryLevelMessage();
     if (null != message) {
@@ -58,6 +56,7 @@ public class MikuHatsune {
       this.talk.getMessageQueue().add(message);
       this.talk.process();
     }
+    */
   }
 
   public void waitView(RemoteViews views) {
@@ -68,14 +67,17 @@ public class MikuHatsune {
   }
 
   public void talkUpdate() {
+    /*
     if (!this.talk.process()) {
       // Nothing to talk.
       // Change widget mode immediately.
       WidgetManager.getInstance().setMode(WidgetManager.WIDGET_MODE_WAIT);
     }
+    */
   }
 
   public void talkView(RemoteViews views) {
+    /*
     if (this.talk.getMessage().length() == 0) {
       views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
     } else {
@@ -87,13 +89,8 @@ public class MikuHatsune {
           .toString());
 
       views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
-
-      // Set pending intent to check has miku clicked.
-      // views.setOnClickPendingIntent(R.id.miku,
-      // WidgetManager.getInstance().getPendingIntent());
     }
+    */
   }
-
-  private Talk talk;
 
 }
