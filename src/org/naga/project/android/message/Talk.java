@@ -20,8 +20,6 @@ public class Talk {
     this.initTalk();
   }
 
-  private Scene scene;
-
   public void Destroy() {
     this.message.setLength(0);
     this.messageQueue.clear();
@@ -33,6 +31,42 @@ public class Talk {
   public static final int SHOW_MESSAGE = 2;
   public static final int TALK_STOP = 3;
   public static final int TALK_FORCE_STOP = 4;
+
+  /**
+   * Process talk.
+   * 
+   * @return Return true when process talk. Return false when nothing to talk.
+   */
+  public boolean execute() {
+    // Finish speaking and show all message.
+    if (this.talking) {
+      this.talkHandler.sendEmptyMessage(Talk.SHOW_MESSAGE);
+      return true;
+    }
+
+    this.initTalk();
+
+    this.currentMessage = this.messageQueue.poll();
+    if (null == this.currentMessage) {
+      this.currentMessage = "";
+      // Nothing to talk.
+      return false;
+    }
+
+    this.talking = true;
+
+    this.talkHandler.sendEmptyMessage(Talk.TALK_MESSAGE);
+
+    return true;
+  }
+
+  public boolean hasNext() {
+    if (this.messageQueue.isEmpty()) {
+      return false;
+    }
+
+    return true;
+  }
 
   private Handler talkHandler = new Handler() {
 
@@ -87,34 +121,6 @@ public class Talk {
   }
 
   /**
-   * Process talk.
-   * 
-   * @return Return true when process talk. Return false when nothing to talk.
-   */
-  public boolean process() {
-    // Finish speaking and show all message.
-    if (this.talking) {
-      this.talkHandler.sendEmptyMessage(Talk.SHOW_MESSAGE);
-      return true;
-    }
-
-    this.initTalk();
-
-    this.currentMessage = this.messageQueue.poll();
-    if (null == this.currentMessage) {
-      this.currentMessage = "";
-      // Nothing to talk.
-      return false;
-    }
-
-    this.talking = true;
-
-    this.talkHandler.sendEmptyMessage(Talk.TALK_MESSAGE);
-
-    return true;
-  }
-
-  /**
    * Stop taling and show message.
    */
   private void showAll() {
@@ -140,6 +146,8 @@ public class Talk {
     this.talkHandler.removeMessages(Talk.TALK_STOP);
     this.messageQueue.clear();
   }
+
+  private Scene scene;
 
   /**
    * Thread-safe message queue.
