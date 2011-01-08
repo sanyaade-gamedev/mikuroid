@@ -1,9 +1,11 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
 import org.naga.project.android.message.Talk;
+import org.naga.project.android.mikuroid.MikuroidIntent;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
 import android.widget.ImageView;
@@ -29,11 +31,20 @@ public class SceneYesNo extends Scene {
   }
 
   @Override
-  protected void onUpdateProcess() {
-    if (!this.talk.execute()) {
+  protected void onUpdateProcess(Intent intent) {
+    int talkResult = this.talk.execute();
+    
+    if (Talk.NOTHING == talkResult) {
       // Nothing to talk.
-      // This scene process is finished.
-      this.finish = true;
+    }
+
+    if (null != intent && null != intent.getAction()) {
+      // Yes or No button was clicked.
+      if (MikuroidIntent.ACTION_YES.equals(intent.getAction())) {
+        // Clicked yes.
+      } else if (MikuroidIntent.ACTION_NO.equals(intent.getAction())) {
+        // Clicked no.
+      }
     }
   }
 
