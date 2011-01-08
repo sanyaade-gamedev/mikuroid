@@ -8,7 +8,6 @@ import android.widget.RemoteViews;
 import org.naga.project.android.message.Talk;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
-import org.naga.project.android.mikuroid.widget.WidgetObject;
 
 public class MikuHatsune {
 
@@ -55,7 +54,7 @@ public class MikuHatsune {
     if (null != message) {
       // Finish to talk.
       // Change widget mode immediately.
-      WidgetManager.getInstance().setMode(WidgetObject.WidgetMode.TALK);
+      WidgetManager.getInstance().setMode(WidgetManager.WIDGET_MODE_TALK);
       this.talk.getMessageQueue().add(message);
       this.talk.process();
     }
@@ -72,7 +71,7 @@ public class MikuHatsune {
     if (!this.talk.process()) {
       // Nothing to talk.
       // Change widget mode immediately.
-      WidgetManager.getInstance().setMode(WidgetObject.WidgetMode.WAIT);
+      WidgetManager.getInstance().setMode(WidgetManager.WIDGET_MODE_WAIT);
     }
   }
 
