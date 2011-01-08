@@ -21,12 +21,6 @@ import android.widget.RemoteViews;
 
 public class WidgetManager {
 
-  public static final int WIDGET_MODE_NONE = 0;
-  public static final int WIDGET_MODE_WAIT = 1;
-  public static final int WIDGET_MODE_TALK = 2;
-  public static final int WIDGET_MODE_NICOVIDEO_RANKING = 3;
-  public static final int WIDGET_MODE_YESNO = 4;
-
   /**
    * Return singleton instance.
    * 

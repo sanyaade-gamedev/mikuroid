@@ -31,10 +31,10 @@ public abstract class Scene {
       // Child view.
       this.scene.onView();
 
-      // Child scene is finished?
-      if (this.scene.finish) {
-        this.scene = null;
-      }
+      /*
+       * // Child scene is finished? if (this.scene.finish) { this.scene = null;
+       * }
+       */
     } else {
       // My view.
       this.onViewProcess();
@@ -47,10 +47,14 @@ public abstract class Scene {
 
   private Scene scene;
 
+  protected boolean finish;
+
+  public Scene getScene() {
+    return scene;
+  }
+
   public void setScene(Scene scene) {
     this.scene = scene;
   }
-
-  protected boolean finish;
 
 }
