@@ -19,6 +19,11 @@ import android.widget.RemoteViews;
 
 public class WidgetManager implements WidgetUpdate, WidgetView {
 
+  public static final int WIDGET_MODE_NONE = 0;
+  public static final int WIDGET_MODE_WAIT = 1;
+  public static final int WIDGET_MODE_TALK = 2;
+  public static final int WIDGET_MODE_NICOVIDEO_RANKING = 3;
+
   /**
    * Return singleton instance.
    * 
@@ -57,7 +62,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     }
 
     // Set default mode.
-    this.mode = WidgetObject.WidgetMode.TALK;
+    this.mode = WidgetManager.WIDGET_MODE_NONE;
 
     return true;
   }
@@ -93,18 +98,18 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     Log.d("WidgetManager", "onUpdate()");
 
     switch (this.mode) {
-    case WAIT:
+    case WidgetManager.WIDGET_MODE_WAIT:
       this.miku.waitUpdate();
       break;
 
-    case TALK:
+    case WidgetManager.WIDGET_MODE_TALK:
       this.miku.talkUpdate();
       break;
 
-    case NICOVIDEO_RANKING:
+    case WidgetManager.WIDGET_MODE_NICOVIDEO_RANKING:
       break;
 
-    case NONE:
+    case WidgetManager.WIDGET_MODE_NONE:
       break;
     }
 
@@ -117,18 +122,18 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
         R.layout.widget_miku);
 
     switch (this.mode) {
-    case WAIT:
+    case WidgetManager.WIDGET_MODE_WAIT:
       this.miku.waitView(views);
       break;
 
-    case TALK:
+    case WidgetManager.WIDGET_MODE_TALK:
       this.miku.talkView(views);
       break;
 
-    case NICOVIDEO_RANKING:
+    case WidgetManager.WIDGET_MODE_NICOVIDEO_RANKING:
       break;
 
-    case NONE:
+    case WidgetManager.WIDGET_MODE_NONE:
       break;
     }
 
@@ -188,7 +193,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    */
   private Information information;
 
-  private WidgetObject.WidgetMode mode;
+  private Integer mode;
 
   public PendingIntent getPendingIntent() {
     return pendingIntent;
@@ -211,7 +216,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
    * 
    * @param mode
    */
-  public synchronized void setMode(WidgetObject.WidgetMode mode) {
+  public synchronized void setMode(int mode) {
     this.mode = mode;
   }
 
