@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.naga.project.android.Information;
+import org.naga.project.android.mikuroid.Mikuroid;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.nicovideo.NicovideoEntry;
@@ -62,7 +63,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     }
 
     // Set default mode.
-    this.mode = WidgetManager.WIDGET_MODE_NONE;
+    this.mode = WidgetManager.WIDGET_MODE_TALK;
 
     return true;
   }
@@ -82,10 +83,16 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     this.context = ct;
 
     // Create an Intent to get touch event.
-    Intent intent = new Intent();
-    intent.setAction(Intent.ACTION_MEDIA_BUTTON);
-    this.pendingIntent = PendingIntent.getService(this.context, 0, intent,
-        PendingIntent.FLAG_UPDATE_CURRENT);
+    Intent intentMiku = new Intent();
+    intentMiku.setAction(Mikuroid.ACTION_MIKU_TOUCH);
+    this.pendingIntentMiku = PendingIntent.getService(this.context, 0,
+        intentMiku, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    Intent intentYes = new Intent();
+    intentYes.setAction(Mikuroid.ACTION_YES);
+    this.pendingIntentYes = PendingIntent.getService(this.context, 0,
+        intentYes, PendingIntent.FLAG_UPDATE_CURRENT);
+
     this.widget = new ComponentName(this.context, WidgetProvider.class);
     this.appWidgetManager = AppWidgetManager.getInstance(this.context);
   }
@@ -97,7 +104,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   public boolean onUpdate() {
     Log.d("WidgetManager", "onUpdate()");
 
-    switch (this.mode) {
+    switch (this.mode.intValue()) {
     case WidgetManager.WIDGET_MODE_WAIT:
       this.miku.waitUpdate();
       break;
@@ -121,7 +128,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     RemoteViews views = new RemoteViews(this.context.getPackageName(),
         R.layout.widget_miku);
 
-    switch (this.mode) {
+    switch (this.mode.intValue()) {
     case WidgetManager.WIDGET_MODE_WAIT:
       this.miku.waitView(views);
       break;
@@ -138,7 +145,8 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
     }
 
     // Set pending intent to check has miku clicked.
-    views.setOnClickPendingIntent(R.id.miku, this.pendingIntent);
+    views.setOnClickPendingIntent(R.id.miku, this.pendingIntentMiku);
+    views.setOnClickPendingIntent(R.id.yes, this.pendingIntentYes);
 
     this.appWidgetManager.updateAppWidget(this.widget, views);
 
@@ -161,7 +169,9 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   /**
    * Pending intent to set intent action.
    */
-  private PendingIntent pendingIntent;
+  private PendingIntent pendingIntentMiku;
+
+  private PendingIntent pendingIntentYes;
 
   /**
    * Widget component name.
@@ -196,7 +206,7 @@ public class WidgetManager implements WidgetUpdate, WidgetView {
   private Integer mode;
 
   public PendingIntent getPendingIntent() {
-    return pendingIntent;
+    return pendingIntentMiku;
   }
 
   public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {

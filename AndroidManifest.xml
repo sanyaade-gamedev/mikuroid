@@ -38,7 +38,9 @@
     <service android:name=".widget.WidgetService">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-        <action android:name="android.intent.action.MEDIA_BUTTON" />
+        <action android:name="org.naga.project.android.mikuroid.ACTION_MIKU_TOUCH" />
+        <action android:name="org.naga.project.android.mikuroid.ACTION_YES" />
+        <action android:name="org.naga.project.android.mikuroid.ACTION_NO" />
       </intent-filter>
     </service>
 
