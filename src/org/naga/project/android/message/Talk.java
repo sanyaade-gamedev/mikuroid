@@ -42,7 +42,7 @@ public class Talk {
       case Talk.TALK_MESSAGE:
         processTalking();
         // View talking message.
-        widgetView.onView();
+        widgetView.onView(null);
         break;
 
       case Talk.SHOW_MESSAGE:
