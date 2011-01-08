@@ -58,14 +58,14 @@
       android:layout_y="200dp"
       android:layout_width="30dp"
       android:layout_height="30dp"
-      android:src="@drawable/onpublue" />
+      android:src="@drawable/noteblue" />
 
     <ImageButton
       android:layout_x="45dp"
       android:layout_y="200dp"
       android:layout_width="30dp"
       android:layout_height="30dp"
-      android:src="@drawable/onpupink" />
+      android:src="@drawable/notepink" />
 
   </AbsoluteLayout>
 
