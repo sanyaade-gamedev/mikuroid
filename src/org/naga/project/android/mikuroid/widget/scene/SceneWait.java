@@ -36,17 +36,20 @@ public class SceneWait extends Scene {
     this.talkResult = this.talk.execute();
 
     if (Talk.NOTHING == this.talkResult) {
+      // Clear views.
+//      this.onView();
+
       // Nothing to talk.
 
-      Resources res = WidgetManager.getInstance().getContext().getResources();
+//      Resources res = WidgetManager.getInstance().getContext().getResources();
 
-      this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
-      this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
+      // this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
+      // this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
 
       // Test SceneYesNo
-      // Scene sceneYesNo = new SceneYesNo(null);
-      // sceneYesNo.create();
-      // this.setScene(sceneYesNo);
+      Scene sceneYesNo = new SceneYesNo(null, "Yes or No ?");
+      sceneYesNo.create();
+      this.setScene(sceneYesNo);
     }
   }
 
@@ -58,7 +61,6 @@ public class SceneWait extends Scene {
     if (Talk.TALKING == this.talkResult || Talk.SHOW_ALL == this.talkResult) {
       views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_ANGRY);
 
-      views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
       views.setTextViewText(R.id.miku_message, this.talk.getMessage()
           .toString());
@@ -69,6 +71,9 @@ public class SceneWait extends Scene {
       views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
       views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_SURPRISED);
     }
+
+    // Invisible not using widgets.
+    views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
 
     WidgetManager.getInstance().updateAppWidget(views);
   }
