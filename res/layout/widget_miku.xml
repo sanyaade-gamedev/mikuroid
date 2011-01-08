@@ -5,10 +5,10 @@
     android:layout_height="fill_parent">
 
   <FrameLayout
+    android:id="@+id/baloon0"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:visibility="invisible"
-    android:id="@+id/baloon0" >
+    android:visibility="invisible" >
 
     <ImageView
       android:layout_width="fill_parent"
@@ -31,12 +31,12 @@
       android:linksClickable="true"
       style="@style/Text.Loading" />
   </FrameLayout>
-  
+
   <FrameLayout
+    android:id="@+id/nicovideo"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:visibility="invisible"
-    android:id="@+id/nicovideo" >
+    android:visibility="invisible" >
 
     <ImageView
       android:id="@+id/nicovideo_image"
@@ -48,12 +48,13 @@
   </FrameLayout>
 
   <AbsoluteLayout
+    android:id="@+id/yesno"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:visibility="invisible"
-    android:id="@+id/yesno" >
+    android:visibility="invisible" >
 
     <ImageButton
+      android:id="@+id/yes"
       android:layout_x="20dp"
       android:layout_y="100dp"
       android:layout_width="40dp"
@@ -61,6 +62,7 @@
       android:src="@drawable/noteblue" />
 
     <ImageButton
+      android:id="@+id/no"
       android:layout_x="75dp"
       android:layout_y="100dp"
       android:layout_width="40dp"
