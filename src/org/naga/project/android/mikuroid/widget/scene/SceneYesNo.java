@@ -30,7 +30,7 @@ public class SceneYesNo extends Scene {
 
   @Override
   protected void onUpdateProcess() {
-    if (!this.talk.process()) {
+    if (!this.talk.execute()) {
       // Nothing to talk.
       // This scene process is finished.
       this.finish = true;

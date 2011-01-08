@@ -14,29 +14,37 @@ public class SceneWait extends Scene {
 
   public SceneWait(Scene sc) {
     super(sc);
+
+    this.talkResult = false;
   }
 
   @Override
   public boolean create() {
     this.talk = new Talk(this, 100, 20);
 
+    Resources res = WidgetManager.getInstance().getContext().getResources();
+
     // Add talk message.
-    String message = MikuMessage.generateBatteryLevelMessage();
-    this.talk.getMessageQueue().add(message);
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
+    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
 
     return true;
   }
 
   @Override
   protected void onUpdateProcess() {
-    if (!this.talk.process()) {
+    this.talkResult = this.talk.execute();
+
+    if (!this.talkResult) {
       // Nothing to talk.
-      // This scene process is finished.
+
+      // Create new scene or talk message.
+
       Resources res = WidgetManager.getInstance().getContext().getResources();
 
       this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
-      this.talk.getMessageQueue()
-          .add(MikuMessage.generateBatteryLevelMessage());
+      this.talk.getMessageQueue().addAll(
+          MikuMessage.generateBatteryLevelMessage());
     }
   }
 
@@ -45,7 +53,7 @@ public class SceneWait extends Scene {
     RemoteViews views = new RemoteViews(WidgetManager.getInstance()
         .getContext().getPackageName(), R.layout.widget_miku);
 
-    if (this.talk.getMessage().length() != 0) {
+    if (this.talkResult) {
       views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_ANGRY);
 
       views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
@@ -64,5 +72,7 @@ public class SceneWait extends Scene {
   }
 
   private Talk talk;
+
+  private boolean talkResult;
 
 }

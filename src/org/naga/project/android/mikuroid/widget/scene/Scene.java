@@ -1,7 +1,5 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
-import android.util.Log;
-
 public abstract class Scene {
 
   public Scene(Scene sc) {
@@ -14,7 +12,6 @@ public abstract class Scene {
   public abstract boolean create();
 
   public void onUpdate() {
-    Log.d("Scene", "onUpdate");
     if (null != this.scene) {
       // Child update.
       this.scene.onUpdate();
@@ -25,8 +22,6 @@ public abstract class Scene {
   }
 
   public void onView() {
-    Log.d("Scene", "onView");
-
     if (null != this.scene) {
       // Child view.
       this.scene.onView();
