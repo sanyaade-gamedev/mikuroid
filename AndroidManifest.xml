@@ -38,7 +38,6 @@
     <service android:name=".widget.WidgetService">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-        <action android:name="android.intent.action.INSERT" />
         <action android:name="android.intent.action.MEDIA_BUTTON" />
       </intent-filter>
     </service>
