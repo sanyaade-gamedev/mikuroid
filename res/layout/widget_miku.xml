@@ -31,6 +31,21 @@
       android:linksClickable="true"
       style="@style/Text.Loading" />
   </FrameLayout>
+  
+  <FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:visibility="invisible"
+    android:id="@+id/nicovideo" >
+
+    <ImageView
+      android:id="@+id/nicovideo_image"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:maxWidth="255dip"
+      android:maxHeight="178dip"
+      android:gravity="left" />
+  </FrameLayout>
 
   <AbsoluteLayout
     android:layout_width="fill_parent"
@@ -38,19 +53,19 @@
     android:visibility="invisible"
     android:id="@+id/yesno" >
 
-    <ImageView
-    android:layout_x="10dp"
-    android:layout_y="200dp"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:src="@drawable/onpublue" />
+    <ImageButton
+      android:layout_x="10dp"
+      android:layout_y="200dp"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:src="@drawable/onpublue" />
 
-    <ImageView
-    android:layout_x="45dp"
-    android:layout_y="200dp"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:src="@drawable/onpupink" />
+    <ImageButton
+      android:layout_x="45dp"
+      android:layout_y="200dp"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:src="@drawable/onpupink" />
 
   </AbsoluteLayout>
 
