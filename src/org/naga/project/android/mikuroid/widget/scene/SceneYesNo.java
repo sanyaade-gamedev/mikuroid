@@ -24,7 +24,7 @@ public class SceneYesNo extends Scene {
     if (null != this.message) {
       this.talk = new Talk(this, 100, 20);
 
-      this.talk.getMessageQueue().add(this.message);
+      this.talk.messageQueue.add(this.message);
     }
 
     this.talkResult = Talk.NOTHING;
@@ -60,8 +60,7 @@ public class SceneYesNo extends Scene {
     if (null != this.talk) {
       if (Talk.TALKING == this.talkResult || Talk.SHOW_ALL == this.talkResult) {
         views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
-        views.setTextViewText(R.id.miku_message, this.talk.getMessage()
-            .toString());
+        views.setTextViewText(R.id.miku_message, this.talk.message.toString());
       }
       // Not invisible question message.
     } else {

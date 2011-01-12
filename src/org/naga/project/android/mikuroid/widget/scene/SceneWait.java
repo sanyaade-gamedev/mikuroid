@@ -25,8 +25,8 @@ public class SceneWait extends Scene {
     Resources res = WidgetManager.getInstance().getContext().getResources();
 
     // Add talk message.
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku1));
-    this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
+    this.talk.messageQueue.add(res.getString(R.string.mikumiku1));
+    this.talk.messageQueue.add(res.getString(R.string.mikumiku2));
 
     return true;
   }
@@ -47,9 +47,9 @@ public class SceneWait extends Scene {
       // this.talk.getMessageQueue().add(res.getString(R.string.mikumiku2));
 
       // Test SceneYesNo
-      Scene sceneYesNo = new SceneYesNo(null, "Yes or No ?");
-      sceneYesNo.create();
-      this.setScene(sceneYesNo);
+//      Scene sceneYesNo = new SceneYesNo(null, "Yes or No ?");
+//      sceneYesNo.create();
+//      this.setScene(sceneYesNo);
     }
   }
 
@@ -62,8 +62,7 @@ public class SceneWait extends Scene {
       views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_ANGRY);
 
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
-      views.setTextViewText(R.id.miku_message, this.talk.getMessage()
-          .toString());
+      views.setTextViewText(R.id.miku_message, this.talk.message.toString());
 
       views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
     } else {
