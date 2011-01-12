@@ -20,15 +20,17 @@ public class Talk {
 
     this.messageQueue = new ConcurrentLinkedQueue<String>();
     this.message = new StringBuilder();
-    this.talking = false;
-    this.initTalk();
+    this.init();
   }
 
-  public void Destroy() {
+  /**
+   * Initialize talk.
+   */
+  public void init() {
+    this.messageIndex = 0;
+    this.currentMessage = "";
     this.message.setLength(0);
-    this.messageQueue.clear();
     this.talking = false;
-    this.forceStop();
   }
 
   /**
@@ -43,7 +45,28 @@ public class Talk {
       return Talk.SHOW_ALL;
     }
 
-    this.initTalk();
+    this.init();
+
+    this.currentMessage = this.messageQueue.poll();
+    if (null == this.currentMessage) {
+      this.currentMessage = "";
+      // Nothing to talk.
+      return Talk.NOTHING;
+    }
+
+    this.talking = true;
+
+    this.talkHandler.sendEmptyMessage(Talk.HANDLE_TALK_MESSAGE);
+
+    return Talk.TALKING;
+  }
+
+  public int executeNoInit() {
+    // Finish speaking and show all message.
+    if (this.talking) {
+      this.talkHandler.sendEmptyMessage(Talk.HANDLE_SHOW_MESSAGE);
+      return Talk.SHOW_ALL;
+    }
 
     this.currentMessage = this.messageQueue.poll();
     if (null == this.currentMessage) {
@@ -102,12 +125,6 @@ public class Talk {
     }
 
   };
-
-  private void initTalk() {
-    this.messageIndex = 0;
-    this.currentMessage = "";
-    this.message.setLength(0);
-  }
 
   private void processTalking() {
     if (this.messageIndex >= this.currentMessage.length()) {
