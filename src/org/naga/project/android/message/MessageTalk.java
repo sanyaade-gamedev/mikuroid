@@ -7,13 +7,13 @@ import org.naga.project.android.mikuroid.widget.scene.Scene;
 import android.os.Handler;
 import android.os.Message;
 
-public class Talk {
+public class MessageTalk {
 
   public static final int TALKING = 1;
   public static final int SHOW_ALL = 2;
   public static final int NOTHING = 3;
 
-  public Talk(Scene sc, long tspeed, int rindex) {
+  public MessageTalk(Scene sc, long tspeed, int rindex) {
     this.scene = sc;
     this.talkSpeed = tspeed;
     this.returnIndex = rindex;
@@ -41,8 +41,8 @@ public class Talk {
   public int execute() {
     // Finish speaking and show all message.
     if (this.talking) {
-      this.talkHandler.sendEmptyMessage(Talk.HANDLE_SHOW_MESSAGE);
-      return Talk.SHOW_ALL;
+      this.talkHandler.sendEmptyMessage(MessageTalk.HANDLE_SHOW_MESSAGE);
+      return MessageTalk.SHOW_ALL;
     }
 
     this.init();
@@ -51,35 +51,35 @@ public class Talk {
     if (null == this.currentMessage) {
       this.currentMessage = "";
       // Nothing to talk.
-      return Talk.NOTHING;
+      return MessageTalk.NOTHING;
     }
 
     this.talking = true;
 
-    this.talkHandler.sendEmptyMessage(Talk.HANDLE_TALK_MESSAGE);
+    this.talkHandler.sendEmptyMessage(MessageTalk.HANDLE_TALK_MESSAGE);
 
-    return Talk.TALKING;
+    return MessageTalk.TALKING;
   }
 
   public int executeNoInit() {
     // Finish speaking and show all message.
     if (this.talking) {
-      this.talkHandler.sendEmptyMessage(Talk.HANDLE_SHOW_MESSAGE);
-      return Talk.SHOW_ALL;
+      this.talkHandler.sendEmptyMessage(MessageTalk.HANDLE_SHOW_MESSAGE);
+      return MessageTalk.SHOW_ALL;
     }
 
     this.currentMessage = this.messageQueue.poll();
     if (null == this.currentMessage) {
       this.currentMessage = "";
       // Nothing to talk.
-      return Talk.NOTHING;
+      return MessageTalk.NOTHING;
     }
 
     this.talking = true;
 
-    this.talkHandler.sendEmptyMessage(Talk.HANDLE_TALK_MESSAGE);
+    this.talkHandler.sendEmptyMessage(MessageTalk.HANDLE_TALK_MESSAGE);
 
-    return Talk.TALKING;
+    return MessageTalk.TALKING;
   }
 
   public boolean hasNext() {
@@ -100,23 +100,23 @@ public class Talk {
     @Override
     public void handleMessage(Message msg) {
       switch (msg.what) {
-      case Talk.HANDLE_TALK_MESSAGE:
+      case MessageTalk.HANDLE_TALK_MESSAGE:
         processTalking();
         // Execute scene's view process.
         scene.onView();
         break;
 
-      case Talk.HANDLE_SHOW_MESSAGE:
+      case MessageTalk.HANDLE_SHOW_MESSAGE:
         // Stop taling and show all.
         showAll();
         break;
 
-      case Talk.HANDLE_TALK_STOP:
+      case MessageTalk.HANDLE_TALK_STOP:
         // Stop talking.
         talking = false;
         break;
 
-      case Talk.HANDLE_TALK_FORCE_STOP:
+      case MessageTalk.HANDLE_TALK_FORCE_STOP:
         // Force stop talking.
         talking = false;
         forceStop();
@@ -128,7 +128,7 @@ public class Talk {
 
   private void processTalking() {
     if (this.messageIndex >= this.currentMessage.length()) {
-      this.talkHandler.sendEmptyMessage(Talk.HANDLE_TALK_STOP);
+      this.talkHandler.sendEmptyMessage(MessageTalk.HANDLE_TALK_STOP);
       return;
     }
     // Return line.
@@ -138,7 +138,7 @@ public class Talk {
     this.message.append(this.currentMessage.charAt(this.messageIndex));
     this.messageIndex++;
 
-    this.talkHandler.sendEmptyMessageDelayed(Talk.HANDLE_TALK_MESSAGE,
+    this.talkHandler.sendEmptyMessageDelayed(MessageTalk.HANDLE_TALK_MESSAGE,
         talkSpeed);
   }
 
@@ -164,8 +164,8 @@ public class Talk {
    */
   private void forceStop() {
     this.talking = false;
-    this.talkHandler.removeMessages(Talk.HANDLE_TALK_MESSAGE);
-    this.talkHandler.removeMessages(Talk.HANDLE_TALK_STOP);
+    this.talkHandler.removeMessages(MessageTalk.HANDLE_TALK_MESSAGE);
+    this.talkHandler.removeMessages(MessageTalk.HANDLE_TALK_STOP);
     this.messageQueue.clear();
   }
 

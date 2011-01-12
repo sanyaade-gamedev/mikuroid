@@ -1,7 +1,7 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
 import org.naga.project.android.menu.MenuYesNo;
-import org.naga.project.android.message.Talk;
+import org.naga.project.android.message.MessageTalk;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
@@ -16,13 +16,13 @@ public class SceneWait extends Scene {
   public SceneWait(Scene sc) {
     super(sc);
 
-    this.talkResult = Talk.NOTHING;
+    this.talkResult = MessageTalk.NOTHING;
     this.menuYesNo = null;
   }
 
   @Override
   public boolean create() {
-    this.talk = new Talk(this, 100, 20);
+    this.talk = new MessageTalk(this, 100, 20);
 
     Resources res = WidgetManager.getInstance().getContext().getResources();
 
@@ -61,7 +61,7 @@ public class SceneWait extends Scene {
       this.talkResult = this.talk.execute();
     }
 
-    if (Talk.NOTHING == this.talkResult) {
+    if (MessageTalk.NOTHING == this.talkResult) {
       if (null == this.menuYesNo) {
         // TEST Create menu.
         this.menuYesNo = new MenuYesNo();
@@ -87,7 +87,7 @@ public class SceneWait extends Scene {
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
       miku.activeSurface = MikuHatsune.SURFACE_ANGRY;
     } else {
-      if (Talk.TALKING == this.talkResult || Talk.SHOW_ALL == this.talkResult) {
+      if (MessageTalk.TALKING == this.talkResult || MessageTalk.SHOW_ALL == this.talkResult) {
         views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
         views.setTextViewText(R.id.miku_message, this.talk.message.toString());
       } else {
@@ -110,7 +110,7 @@ public class SceneWait extends Scene {
   /**
    * Use to talk.
    */
-  private Talk talk;
+  private MessageTalk talk;
 
   private int talkResult;
 
