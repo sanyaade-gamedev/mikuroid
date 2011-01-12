@@ -79,24 +79,27 @@ public class SceneWait extends Scene {
     RemoteViews views = new RemoteViews(WidgetManager.getInstance()
         .getContext().getPackageName(), R.layout.widget_miku);
 
+    MikuHatsune miku = WidgetManager.getInstance().miku;
+
     if (null != this.menuYesNo) {
       this.menuYesNo.view(views);
       views.setTextViewText(R.id.miku_message, this.talk.message.toString());
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
+      miku.activeSurface = MikuHatsune.SURFACE_ANGRY;
     } else {
       if (Talk.TALKING == this.talkResult || Talk.SHOW_ALL == this.talkResult) {
-        views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_ANGRY);
-
         views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
         views.setTextViewText(R.id.miku_message, this.talk.message.toString());
-
       } else {
         views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
-        views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_NORMAL);
       }
+
+      miku.activeSurface = MikuHatsune.SURFACE_NORMAL;
 
       views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
     }
+
+    views.setImageViewResource(MikuHatsune.ID_IMAGE_VIEW, miku.activeSurface);
 
     // Invisible not using widgets.
     views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);

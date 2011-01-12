@@ -10,9 +10,13 @@ public class MikuHatsune {
   public static final int SURFACE_ANGRY = R.drawable.mikuroid002;
   public static final int SURFACE_SURPRISED = R.drawable.mikuroid003;
 
+  public static final int ID_IMAGE_VIEW = R.id.miku;
+
   public MikuHatsune() {
     super();
     Log.d("MikuHatsune", "constructor");
+
+    this.activeSurface = MikuHatsune.SURFACE_NORMAL;
   }
 
   public boolean create() {
@@ -37,5 +41,7 @@ public class MikuHatsune {
    * ImageView.VISIBLE); views.setImageViewBitmap(R.id.nicovideo_image, bitmap);
    * }
    */
+
+  public int activeSurface;
 
 }

@@ -12,7 +12,7 @@ public abstract class MikuMessage {
   private static final int BATTERY_FULL_LEVEL = 100;
 
   public static List<String> generateBatteryLevelMessage() {
-    Integer batteryLevel = WidgetManager.getInstance().getInformation()
+    Integer batteryLevel = WidgetManager.getInstance().information
         .getBatteryLevel();
 
     List<String> messageList = new ArrayList<String>();
