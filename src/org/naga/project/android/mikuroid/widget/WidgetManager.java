@@ -67,6 +67,20 @@ public class WidgetManager {
     return true;
   }
 
+  public void execute(Intent intent) {
+    this.mainScene.onUpdate(intent);
+    this.mainScene.onView();
+  }
+
+  public void updateAppWidget(RemoteViews views) {
+    // Set pending intent to check has miku clicked.
+    views.setOnClickPendingIntent(R.id.miku, this.pendingIntentMiku);
+    views.setOnClickPendingIntent(R.id.yes, this.pendingIntentYes);
+    views.setOnClickPendingIntent(R.id.no, this.pendingIntentNo);
+
+    this.appWidgetManager.updateAppWidget(this.widget, views);
+  }
+
   /**
    * Set Context. If context is not exist, set context and pending intent.
    * 
@@ -101,18 +115,8 @@ public class WidgetManager {
     this.appWidgetManager = AppWidgetManager.getInstance(this.context);
   }
 
-  public void execute(Intent intent) {
-    this.mainScene.onUpdate(intent);
-    this.mainScene.onView();
-  }
-
-  public void updateAppWidget(RemoteViews views) {
-    // Set pending intent to check has miku clicked.
-    views.setOnClickPendingIntent(R.id.miku, this.pendingIntentMiku);
-    views.setOnClickPendingIntent(R.id.yes, this.pendingIntentYes);
-    views.setOnClickPendingIntent(R.id.no, this.pendingIntentNo);
-
-    this.appWidgetManager.updateAppWidget(this.widget, views);
+  public Context getContext() {
+    return context;
   }
 
   /**
@@ -148,7 +152,7 @@ public class WidgetManager {
   /**
    * Widget character Miku Hatsune.
    */
-  private MikuHatsune miku;
+  public MikuHatsune miku;
 
   /**
    * Widget main scene.
@@ -168,30 +172,6 @@ public class WidgetManager {
   /**
    * Android information.
    */
-  private Information information;
-
-  public Context getContext() {
-    return context;
-  }
-
-  public ConcurrentLinkedQueue<NicovideoEntry> getNicoEntryQueue() {
-    return nicoEntryQueue;
-  }
-
-  public ConcurrentHashMap<Integer, Bitmap> getImages() {
-    return images;
-  }
-
-  public Information getInformation() {
-    return information;
-  }
-
-  public PendingIntent getPendingIntentYes() {
-    return pendingIntentYes;
-  }
-
-  public PendingIntent getPendingIntentNo() {
-    return pendingIntentNo;
-  }
+  public Information information;
 
 }
