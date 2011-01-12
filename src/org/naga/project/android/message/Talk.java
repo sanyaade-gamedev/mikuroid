@@ -146,7 +146,7 @@ public class Talk {
    * Stop taling and clear data.
    */
   private void forceStop() {
-    talking = false;
+    this.talking = false;
     this.talkHandler.removeMessages(Talk.HANDLE_TALK_MESSAGE);
     this.talkHandler.removeMessages(Talk.HANDLE_TALK_STOP);
     this.messageQueue.clear();
@@ -157,12 +157,12 @@ public class Talk {
   /**
    * Thread-safe message queue.
    */
-  private ConcurrentLinkedQueue<String> messageQueue;
+  public ConcurrentLinkedQueue<String> messageQueue;
 
   /**
    * Message to show display.
    */
-  private StringBuilder message;
+  public StringBuilder message;
 
   /**
    * True when character is talking.
@@ -188,13 +188,5 @@ public class Talk {
    * Number of line return index.
    */
   private int returnIndex;
-
-  public ConcurrentLinkedQueue<String> getMessageQueue() {
-    return messageQueue;
-  }
-
-  public StringBuilder getMessage() {
-    return message;
-  }
 
 }
