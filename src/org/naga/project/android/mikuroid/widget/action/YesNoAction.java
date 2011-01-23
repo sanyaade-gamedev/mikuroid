@@ -29,32 +29,32 @@ public class YesNoAction extends Action {
   }
 
   public boolean update(Intent intent) {
-    int result = YesNoAction.NONE;
-    boolean actionResult = true;
+    int selected = YesNoAction.NONE;
+    boolean result = true;
 
     if (null != intent && null != intent.getAction()) {
       // Yes or No button was clicked.
       if (MikuroidIntent.ACTION_YES.equals(intent.getAction())) {
         // Clicked yes.
-        result = YesNoAction.YES;
+        selected = YesNoAction.YES;
       } else if (MikuroidIntent.ACTION_NO.equals(intent.getAction())) {
         // Clicked no.
-        result = YesNoAction.NO;
+        selected = YesNoAction.NO;
       }
     }
 
     SceneWait sceneWait = (SceneWait) this.scene;
 
-    if (result == YesNoAction.YES) {
+    if (selected == YesNoAction.YES) {
       sceneWait.messageTalk.init();
-      actionResult = false;
+      result = false;
 
       Resources res = WidgetManager.getInstance().getContext().getResources();
       sceneWait.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
       sceneWait.talkResult = sceneWait.messageTalk.execute();
-    } else if (result == YesNoAction.NO) {
+    } else if (selected == YesNoAction.NO) {
       sceneWait.messageTalk.init();
-      actionResult = false;
+      result = false;
 
       Resources res = WidgetManager.getInstance().getContext().getResources();
       sceneWait.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
@@ -64,7 +64,7 @@ public class YesNoAction extends Action {
       sceneWait.talkResult = sceneWait.messageTalk.executeNoInit();
     }
 
-    return actionResult;
+    return result;
   }
 
   public void view(RemoteViews views) {
