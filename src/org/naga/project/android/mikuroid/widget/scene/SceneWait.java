@@ -14,17 +14,14 @@ import android.os.Message;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
-public class SceneWait extends Scene {
+public class SceneWait implements Scene {
 
-  public SceneWait(Scene sc) {
-    super(sc);
-
+  public SceneWait() {
     this.talkResult = MessageTalk.NOTHING;
     this.currentAction = null;
     this.waiting = false;
   }
 
-  @Override
   public boolean create() {
     this.messageTalk = new MessageTalk(this, 100, 20);
 
@@ -37,7 +34,6 @@ public class SceneWait extends Scene {
     return true;
   }
 
-  @Override
   public void onUpdate(Intent intent) {
     if (null != this.currentAction) {
       this.waiting = false;
@@ -84,7 +80,6 @@ public class SceneWait extends Scene {
     }
   }
 
-  @Override
   public void onView() {
     RemoteViews views = new RemoteViews(WidgetManager.getInstance()
         .getContext().getPackageName(), R.layout.widget_miku);

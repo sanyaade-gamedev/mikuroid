@@ -48,6 +48,9 @@ public class WidgetManager {
     this.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
     this.images = new ConcurrentHashMap<Integer, Bitmap>();
     this.information = new Information();
+
+    this.currentScene = null;
+    this.reservedScene = null;
   }
 
   public boolean create() {
@@ -60,7 +63,7 @@ public class WidgetManager {
 
     if (null == this.currentScene) {
       // Set start up scene.
-      this.currentScene = new SceneWait(null);
+      this.currentScene = new SceneWait();
       this.currentScene.create();
     }
 
@@ -158,6 +161,8 @@ public class WidgetManager {
    * Widget main scene.
    */
   private Scene currentScene;
+
+  private Scene reservedScene;
 
   /**
    * Thread-safe nicovideo entry store.
