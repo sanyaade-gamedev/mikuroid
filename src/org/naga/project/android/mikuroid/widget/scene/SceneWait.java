@@ -1,11 +1,11 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
-import org.naga.project.android.action.Action;
-import org.naga.project.android.action.MenuYesNo;
 import org.naga.project.android.message.MessageTalk;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
+import org.naga.project.android.mikuroid.widget.action.Action;
+import org.naga.project.android.mikuroid.widget.action.MenuYesNo;
 
 import android.content.Intent;
 import android.content.res.Resources;
