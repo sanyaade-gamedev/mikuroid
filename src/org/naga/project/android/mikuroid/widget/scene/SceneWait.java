@@ -85,21 +85,22 @@ public class SceneWait extends Scene {
       this.menuYesNo.view(views);
       views.setTextViewText(R.id.miku_message, this.talk.message.toString());
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
-      miku.activeSurface = MikuHatsune.SURFACE_ANGRY;
+      miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
     } else {
-      if (MessageTalk.TALKING == this.talkResult || MessageTalk.SHOW_ALL == this.talkResult) {
+      if (MessageTalk.TALKING == this.talkResult
+          || MessageTalk.SHOW_ALL == this.talkResult) {
         views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
         views.setTextViewText(R.id.miku_message, this.talk.message.toString());
       } else {
         views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
       }
 
-      miku.activeSurface = MikuHatsune.SURFACE_NORMAL;
+      miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
 
       views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
     }
 
-    views.setImageViewResource(MikuHatsune.ID_IMAGE_VIEW, miku.activeSurface);
+    views.setImageViewResource(MikuHatsune.ID_IMAGE_VIEW, miku.currentSurface);
 
     // Invisible not using widgets.
     views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
