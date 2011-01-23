@@ -70,7 +70,7 @@ public class SceneWait implements Scene {
     }
 
     if (null != this.currentAction) {
-      this.yesnoView(views);
+      this.currentAction.view(views);
     } else {
       this.talkVIew(views);
     }
@@ -94,19 +94,6 @@ public class SceneWait implements Scene {
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
 
     views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
-  }
-
-  /**
-   * View process when waiting yes no select action.
-   * 
-   * @param views
-   */
-  private void yesnoView(RemoteViews views) {
-    this.currentAction.view(views);
-    views.setTextViewText(R.id.miku_message,
-        this.messageTalk.message.toString());
-    views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
-    WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
   }
 
   /**
