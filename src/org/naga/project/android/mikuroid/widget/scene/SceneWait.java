@@ -2,6 +2,7 @@ package org.naga.project.android.mikuroid.widget.scene;
 
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
+import org.naga.project.android.mikuroid.character.MikuMessage;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.action.Action;
 import org.naga.project.android.mikuroid.widget.action.TalkAction;
@@ -39,20 +40,29 @@ public class SceneWait implements Scene {
           this.currentAction = this.reservedAction;
           this.reservedAction = null;
 
-          this.currentAction.create();
           this.currentAction.update(intent);
         }
       }
     }
 
-    // Create new actions in here.
-
-    // Create Yes No select action.
     if (null == this.currentAction && this.waiting) {
-      // TEST Create menu.
-      this.currentAction = new YesNoAction(this);
-      this.currentAction.create();
-      this.currentAction.update(intent);
+      // Create new actions in here.
+      SceneWait.count++;
+
+      if (SceneWait.count % 2 == 0) {
+        // Create Yes No select action.
+        this.currentAction = new YesNoAction(this);
+        this.currentAction.create();
+        this.currentAction.update(intent);
+
+        SceneWait.count = 0;
+      } else {
+        TalkAction action = new TalkAction(this);
+        action.create();
+        action.messageTalk.messageQueue.addAll(MikuMessage
+            .generateBatteryLevelMessage());
+        this.currentAction = action;
+      }
     } else {
       this.waiting = true;
     }
@@ -108,6 +118,8 @@ public class SceneWait implements Scene {
   private void clearHandler() {
     this.handler.removeMessages(SceneWait.FORCE_WAIT);
   }
+
+  private static int count = 0;
 
   private Action currentAction;
 

@@ -53,10 +53,24 @@ public class YesNoAction extends Action {
     }
 
     if (selected == YesNoAction.SELECT_YES) {
-      this.scene.setReserveAction(new TalkAction(this.scene));
+      TalkAction action = new TalkAction(this.scene);
+      action.create();
+      this.scene.setReserveAction(action);
+      Resources res = WidgetManager.getInstance().getContext().getResources();
+      // Add talk message.
+      action.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
+
       result = false;
     } else if (selected == YesNoAction.SELECT_NO) {
-      this.scene.setReserveAction(new TalkAction(this.scene));
+      TalkAction action = new TalkAction(this.scene);
+      action.create();
+      this.scene.setReserveAction(action);
+
+      Resources res = WidgetManager.getInstance().getContext().getResources();
+
+      // Add talk message.
+      action.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
+
       result = false;
     } else { // MenuYesNo.NOTHING
       // Not touched menu icon.
