@@ -30,6 +30,7 @@ public class YesNoAction extends Action {
 
   public boolean update(Intent intent) {
     int result = YesNoAction.NONE;
+    boolean actionResult = true;
 
     if (null != intent && null != intent.getAction()) {
       // Yes or No button was clicked.
@@ -46,14 +47,14 @@ public class YesNoAction extends Action {
 
     if (result == YesNoAction.YES) {
       sceneWait.messageTalk.init();
-      sceneWait.currentAction = null;
+      actionResult = false;
 
       Resources res = WidgetManager.getInstance().getContext().getResources();
       sceneWait.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
       sceneWait.talkResult = sceneWait.messageTalk.execute();
     } else if (result == YesNoAction.NO) {
       sceneWait.messageTalk.init();
-      sceneWait.currentAction = null;
+      actionResult = false;
 
       Resources res = WidgetManager.getInstance().getContext().getResources();
       sceneWait.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
@@ -63,7 +64,7 @@ public class YesNoAction extends Action {
       sceneWait.talkResult = sceneWait.messageTalk.executeNoInit();
     }
 
-    return true;
+    return actionResult;
   }
 
   public void view(RemoteViews views) {

@@ -38,7 +38,10 @@ public class SceneWait implements Scene {
     if (null != this.currentAction) {
       this.waiting = false;
 
-      this.currentAction.update(intent);
+      if (!this.currentAction.update(intent)) {
+        // If return false, delete current action.
+        this.currentAction = null;
+      }
     } else {
       this.talkResult = this.messageTalk.execute();
     }
@@ -148,7 +151,7 @@ public class SceneWait implements Scene {
 
   public int talkResult;
 
-  public Action currentAction;
+  private Action currentAction;
 
   private boolean waiting;
 
