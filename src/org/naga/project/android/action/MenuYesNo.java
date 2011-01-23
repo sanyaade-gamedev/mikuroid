@@ -1,18 +1,23 @@
-package org.naga.project.android.menu;
+package org.naga.project.android.action;
 
 import org.naga.project.android.mikuroid.MikuroidIntent;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
+import org.naga.project.android.mikuroid.widget.scene.Scene;
 
 import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
-public class MenuYesNo {
+public class MenuYesNo extends Action {
 
   public static final int NONE = 0;
   public static final int YES = 1;
   public static final int NO = 2;
+
+  public MenuYesNo(Scene s) {
+    super(s);
+  }
 
   public int update(Intent intent) {
     if (null != intent && null != intent.getAction()) {

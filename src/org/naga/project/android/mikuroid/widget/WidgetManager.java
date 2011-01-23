@@ -58,18 +58,18 @@ public class WidgetManager {
       this.miku.create();
     }
 
-    if (null == this.mainScene) {
+    if (null == this.currentScene) {
       // Set start up scene.
-      this.mainScene = new SceneWait(null);
-      this.mainScene.create();
+      this.currentScene = new SceneWait(null);
+      this.currentScene.create();
     }
 
     return true;
   }
 
   public void execute(Intent intent) {
-    this.mainScene.onUpdate(intent);
-    this.mainScene.onView();
+    this.currentScene.onUpdate(intent);
+    this.currentScene.onView();
   }
 
   public void updateAppWidget(RemoteViews views) {
@@ -157,7 +157,7 @@ public class WidgetManager {
   /**
    * Widget main scene.
    */
-  private Scene mainScene;
+  private Scene currentScene;
 
   /**
    * Thread-safe nicovideo entry store.
