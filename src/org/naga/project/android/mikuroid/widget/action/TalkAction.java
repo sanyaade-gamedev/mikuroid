@@ -7,7 +7,6 @@ import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.scene.Scene;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
@@ -22,12 +21,6 @@ public class TalkAction extends Action {
   @Override
   public boolean create() {
     this.messageTalk = new MessageTalk(this.scene, 100, 20);
-
-    Resources res = WidgetManager.getInstance().getContext().getResources();
-
-    // Add talk message.
-    this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
-    this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
 
     return true;
   }
@@ -59,7 +52,7 @@ public class TalkAction extends Action {
     views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
   }
 
-  private MessageTalk messageTalk;
+  public MessageTalk messageTalk;
 
   private int talkResult;
 
