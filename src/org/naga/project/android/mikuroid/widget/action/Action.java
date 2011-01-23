@@ -1,4 +1,4 @@
-package org.naga.project.android.action;
+package org.naga.project.android.mikuroid.widget.action;
 
 import org.naga.project.android.mikuroid.widget.scene.Scene;
 
