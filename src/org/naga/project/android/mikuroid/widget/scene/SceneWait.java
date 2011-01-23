@@ -8,16 +8,21 @@ import org.naga.project.android.mikuroid.widget.WidgetManager;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
 public class SceneWait extends Scene {
+
+  static final int FORCE_WAIT = 1;
 
   public SceneWait(Scene sc) {
     super(sc);
 
     this.talkResult = MessageTalk.NOTHING;
     this.menuYesNo = null;
+    this.waiting = false;
   }
 
   @Override
@@ -35,8 +40,9 @@ public class SceneWait extends Scene {
 
   @Override
   protected void onUpdateProcess(Intent intent) {
-
     if (null != this.menuYesNo) {
+      this.waiting = false;
+
       int menuResult = this.menuYesNo.update(intent);
 
       if (MenuYesNo.YES == menuResult) {
@@ -62,7 +68,7 @@ public class SceneWait extends Scene {
     }
 
     if (MessageTalk.NOTHING == this.talkResult) {
-      if (null == this.menuYesNo) {
+      if (null == this.menuYesNo && this.waiting) {
         // TEST Create menu.
         this.menuYesNo = new MenuYesNo();
         Resources res = WidgetManager.getInstance().getContext().getResources();
@@ -70,6 +76,8 @@ public class SceneWait extends Scene {
 
         // Show message.
         this.talkResult = this.talk.execute();
+      } else {
+        this.waiting = true;
       }
     }
   }
@@ -79,34 +87,68 @@ public class SceneWait extends Scene {
     RemoteViews views = new RemoteViews(WidgetManager.getInstance()
         .getContext().getPackageName(), R.layout.widget_miku);
 
-    MikuHatsune miku = WidgetManager.getInstance().miku;
-
-    if (null != this.menuYesNo) {
-      this.menuYesNo.view(views);
-      views.setTextViewText(R.id.miku_message, this.talk.message.toString());
-      views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
-      miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
-    } else {
-      if (MessageTalk.TALKING == this.talkResult
-          || MessageTalk.SHOW_ALL == this.talkResult) {
-        views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
-        views.setTextViewText(R.id.miku_message, this.talk.message.toString());
-      } else {
-        views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
-      }
-
-      miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
-
-      views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
+    if (this.waiting) {
+      this.waitView(views);
     }
 
-    views.setImageViewResource(MikuHatsune.ID_IMAGE_VIEW, miku.currentSurface);
+    if (null != this.menuYesNo) {
+      this.yesnoView(views);
+    } else {
+      this.talkVIew(views);
+    }
+
+    views.setImageViewResource(MikuHatsune.ID_IMAGE_VIEW,
+        WidgetManager.getInstance().miku.currentSurface);
 
     // Invisible not using widgets.
     views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
 
     WidgetManager.getInstance().updateAppWidget(views);
   }
+
+  private void waitView(RemoteViews views) {
+    // View wait surface.
+    WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
+
+    views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
+  }
+
+  private void yesnoView(RemoteViews views) {
+    this.menuYesNo.view(views);
+    views.setTextViewText(R.id.miku_message, this.talk.message.toString());
+    views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
+    WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
+  }
+
+  private void talkVIew(RemoteViews views) {
+    if (MessageTalk.TALKING == this.talkResult
+        || MessageTalk.SHOW_ALL == this.talkResult) {
+      views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
+      views.setTextViewText(R.id.miku_message, this.talk.message.toString());
+    } else {
+      views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
+    }
+
+    WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
+
+    views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
+  }
+
+  /**
+   * Handler to clear view.
+   */
+  private Handler handler = new Handler() {
+
+    @Override
+    public void handleMessage(Message msg) {
+      switch (msg.what) {
+      case SceneWait.FORCE_WAIT:
+        waiting = true;
+        break;
+      }
+    }
+
+  };
 
   /**
    * Use to talk.
@@ -116,5 +158,7 @@ public class SceneWait extends Scene {
   private int talkResult;
 
   private MenuYesNo menuYesNo;
+
+  private boolean waiting;
 
 }
