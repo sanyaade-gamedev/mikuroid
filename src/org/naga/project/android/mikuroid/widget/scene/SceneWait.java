@@ -15,8 +15,6 @@ import android.widget.RemoteViews;
 
 public class SceneWait extends Scene {
 
-  static final int FORCE_WAIT = 1;
-
   public SceneWait(Scene sc) {
     super(sc);
 
@@ -106,6 +104,11 @@ public class SceneWait extends Scene {
     WidgetManager.getInstance().updateAppWidget(views);
   }
 
+  /**
+   * View process when waiting mode.
+   * 
+   * @param views
+   */
   private void waitView(RemoteViews views) {
     // View wait surface.
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
@@ -113,6 +116,11 @@ public class SceneWait extends Scene {
     views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
   }
 
+  /**
+   * View process when waiting yes no select action.
+   * 
+   * @param views
+   */
   private void yesnoView(RemoteViews views) {
     this.menuYesNo.view(views);
     views.setTextViewText(R.id.miku_message, this.talk.message.toString());
@@ -120,6 +128,11 @@ public class SceneWait extends Scene {
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
   }
 
+  /**
+   * View process when talking mode.
+   * 
+   * @param views
+   */
   private void talkVIew(RemoteViews views) {
     if (MessageTalk.TALKING == this.talkResult
         || MessageTalk.SHOW_ALL == this.talkResult) {
@@ -133,6 +146,8 @@ public class SceneWait extends Scene {
 
     views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
   }
+
+  static final int FORCE_WAIT = 1;
 
   /**
    * Handler to clear view.
@@ -149,6 +164,10 @@ public class SceneWait extends Scene {
     }
 
   };
+
+  private void clearHandler() {
+    this.handler.removeMessages(SceneWait.FORCE_WAIT);
+  }
 
   /**
    * Use to talk.
