@@ -20,39 +20,39 @@ import android.widget.RemoteViews;
  */
 public class YesNoAction extends Action {
 
-  private static final int NONE = 0;
-  private static final int YES = 1;
-  private static final int NO = 2;
+  private static final int SELECT_NONE = 0;
+  private static final int SELECT_YES = 1;
+  private static final int SELECT_NO = 2;
 
   public YesNoAction(Scene s) {
     super(s);
   }
 
   public boolean update(Intent intent) {
-    int selected = YesNoAction.NONE;
+    int selected = YesNoAction.SELECT_NONE;
     boolean result = true;
 
     if (null != intent && null != intent.getAction()) {
       // Yes or No button was clicked.
       if (MikuroidIntent.ACTION_YES.equals(intent.getAction())) {
         // Clicked yes.
-        selected = YesNoAction.YES;
+        selected = YesNoAction.SELECT_YES;
       } else if (MikuroidIntent.ACTION_NO.equals(intent.getAction())) {
         // Clicked no.
-        selected = YesNoAction.NO;
+        selected = YesNoAction.SELECT_NO;
       }
     }
 
     SceneWait sceneWait = (SceneWait) this.scene;
 
-    if (selected == YesNoAction.YES) {
+    if (selected == YesNoAction.SELECT_YES) {
       sceneWait.messageTalk.init();
       result = false;
 
       Resources res = WidgetManager.getInstance().getContext().getResources();
       sceneWait.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
       sceneWait.talkResult = sceneWait.messageTalk.execute();
-    } else if (selected == YesNoAction.NO) {
+    } else if (selected == YesNoAction.SELECT_NO) {
       sceneWait.messageTalk.init();
       result = false;
 
