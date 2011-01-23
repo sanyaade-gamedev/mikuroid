@@ -1,6 +1,7 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
-import org.naga.project.android.menu.MenuYesNo;
+import org.naga.project.android.action.Action;
+import org.naga.project.android.action.MenuYesNo;
 import org.naga.project.android.message.MessageTalk;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
@@ -19,61 +20,64 @@ public class SceneWait extends Scene {
     super(sc);
 
     this.talkResult = MessageTalk.NOTHING;
-    this.menuYesNo = null;
+    this.currentAction = null;
     this.waiting = false;
   }
 
   @Override
   public boolean create() {
-    this.talk = new MessageTalk(this, 100, 20);
+    this.messageTalk = new MessageTalk(this, 100, 20);
 
     Resources res = WidgetManager.getInstance().getContext().getResources();
 
     // Add talk message.
-    this.talk.messageQueue.add(res.getString(R.string.mikumiku1));
-    this.talk.messageQueue.add(res.getString(R.string.mikumiku2));
+    this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
+    this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
 
     return true;
   }
 
   @Override
-  protected void onUpdateProcess(Intent intent) {
-    if (null != this.menuYesNo) {
+  public void onUpdate(Intent intent) {
+    if (null != this.currentAction) {
       this.waiting = false;
 
-      int menuResult = this.menuYesNo.update(intent);
+      int menuResult = this.currentAction.update(intent);
 
       if (MenuYesNo.YES == menuResult) {
-        this.talk.init();
-        this.menuYesNo = null;
+        this.messageTalk.init();
+        this.currentAction = null;
 
         Resources res = WidgetManager.getInstance().getContext().getResources();
-        this.talk.messageQueue.add(res.getString(R.string.mikumiku1));
-        this.talkResult = this.talk.execute();
+        this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
+        this.talkResult = this.messageTalk.execute();
       } else if (MenuYesNo.NO == menuResult) {
-        this.talk.init();
-        this.menuYesNo = null;
+        this.messageTalk.init();
+        this.currentAction = null;
 
         Resources res = WidgetManager.getInstance().getContext().getResources();
-        this.talk.messageQueue.add(res.getString(R.string.mikumiku2));
-        this.talkResult = this.talk.execute();
+        this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
+        this.talkResult = this.messageTalk.execute();
       } else { // MenuYesNo.NOTHING
         // Not touched menu icon.
-        this.talkResult = this.talk.executeNoInit();
+        this.talkResult = this.messageTalk.executeNoInit();
       }
     } else {
-      this.talkResult = this.talk.execute();
+      this.talkResult = this.messageTalk.execute();
     }
 
     if (MessageTalk.NOTHING == this.talkResult) {
-      if (null == this.menuYesNo && this.waiting) {
+      // Create new actions in here.
+
+      // Create Yes No select action.
+      if (null == this.currentAction && this.waiting) {
         // TEST Create menu.
-        this.menuYesNo = new MenuYesNo();
+        this.currentAction = new MenuYesNo(this);
         Resources res = WidgetManager.getInstance().getContext().getResources();
-        this.talk.messageQueue.add(res.getString(R.string.yesno));
+        this.messageTalk.messageQueue.add(res.getString(R.string.yesno));
 
         // Show message.
-        this.talkResult = this.talk.execute();
+        this.talkResult = this.messageTalk.execute();
       } else {
         this.waiting = true;
       }
@@ -81,7 +85,7 @@ public class SceneWait extends Scene {
   }
 
   @Override
-  protected void onViewProcess() {
+  public void onView() {
     RemoteViews views = new RemoteViews(WidgetManager.getInstance()
         .getContext().getPackageName(), R.layout.widget_miku);
 
@@ -89,7 +93,7 @@ public class SceneWait extends Scene {
       this.waitView(views);
     }
 
-    if (null != this.menuYesNo) {
+    if (null != this.currentAction) {
       this.yesnoView(views);
     } else {
       this.talkVIew(views);
@@ -122,8 +126,9 @@ public class SceneWait extends Scene {
    * @param views
    */
   private void yesnoView(RemoteViews views) {
-    this.menuYesNo.view(views);
-    views.setTextViewText(R.id.miku_message, this.talk.message.toString());
+    this.currentAction.view(views);
+    views.setTextViewText(R.id.miku_message,
+        this.messageTalk.message.toString());
     views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
   }
@@ -137,7 +142,8 @@ public class SceneWait extends Scene {
     if (MessageTalk.TALKING == this.talkResult
         || MessageTalk.SHOW_ALL == this.talkResult) {
       views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
-      views.setTextViewText(R.id.miku_message, this.talk.message.toString());
+      views.setTextViewText(R.id.miku_message,
+          this.messageTalk.message.toString());
     } else {
       views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
     }
@@ -158,7 +164,10 @@ public class SceneWait extends Scene {
     public void handleMessage(Message msg) {
       switch (msg.what) {
       case SceneWait.FORCE_WAIT:
+        // Set waiting mode.
         waiting = true;
+        // Clear view.
+        onView();
         break;
       }
     }
@@ -172,11 +181,15 @@ public class SceneWait extends Scene {
   /**
    * Use to talk.
    */
-  private MessageTalk talk;
+  private MessageTalk messageTalk;
+
+  public MessageTalk getMessageTalk() {
+    return messageTalk;
+  }
 
   private int talkResult;
 
-  private MenuYesNo menuYesNo;
+  private Action currentAction;
 
   private boolean waiting;
 

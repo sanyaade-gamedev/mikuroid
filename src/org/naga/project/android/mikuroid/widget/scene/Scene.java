@@ -1,5 +1,7 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
+import org.naga.project.android.message.MessageTalk;
+
 import android.content.Intent;
 
 public abstract class Scene {
@@ -13,34 +15,9 @@ public abstract class Scene {
 
   public abstract boolean create();
 
-  public void onUpdate(Intent intent) {
-    if (null != this.scene) {
-      // Child update.
-      this.scene.onUpdate(intent);
-    } else {
-      // My update.
-      this.onUpdateProcess(intent);
-    }
-  }
+  public abstract void onUpdate(Intent intent);
 
-  public void onView() {
-    if (null != this.scene) {
-      // Child view.
-      this.scene.onView();
-
-      // Child scene is finished?
-      if (this.scene.finish) {
-        this.scene = null;
-      }
-    } else {
-      // My view.
-      this.onViewProcess();
-    }
-  }
-
-  protected abstract void onUpdateProcess(Intent intent);
-
-  protected abstract void onViewProcess();
+  public abstract void onView();
 
   private Scene scene;
 
@@ -53,5 +30,7 @@ public abstract class Scene {
   public void setScene(Scene scene) {
     this.scene = scene;
   }
+
+  public abstract MessageTalk getMessageTalk();
 
 }
