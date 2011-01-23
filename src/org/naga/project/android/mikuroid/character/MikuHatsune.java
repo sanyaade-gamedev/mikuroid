@@ -16,7 +16,7 @@ public class MikuHatsune {
     super();
     Log.d("MikuHatsune", "constructor");
 
-    this.activeSurface = MikuHatsune.SURFACE_NORMAL;
+    this.currentSurface = MikuHatsune.SURFACE_NORMAL;
   }
 
   public boolean create() {
@@ -42,6 +42,6 @@ public class MikuHatsune {
    * }
    */
 
-  public int activeSurface;
+  public int currentSurface;
 
 }
