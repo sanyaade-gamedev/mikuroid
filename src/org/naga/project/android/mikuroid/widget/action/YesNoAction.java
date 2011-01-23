@@ -12,6 +12,12 @@ import android.content.res.Resources;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
+/**
+ * Dependent on SceneWait
+ * 
+ * @author reciente
+ * 
+ */
 public class YesNoAction extends Action {
 
   private static final int NONE = 0;
@@ -61,9 +67,16 @@ public class YesNoAction extends Action {
   }
 
   public void view(RemoteViews views) {
+    SceneWait sceneWait = (SceneWait) this.scene;
+
     views.setViewVisibility(R.id.yesno, ImageView.VISIBLE);
 
     views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_SURPRISED);
+
+    views.setTextViewText(R.id.miku_message,
+        sceneWait.messageTalk.message.toString());
+    views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
+    WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
   }
 
 }
