@@ -1,13 +1,17 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
+import org.naga.project.android.mikuroid.widget.action.Action;
+
 import android.content.Intent;
 
 public interface Scene {
 
-  public abstract boolean create();
+  public boolean create();
 
-  public abstract void onUpdate(Intent intent);
+  public void onUpdate(Intent intent);
 
-  public abstract void onView();
+  public void onView();
+
+  public void setReserveAction(Action action);
 
 }

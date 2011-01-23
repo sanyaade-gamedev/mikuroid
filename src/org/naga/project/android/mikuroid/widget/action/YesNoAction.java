@@ -1,11 +1,11 @@
 package org.naga.project.android.mikuroid.widget.action;
 
+import org.naga.project.android.message.MessageTalk;
 import org.naga.project.android.mikuroid.MikuroidIntent;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.scene.Scene;
-import org.naga.project.android.mikuroid.widget.scene.SceneWait;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.RemoteViews;
 
 /**
- * Dependent on SceneWait
  * 
  * @author reciente
  * 
@@ -26,6 +25,16 @@ public class YesNoAction extends Action {
 
   public YesNoAction(Scene s) {
     super(s);
+  }
+
+  @Override
+  public boolean create() {
+    this.messageTalk = new MessageTalk(this.scene, 100, 20);
+
+    Resources res = WidgetManager.getInstance().getContext().getResources();
+    this.messageTalk.messageQueue.add(res.getString(R.string.yesno));
+
+    return true;
   }
 
   public boolean update(Intent intent) {
@@ -43,41 +52,31 @@ public class YesNoAction extends Action {
       }
     }
 
-    SceneWait sceneWait = (SceneWait) this.scene;
-
     if (selected == YesNoAction.SELECT_YES) {
-      sceneWait.messageTalk.init();
+      this.scene.setReserveAction(new TalkAction(this.scene));
       result = false;
-
-      Resources res = WidgetManager.getInstance().getContext().getResources();
-      sceneWait.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
-      sceneWait.talkResult = sceneWait.messageTalk.execute();
     } else if (selected == YesNoAction.SELECT_NO) {
-      sceneWait.messageTalk.init();
+      this.scene.setReserveAction(new TalkAction(this.scene));
       result = false;
-
-      Resources res = WidgetManager.getInstance().getContext().getResources();
-      sceneWait.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
-      sceneWait.talkResult = sceneWait.messageTalk.execute();
     } else { // MenuYesNo.NOTHING
       // Not touched menu icon.
-      sceneWait.talkResult = sceneWait.messageTalk.executeNoInit();
+      this.messageTalk.executeNoInit();
     }
 
     return result;
   }
 
   public void view(RemoteViews views) {
-    SceneWait sceneWait = (SceneWait) this.scene;
-
     views.setViewVisibility(R.id.yesno, ImageView.VISIBLE);
 
     views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_SURPRISED);
 
     views.setTextViewText(R.id.miku_message,
-        sceneWait.messageTalk.message.toString());
+        this.messageTalk.message.toString());
     views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
   }
+
+  private MessageTalk messageTalk;
 
 }
