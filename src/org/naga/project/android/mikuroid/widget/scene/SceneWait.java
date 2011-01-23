@@ -1,6 +1,5 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
-import org.naga.project.android.message.MessageTalk;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
@@ -17,7 +16,6 @@ import android.widget.RemoteViews;
 public class SceneWait implements Scene {
 
   public SceneWait() {
-    this.talkResult = MessageTalk.NOTHING;
     this.currentAction = null;
     this.waiting = false;
   }
@@ -47,18 +45,16 @@ public class SceneWait implements Scene {
       }
     }
 
-    if (MessageTalk.NOTHING == this.talkResult) {
-      // Create new actions in here.
+    // Create new actions in here.
 
-      // Create Yes No select action.
-      if (null == this.currentAction && this.waiting) {
-        // TEST Create menu.
-        this.currentAction = new YesNoAction(this);
-        this.currentAction.create();
-        this.currentAction.update(intent);
-      } else {
-        this.waiting = true;
-      }
+    // Create Yes No select action.
+    if (null == this.currentAction && this.waiting) {
+      // TEST Create menu.
+      this.currentAction = new YesNoAction(this);
+      this.currentAction.create();
+      this.currentAction.update(intent);
+    } else {
+      this.waiting = true;
     }
   }
 
@@ -67,7 +63,12 @@ public class SceneWait implements Scene {
         .getContext().getPackageName(), R.layout.widget_miku);
 
     if (this.waiting) {
-      this.waitView(views);
+      // View wait surface.
+      WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
+
+      views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
+      views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
+      views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
     }
 
     if (null != this.currentAction) {
@@ -81,20 +82,6 @@ public class SceneWait implements Scene {
     views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
 
     WidgetManager.getInstance().updateAppWidget(views);
-  }
-
-  /**
-   * View process when waiting mode.
-   * 
-   * @param views
-   */
-  private void waitView(RemoteViews views) {
-    // View wait surface.
-    WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
-
-    views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
-    views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
-    views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
   }
 
   static final int FORCE_WAIT = 1;
@@ -121,8 +108,6 @@ public class SceneWait implements Scene {
   private void clearHandler() {
     this.handler.removeMessages(SceneWait.FORCE_WAIT);
   }
-
-  public int talkResult;
 
   private Action currentAction;
 
