@@ -5,10 +5,10 @@ import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.action.Action;
+import org.naga.project.android.mikuroid.widget.action.TalkAction;
 import org.naga.project.android.mikuroid.widget.action.YesNoAction;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
@@ -23,13 +23,8 @@ public class SceneWait implements Scene {
   }
 
   public boolean create() {
-    this.messageTalk = new MessageTalk(this, 100, 20);
-
-    Resources res = WidgetManager.getInstance().getContext().getResources();
-
-    // Add talk message.
-    this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
-    this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
+    this.currentAction = new TalkAction(this);
+    this.currentAction.create();
 
     return true;
   }
@@ -41,9 +36,15 @@ public class SceneWait implements Scene {
       if (!this.currentAction.update(intent)) {
         // If return false, delete current action.
         this.currentAction = null;
+
+        if (null != this.reservedAction) {
+          this.currentAction = this.reservedAction;
+          this.reservedAction = null;
+
+          this.currentAction.create();
+          this.currentAction.update(intent);
+        }
       }
-    } else {
-      this.talkResult = this.messageTalk.execute();
     }
 
     if (MessageTalk.NOTHING == this.talkResult) {
@@ -53,11 +54,8 @@ public class SceneWait implements Scene {
       if (null == this.currentAction && this.waiting) {
         // TEST Create menu.
         this.currentAction = new YesNoAction(this);
-        Resources res = WidgetManager.getInstance().getContext().getResources();
-        this.messageTalk.messageQueue.add(res.getString(R.string.yesno));
-
-        // Show message.
-        this.talkResult = this.messageTalk.execute();
+        this.currentAction.create();
+        this.currentAction.update(intent);
       } else {
         this.waiting = true;
       }
@@ -74,8 +72,6 @@ public class SceneWait implements Scene {
 
     if (null != this.currentAction) {
       this.currentAction.view(views);
-    } else {
-      this.talkVIew(views);
     }
 
     views.setImageViewResource(MikuHatsune.ID_IMAGE_VIEW,
@@ -97,26 +93,8 @@ public class SceneWait implements Scene {
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
 
     views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
-  }
-
-  /**
-   * View process when talking mode.
-   * 
-   * @param views
-   */
-  private void talkVIew(RemoteViews views) {
-    if (MessageTalk.TALKING == this.talkResult
-        || MessageTalk.SHOW_ALL == this.talkResult) {
-      views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
-      views.setTextViewText(R.id.miku_message,
-          this.messageTalk.message.toString());
-    } else {
-      views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
-    }
-
-    WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
-
     views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
+    views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
   }
 
   static final int FORCE_WAIT = 1;
@@ -144,15 +122,16 @@ public class SceneWait implements Scene {
     this.handler.removeMessages(SceneWait.FORCE_WAIT);
   }
 
-  /**
-   * Use to talk.
-   */
-  public MessageTalk messageTalk;
-
   public int talkResult;
 
   private Action currentAction;
 
+  private Action reservedAction;
+
   private boolean waiting;
+
+  public void setReserveAction(Action action) {
+    this.reservedAction = action;
+  }
 
 }
