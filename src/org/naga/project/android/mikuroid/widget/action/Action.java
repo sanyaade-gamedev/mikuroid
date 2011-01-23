@@ -11,7 +11,7 @@ abstract public class Action {
     this.scene = s;
   }
 
-  public abstract int update(Intent intent);
+  public abstract boolean update(Intent intent);
 
   public abstract void view(RemoteViews views);
 
