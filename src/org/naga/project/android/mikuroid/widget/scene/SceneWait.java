@@ -5,7 +5,7 @@ import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.action.Action;
-import org.naga.project.android.mikuroid.widget.action.MenuYesNo;
+import org.naga.project.android.mikuroid.widget.action.YesNoAction;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -38,26 +38,7 @@ public class SceneWait implements Scene {
     if (null != this.currentAction) {
       this.waiting = false;
 
-      int menuResult = this.currentAction.update(intent);
-
-      if (MenuYesNo.YES == menuResult) {
-        this.messageTalk.init();
-        this.currentAction = null;
-
-        Resources res = WidgetManager.getInstance().getContext().getResources();
-        this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
-        this.talkResult = this.messageTalk.execute();
-      } else if (MenuYesNo.NO == menuResult) {
-        this.messageTalk.init();
-        this.currentAction = null;
-
-        Resources res = WidgetManager.getInstance().getContext().getResources();
-        this.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
-        this.talkResult = this.messageTalk.execute();
-      } else { // MenuYesNo.NOTHING
-        // Not touched menu icon.
-        this.talkResult = this.messageTalk.executeNoInit();
-      }
+      this.currentAction.update(intent);
     } else {
       this.talkResult = this.messageTalk.execute();
     }
@@ -68,7 +49,7 @@ public class SceneWait implements Scene {
       // Create Yes No select action.
       if (null == this.currentAction && this.waiting) {
         // TEST Create menu.
-        this.currentAction = new MenuYesNo(this);
+        this.currentAction = new YesNoAction(this);
         Resources res = WidgetManager.getInstance().getContext().getResources();
         this.messageTalk.messageQueue.add(res.getString(R.string.yesno));
 
@@ -176,15 +157,11 @@ public class SceneWait implements Scene {
   /**
    * Use to talk.
    */
-  private MessageTalk messageTalk;
+  public MessageTalk messageTalk;
 
-  public MessageTalk getMessageTalk() {
-    return messageTalk;
-  }
+  public int talkResult;
 
-  private int talkResult;
-
-  private Action currentAction;
+  public Action currentAction;
 
   private boolean waiting;
 
