@@ -8,7 +8,14 @@ import org.naga.project.android.mikuroid.widget.WidgetManager;
 
 public abstract class MikuMessage {
 
+  /**
+   * Battery is low when battery level is lower than this number.
+   */
   private static final int BATTERY_LOW_LEVEL = 30;
+
+  /**
+   * Battery is FULL when battery level is equal this number.
+   */
   private static final int BATTERY_FULL_LEVEL = 100;
 
   public static List<String> generateBatteryLevelMessage() {
@@ -18,14 +25,17 @@ public abstract class MikuMessage {
     List<String> messageList = new ArrayList<String>();
 
     if (batteryLevel.intValue() < MikuMessage.BATTERY_LOW_LEVEL) {
-      messageList.add(String.format(WidgetManager.getInstance().getContext().getResources()
-          .getString(R.string.battery_low), batteryLevel.intValue()));
+      messageList.add(String.format(WidgetManager.getInstance().getContext()
+          .getResources().getString(R.string.battery_low),
+          batteryLevel.intValue()));
     } else if (batteryLevel.intValue() == MikuMessage.BATTERY_FULL_LEVEL) {
-      messageList.add(String.format(WidgetManager.getInstance().getContext().getResources()
-          .getString(R.string.battery_full), batteryLevel.intValue()));
+      messageList.add(String.format(WidgetManager.getInstance().getContext()
+          .getResources().getString(R.string.battery_full),
+          batteryLevel.intValue()));
     } else {
-      messageList.add(String.format(WidgetManager.getInstance().getContext().getResources()
-          .getString(R.string.battery_good), batteryLevel.intValue()));
+      messageList.add(String.format(WidgetManager.getInstance().getContext()
+          .getResources().getString(R.string.battery_good),
+          batteryLevel.intValue()));
     }
 
     return messageList;

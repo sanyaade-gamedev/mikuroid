@@ -162,6 +162,9 @@ public class WidgetManager {
    */
   private Scene currentScene;
 
+  /**
+   * Widget reserve scene. Use to switch scenes.
+   */
   private Scene reservedScene;
 
   /**

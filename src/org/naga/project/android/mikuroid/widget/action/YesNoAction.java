@@ -19,9 +19,9 @@ import android.widget.RemoteViews;
  */
 public class YesNoAction extends Action {
 
-  private static final int SELECT_NONE = 0;
-  private static final int SELECT_YES = 1;
-  private static final int SELECT_NO = 2;
+  private static final int SELECT_NONE = 1;
+  private static final int SELECT_YES = 2;
+  private static final int SELECT_NO = 3;
 
   public YesNoAction(Scene s) {
     super(s);
