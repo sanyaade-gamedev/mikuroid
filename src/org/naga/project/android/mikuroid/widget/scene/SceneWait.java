@@ -62,6 +62,7 @@ public class SceneWait implements Scene {
         action.messageTalk.messageQueue.addAll(MikuMessage
             .generateBatteryLevelMessage());
         this.currentAction = action;
+        this.currentAction.update(intent);
       }
     } else {
       this.waiting = true;
