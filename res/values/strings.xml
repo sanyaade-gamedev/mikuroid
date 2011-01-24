@@ -7,8 +7,10 @@
 	<string name="mikumiku1">みっくみっくにしてあげる～♪</string>
 	<string name="mikumiku2">みっくみっくにしてやんよ～♪</string>
 	<string name="battery_full">電池残量%dパーセント！！\n満タンだね♪</string>
-	<string name="battery_good">電池残量%dパーセント！！\n十分にあるよ。まだまだ余裕だね♪</string>
+	<string name="battery_good">電池残量%dパーセント！！\nまだまだ余裕だね♪</string>
 	<string name="battery_low">電池残量%dパーセント！！\n減ってきてるよ。大丈夫かな？</string>
-	<string name="battery_charging">充電中だよ。たくさん充電してね！</string>
+	<string name="battery_danger">電池残量%dパーセント！？\nはわわわ！残り少ないよ、気をつけてね。</string>
+	<string name="battery_deadly">電池残量%dパーセント！？\nも、もうダメ・・・落ちちゃう！！</string>
+	<string name="battery_charging">充電中だよ。</string>
 	<string name="yesno">Yesなら青、Noなら赤の音符をタッチしてね。</string>
 </resources>
