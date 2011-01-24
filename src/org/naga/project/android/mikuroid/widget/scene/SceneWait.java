@@ -22,9 +22,7 @@ public class SceneWait implements Scene {
   }
 
   public boolean create() {
-    this.currentAction = new TalkAction(this);
-    this.currentAction.create();
-
+    this.waiting = true;
     return true;
   }
 
@@ -51,16 +49,15 @@ public class SceneWait implements Scene {
 
       if (SceneWait.count % 2 == 0) {
         // Create Yes No select action.
-        this.currentAction = new YesNoAction(this);
-        this.currentAction.create();
+        YesNoAction action = new YesNoAction(this);
+        action.create();
+        this.currentAction = action;
         this.currentAction.update(intent);
 
         SceneWait.count = 0;
       } else {
         TalkAction action = new TalkAction(this);
-        action.create();
-        action.messageTalk.messageQueue.addAll(MikuMessage
-            .generateBatteryLevelMessage());
+        action.create(MikuMessage.generateBatteryLevelMessage());
         this.currentAction = action;
         this.currentAction.update(intent);
       }

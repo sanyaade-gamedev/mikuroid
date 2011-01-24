@@ -1,5 +1,7 @@
 package org.naga.project.android.mikuroid.widget.action;
 
+import java.util.List;
+
 import org.naga.project.android.message.MessageTalk;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
@@ -18,9 +20,24 @@ public class TalkAction extends Action {
     this.talkResult = MessageTalk.NOTHING;
   }
 
-  @Override
-  public boolean create() {
+  public boolean create(List<String> messageList) {
+    if (null == messageList) {
+      return false;
+    }
+
     this.messageTalk = new MessageTalk(this.scene, 100, 20);
+    this.messageTalk.messageQueue.addAll(messageList);
+
+    return true;
+  }
+
+  public boolean create(String message) {
+    if (null == message) {
+      return false;
+    }
+
+    this.messageTalk = new MessageTalk(this.scene, 100, 20);
+    this.messageTalk.messageQueue.add(message);
 
     return true;
   }
@@ -52,7 +69,7 @@ public class TalkAction extends Action {
     views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
   }
 
-  public MessageTalk messageTalk;
+  private MessageTalk messageTalk;
 
   private int talkResult;
 

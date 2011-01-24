@@ -21,13 +21,12 @@ public class YesNoAction extends Action {
 
   private static final int SELECT_NONE = 1;
   private static final int SELECT_YES = 2;
-  private static final int SELECT_NO = 3;
+  private static final int SELECT_NO = 2;
 
   public YesNoAction(Scene s) {
     super(s);
   }
 
-  @Override
   public boolean create() {
     this.messageTalk = new MessageTalk(this.scene, 100, 20);
 
@@ -53,23 +52,19 @@ public class YesNoAction extends Action {
     }
 
     if (selected == YesNoAction.SELECT_YES) {
-      TalkAction action = new TalkAction(this.scene);
-      action.create();
-      this.scene.setReserveAction(action);
       Resources res = WidgetManager.getInstance().getContext().getResources();
       // Add talk message.
-      action.messageTalk.messageQueue.add(res.getString(R.string.mikumiku1));
+      TalkAction action = new TalkAction(this.scene);
+      action.create(res.getString(R.string.mikumiku1));
+      this.scene.setReserveAction(action);
 
       result = false;
     } else if (selected == YesNoAction.SELECT_NO) {
-      TalkAction action = new TalkAction(this.scene);
-      action.create();
-      this.scene.setReserveAction(action);
-
       Resources res = WidgetManager.getInstance().getContext().getResources();
-
       // Add talk message.
-      action.messageTalk.messageQueue.add(res.getString(R.string.mikumiku2));
+      TalkAction action = new TalkAction(this.scene);
+      action.create(res.getString(R.string.mikumiku2));
+      this.scene.setReserveAction(action);
 
       result = false;
     } else { // MenuYesNo.NOTHING
