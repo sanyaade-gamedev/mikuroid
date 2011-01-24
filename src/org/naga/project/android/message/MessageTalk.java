@@ -28,6 +28,7 @@ public class MessageTalk {
    */
   public void init() {
     this.messageIndex = 0;
+    this.messageReturnIndex = 0;
     this.currentMessage = "";
     this.message.setLength(0);
     this.talking = false;
@@ -131,12 +132,21 @@ public class MessageTalk {
       this.talkHandler.sendEmptyMessage(MessageTalk.HANDLE_TALK_STOP);
       return;
     }
-    // Return line.
-    if (this.messageIndex % this.returnIndex == 0) {
-      this.message.append("\n");
+
+    if (this.currentMessage.charAt(this.messageIndex) == '\n') {
+      // Reset return index counter.
+      this.messageReturnIndex = 0;
+    } else {
+      // Return line.
+      if (this.messageReturnIndex % this.returnIndex == 0) {
+        this.message.append("\n");
+        this.messageReturnIndex = 0;
+      }
     }
+
     this.message.append(this.currentMessage.charAt(this.messageIndex));
     this.messageIndex++;
+    this.messageReturnIndex++;
 
     this.talkHandler.sendEmptyMessageDelayed(MessageTalk.HANDLE_TALK_MESSAGE,
         talkSpeed);
@@ -150,12 +160,20 @@ public class MessageTalk {
 
     // Add a remaining characters.
     while (this.messageIndex < this.currentMessage.length()) {
-      // Return line.
-      if (this.messageIndex % this.returnIndex == 0) {
-        this.message.append("\n");
+      if (this.currentMessage.charAt(this.messageIndex) == '\n') {
+        // Reset return index counter.
+        this.messageReturnIndex = 0;
+      } else {
+        // Return line.
+        if (this.messageReturnIndex % this.returnIndex == 0) {
+          this.message.append("\n");
+          this.messageReturnIndex = 0;
+        }
       }
+
       this.message.append(this.currentMessage.charAt(this.messageIndex));
       this.messageIndex++;
+      this.messageReturnIndex++;
     }
   }
 
@@ -187,9 +205,14 @@ public class MessageTalk {
   private boolean talking;
 
   /**
-   * Use to talk. Index of currentMessage. To show message step by step.
+   * Index of currentMessage. To show message step by step.
    */
   private int messageIndex;
+
+  /**
+   * Counter to return line.
+   */
+  private int messageReturnIndex;
 
   /**
    * Current message that character is talking.
