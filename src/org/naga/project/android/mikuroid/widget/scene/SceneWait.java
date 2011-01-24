@@ -22,7 +22,11 @@ public class SceneWait implements Scene {
   }
 
   public boolean create() {
-    this.waiting = true;
+    TalkAction action = new TalkAction(this);
+    action.create(WidgetManager.getInstance().getContext().getResources()
+        .getString(R.string.message001));
+    this.currentAction = action;
+
     return true;
   }
 
