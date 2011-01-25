@@ -8,4 +8,6 @@ public class MikuroidIntent {
 
   public static final String ACTION_NO = "org.naga.project.android.mikuroid.ACTION_NO";
 
+  public static final String ACTION_CONFIGURE = "org.naga.project.android.mikuroid.ACTION_CONFIGURE";
+
 }
