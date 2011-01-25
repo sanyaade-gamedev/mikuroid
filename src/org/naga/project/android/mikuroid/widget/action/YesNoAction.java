@@ -76,13 +76,13 @@ public class YesNoAction extends Action {
   }
 
   public void view(RemoteViews views) {
-    views.setViewVisibility(R.id.yesno, ImageView.VISIBLE);
+    views.setViewVisibility(R.id.yesno_layout, ImageView.VISIBLE);
 
     views.setImageViewResource(R.id.miku, MikuHatsune.SURFACE_SURPRISED);
 
     views.setTextViewText(R.id.miku_message,
         this.messageTalk.message.toString());
-    views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
+    views.setViewVisibility(R.id.baloon_layout, ImageView.VISIBLE);
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
   }
 

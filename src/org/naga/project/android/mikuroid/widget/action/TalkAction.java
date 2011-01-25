@@ -57,16 +57,16 @@ public class TalkAction extends Action {
   public void view(RemoteViews views) {
     if (MessageTalk.TALKING == this.talkResult
         || MessageTalk.SHOW_ALL == this.talkResult) {
-      views.setViewVisibility(R.id.baloon0, ImageView.VISIBLE);
+      views.setViewVisibility(R.id.baloon_layout, ImageView.VISIBLE);
       views.setTextViewText(R.id.miku_message,
           this.messageTalk.message.toString());
     } else {
-      views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
+      views.setViewVisibility(R.id.baloon_layout, ImageView.INVISIBLE);
     }
 
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
 
-    views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
+    views.setViewVisibility(R.id.yesno_layout, ImageView.INVISIBLE);
   }
 
   private MessageTalk messageTalk;

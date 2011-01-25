@@ -1,5 +1,8 @@
 package org.naga.project.android.mikuroid.widget.scene;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.character.MikuMessage;
@@ -7,6 +10,8 @@ import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.action.Action;
 import org.naga.project.android.mikuroid.widget.action.TalkAction;
 import org.naga.project.android.mikuroid.widget.action.YesNoAction;
+import org.naga.project.android.mikuroid.widget.listener.ConfigureListener;
+import org.naga.project.android.mikuroid.widget.listener.Listener;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -27,11 +32,14 @@ public class SceneWait implements Scene {
         .getString(R.string.message001));
     this.currentAction = action;
 
+    this.listenerList = new ArrayList<Listener>();
+    this.listenerList.add(new ConfigureListener());
+
     return true;
   }
 
   public void onUpdate(Intent intent) {
-    if (null != this.currentAction) {
+    if (this.currentAction != null) {
       this.waiting = false;
 
       if (!this.currentAction.update(intent)) {
@@ -47,7 +55,7 @@ public class SceneWait implements Scene {
       }
     }
 
-    if (null == this.currentAction && this.waiting) {
+    if (this.currentAction == null && this.waiting) {
       // Create new actions in here.
       SceneWait.count++;
 
@@ -68,6 +76,11 @@ public class SceneWait implements Scene {
     } else {
       this.waiting = true;
     }
+
+    // Listen intent event.
+    for (Listener listener : this.listenerList) {
+      listener.onListen(intent);
+    }
   }
 
   public void onView() {
@@ -78,9 +91,8 @@ public class SceneWait implements Scene {
       // View wait surface.
       WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
 
-      views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
-      views.setViewVisibility(R.id.yesno, ImageView.INVISIBLE);
-      views.setViewVisibility(R.id.baloon0, ImageView.INVISIBLE);
+      views.setViewVisibility(R.id.yesno_layout, ImageView.INVISIBLE);
+      views.setViewVisibility(R.id.baloon_layout, ImageView.INVISIBLE);
     }
 
     if (null != this.currentAction) {
@@ -128,6 +140,8 @@ public class SceneWait implements Scene {
   private Action reservedAction;
 
   private boolean waiting;
+
+  private List<Listener> listenerList;
 
   public void setReserveAction(Action action) {
     this.reservedAction = action;
