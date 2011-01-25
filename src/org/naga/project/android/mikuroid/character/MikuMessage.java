@@ -76,4 +76,10 @@ public abstract class MikuMessage {
     return messageList;
   }
 
+  public static List<String> generateClockMessage() {
+    List<String> messageList = new ArrayList<String>();
+
+    return messageList;
+  }
+
 }
