@@ -5,7 +5,7 @@
     android:layout_height="fill_parent">
 
   <FrameLayout
-    android:id="@+id/baloon0"
+    android:id="@+id/baloon_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:visibility="invisible" >
@@ -33,7 +33,7 @@
   </FrameLayout>
 
   <FrameLayout
-    android:id="@+id/nicovideo"
+    android:id="@+id/nicovideo_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:visibility="invisible" >
@@ -48,7 +48,7 @@
   </FrameLayout>
 
   <AbsoluteLayout
-    android:id="@+id/yesno"
+    android:id="@+id/yesno_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:visibility="invisible" >
@@ -68,6 +68,22 @@
       android:layout_width="40dp"
       android:layout_height="40dp"
       android:src="@drawable/notepink" />
+
+  </AbsoluteLayout>
+
+  <AbsoluteLayout
+    android:id="@+id/configure_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible" >
+
+    <ImageButton
+      android:id="@+id/configure"
+      android:layout_x="20dp"
+      android:layout_y="250dp"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:src="@drawable/noteblue" />
 
   </AbsoluteLayout>
 

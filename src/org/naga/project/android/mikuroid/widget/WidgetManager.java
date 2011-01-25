@@ -80,6 +80,7 @@ public class WidgetManager {
     views.setOnClickPendingIntent(R.id.miku, this.pendingIntentMiku);
     views.setOnClickPendingIntent(R.id.yes, this.pendingIntentYes);
     views.setOnClickPendingIntent(R.id.no, this.pendingIntentNo);
+    views.setOnClickPendingIntent(R.id.configure, this.pendingIntentConfigure);
 
     this.appWidgetManager.updateAppWidget(this.widget, views);
   }
@@ -104,15 +105,23 @@ public class WidgetManager {
     this.pendingIntentMiku = PendingIntent.getService(this.context, 0,
         intentMiku, PendingIntent.FLAG_UPDATE_CURRENT);
 
+    // Yes button.
     Intent intentYes = new Intent();
     intentYes.setAction(MikuroidIntent.ACTION_YES);
     this.pendingIntentYes = PendingIntent.getService(this.context, 0,
         intentYes, PendingIntent.FLAG_UPDATE_CURRENT);
 
+    // No button.
     Intent intentNo = new Intent();
     intentNo.setAction(MikuroidIntent.ACTION_NO);
     this.pendingIntentNo = PendingIntent.getService(this.context, 0, intentNo,
         PendingIntent.FLAG_UPDATE_CURRENT);
+
+    // Configure button.
+    Intent intentConfigure = new Intent();
+    intentConfigure.setAction(MikuroidIntent.ACTION_CONFIGURE);
+    this.pendingIntentConfigure = PendingIntent.getService(this.context, 0,
+        intentConfigure, PendingIntent.FLAG_UPDATE_CURRENT);
 
     this.widget = new ComponentName(this.context, WidgetProvider.class);
     this.appWidgetManager = AppWidgetManager.getInstance(this.context);
@@ -141,6 +150,11 @@ public class WidgetManager {
    * Pending intent to set intent action. No ImageButton intent.
    */
   private PendingIntent pendingIntentNo;
+
+  /**
+   * Pending intent to set intent action. Configure ImageButton intent.
+   */
+  private PendingIntent pendingIntentConfigure;
 
   /**
    * Widget component name.
