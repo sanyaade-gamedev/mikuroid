@@ -8,14 +8,12 @@ import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.character.MikuMessage;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.action.Action;
+import org.naga.project.android.mikuroid.widget.action.ElectricPowerUsageAction;
 import org.naga.project.android.mikuroid.widget.action.TalkAction;
-import org.naga.project.android.mikuroid.widget.action.YesNoAction;
 import org.naga.project.android.mikuroid.widget.listener.ConfigureListener;
 import org.naga.project.android.mikuroid.widget.listener.Listener;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
@@ -60,8 +58,8 @@ public class SceneWait implements Scene {
       SceneWait.count++;
 
       if (SceneWait.count % 2 == 0) {
-        // Create Yes No select action.
-        YesNoAction action = new YesNoAction(this);
+        // Create Electric power usage action.
+        ElectricPowerUsageAction action = new ElectricPowerUsageAction(this);
         action.create();
         this.currentAction = action;
         this.currentAction.update(intent);
@@ -92,7 +90,7 @@ public class SceneWait implements Scene {
       WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
 
       views.setViewVisibility(R.id.yesno_layout, ImageView.INVISIBLE);
-      views.setViewVisibility(R.id.baloon_layout, ImageView.INVISIBLE);
+      views.setViewVisibility(R.id.balloon_layout, ImageView.INVISIBLE);
     }
 
     if (null != this.currentAction) {
@@ -103,31 +101,6 @@ public class SceneWait implements Scene {
         WidgetManager.getInstance().miku.currentSurface);
 
     WidgetManager.getInstance().updateAppWidget(views);
-  }
-
-  static final int FORCE_WAIT = 1;
-
-  /**
-   * Handler to clear view.
-   */
-  private Handler handler = new Handler() {
-
-    @Override
-    public void handleMessage(Message msg) {
-      switch (msg.what) {
-      case SceneWait.FORCE_WAIT:
-        // Set waiting mode.
-        waiting = true;
-        // Clear view.
-        onView();
-        break;
-      }
-    }
-
-  };
-
-  private void clearHandler() {
-    this.handler.removeMessages(SceneWait.FORCE_WAIT);
   }
 
   private static int count = 0;

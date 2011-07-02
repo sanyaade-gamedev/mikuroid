@@ -36,6 +36,7 @@ public class YesNoAction extends Action {
     return true;
   }
 
+  @Override
   public boolean update(Intent intent) {
     int selected = YesNoAction.SELECT_NONE;
     boolean result = true;
@@ -75,6 +76,7 @@ public class YesNoAction extends Action {
     return result;
   }
 
+  @Override
   public void view(RemoteViews views) {
     views.setViewVisibility(R.id.yesno_layout, ImageView.VISIBLE);
 
@@ -82,7 +84,7 @@ public class YesNoAction extends Action {
 
     views.setTextViewText(R.id.miku_message,
         this.messageTalk.message.toString());
-    views.setViewVisibility(R.id.baloon_layout, ImageView.VISIBLE);
+    views.setViewVisibility(R.id.balloon_layout, ImageView.VISIBLE);
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_ANGRY;
   }
 
