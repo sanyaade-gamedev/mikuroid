@@ -1,7 +1,6 @@
 package org.naga.project.android.mikuroid.widget;
 
 import org.naga.project.android.Information;
-import org.naga.project.android.mikuroid.MikuroidConfigure;
 import org.naga.project.android.mikuroid.MikuroidIntent;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
@@ -49,6 +48,10 @@ public class WidgetManager {
     this.currentScene = null;
   }
 
+  /**
+   * 
+   * @return
+   */
   public boolean create() {
     // create will call any times.
     // so check null to not overload object.
@@ -56,7 +59,7 @@ public class WidgetManager {
       this.miku = new MikuHatsune();
       this.miku.create();
     }
-    
+
     if (null == this.epuDaemon) {
       this.epuDaemon = new ElectricPowerUsageDaemon();
     }
@@ -70,11 +73,19 @@ public class WidgetManager {
     return true;
   }
 
+  /**
+   * 
+   * @param intent
+   */
   public void execute(Intent intent) {
     this.currentScene.onUpdate(intent);
     this.currentScene.onView();
   }
 
+  /**
+   * 
+   * @param views
+   */
   public void updateAppWidget(RemoteViews views) {
     // Set pending intent to check has miku clicked.
     views.setOnClickPendingIntent(R.id.miku, this.pendingIntentMiku);
@@ -135,11 +146,6 @@ public class WidgetManager {
    * Widget character Miku Hatsune.
    */
   public MikuHatsune miku;
-
-  /**
-   * Widget configure.
-   */
-  public MikuroidConfigure config;
 
   /**
    * Android information.
