@@ -20,25 +20,8 @@ public class MikuHatsune {
   public boolean create() {
     Log.d("MikuHatsune", "create()");
 
-    /*
-     * List<NicovideoEntry> entryList = NicovideoNetwork
-     * .requestDailyRankingVOCALOID(); this.nicoEntryQueue.addAll(entryList);
-     * 
-     * new DownloadImageTask().execute(NicovideoUtil
-     * .generateThumbnailUrls(entryList));
-     */
-
     return true;
   }
-
-  /*
-   * Bitmap bitmap = NetworkManager.getInstance().load(
-   * "http://tn-skr2.smilevideo.jp/smile?i=13136668");
-   * 
-   * if (null != bitmap) { views.setViewVisibility(R.id.nicovideo_image,
-   * ImageView.VISIBLE); views.setImageViewBitmap(R.id.nicovideo_image, bitmap);
-   * }
-   */
 
   public int currentSurface = MikuHatsune.SURFACE_NORMAL;
 

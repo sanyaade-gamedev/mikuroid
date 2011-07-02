@@ -102,9 +102,6 @@ public class SceneWait implements Scene {
     views.setImageViewResource(MikuHatsune.ID_IMAGE_VIEW,
         WidgetManager.getInstance().miku.currentSurface);
 
-    // Invisible not using widgets.
-    views.setViewVisibility(R.id.nicovideo_image, ImageView.INVISIBLE);
-
     WidgetManager.getInstance().updateAppWidget(views);
   }
 
