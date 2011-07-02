@@ -7,6 +7,7 @@ import java.util.List;
 import org.naga.project.android.Information;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
+import org.naga.project.yahoo.dev.ElectricPowerUsage;
 import org.naga.project.yahoo.dev.ElectricPowerUsageInformation;
 import org.naga.project.yahoo.dev.ElectricPowerUsageService;
 
@@ -87,7 +88,7 @@ public abstract class MikuMessage {
    * 
    * @return
    */
-  public static List<String> generateElectricPowerUsageMessage() {
+  public static String generateElectricPowerUsageMessage() {
     List<String> messageList = new ArrayList<String>();
 
     ElectricPowerUsageInformation info = WidgetManager.getInstance().epuInformation;
@@ -97,35 +98,64 @@ public abstract class MikuMessage {
     if (info.useTokyo) {
       if (info.tokyo == null) {
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put(ElectricPowerUsageService.AREA, ElectricPowerUsageService.TOKYO);
+        params.put(ElectricPowerUsageService.AREA,
+            ElectricPowerUsageService.TOKYO);
         info.tokyo = ElectricPowerUsageService.httpRequest(params);
       }
 
       if (info.tokyo != null) {
-        String message = String.format(res.getString(
+        String messTokyo = String.format(res.getString(
             R.string.electric_power_usage_tokyo, (float) info.tokyo.usage
                 / (float) info.tokyo.capacity * 100));
-        messageList.add(message);
-        Log.d("MIKU MESSAGE", message);
+        messageList.add(messTokyo);
+        Log.d("MIKU MESSAGE", messTokyo);
       }
     }
 
-    if (info.useTohoku && info.tohoku != null) {
-      String message = String.format(
-          res.getString(R.string.electric_power_usage_tohoku),
-          (float) info.tohoku.usage / (float) info.tohoku.capacity * 100);
-      messageList.add(message);
-      Log.d("MIKU MESSAGE", message);
-    }
-    if (info.useKansai && info.kansai != null) {
-      String message = String.format(
-          res.getString(R.string.electric_power_usage_kansai),
-          (float) info.kansai.usage / (float) info.kansai.capacity * 100);
-      messageList.add(message);
-      Log.d("MIKU MESSAGE", message);
+    if (info.useTohoku) {
+      if (info.tohoku == null) {
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put(ElectricPowerUsageService.AREA,
+            ElectricPowerUsageService.TOHOKU);
+        info.tohoku = ElectricPowerUsageService.httpRequest(params);
+      }
+
+      if (info.tohoku != null) {
+        String messTohoku = String.format(
+            res.getString(R.string.electric_power_usage_tohoku),
+            (float) info.tohoku.usage / (float) info.tohoku.capacity * 100);
+        messageList.add(messTohoku);
+        Log.d("MIKU MESSAGE", messTohoku);
+      }
     }
 
-    return messageList;
+    if (info.useKansai) {
+      if (info.kansai == null) {
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put(ElectricPowerUsageService.AREA,
+            ElectricPowerUsageService.KANSAI);
+        info.kansai = ElectricPowerUsageService.httpRequest(params);
+      }
+
+      if (info.kansai != null) {
+        String messKansai = String.format(
+            res.getString(R.string.electric_power_usage_kansai),
+            (float) info.kansai.usage / (float) info.kansai.capacity * 100);
+        messageList.add(messKansai);
+        Log.d("MIKU MESSAGE", messKansai);
+      }
+    }
+
+    if (messageList.isEmpty()) {
+      return res.getString(R.string.electric_power_usage_request_error);
+    }
+
+    String message = res.getString(R.string.electric_power_usage_begin);
+    for (String mess : messageList) {
+      message += "\n" + mess;
+    }
+
+    return message;
   }
 
 }

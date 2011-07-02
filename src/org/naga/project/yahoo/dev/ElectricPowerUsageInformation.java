@@ -9,8 +9,8 @@ public class ElectricPowerUsageInformation {
 
     // Default is tokyo area
     this.useTokyo = true;
-    this.useTohoku = false;
-    this.useKansai = false;
+    this.useTohoku = true;
+    this.useKansai = true;
   }
 
   public ElectricPowerUsage tokyo;
