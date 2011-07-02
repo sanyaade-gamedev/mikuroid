@@ -14,7 +14,7 @@
 	<string name="battery_deadly">電池残量%d％！？\nも、もうダメ・・・落ちちゃう！！</string>
 	<string name="battery_charging">充電中だよ。</string>
 	<string name="yesno">Yesなら青、Noなら赤の音符をタッチしてね。</string>
-	<string name="electric_power_corps">電力会社</string>
+	<string name="electric_power_corps">電力消費量</string>
 	<string name="electric_power_usage_begin">現在の各電力会社の消費電力量だよ。</string>
 	<string name="electric_power_usage_tokyo">東京電力　%.1f％</string>
 	<string name="electric_power_usage_tohoku">東北電力　%.1f％</string>

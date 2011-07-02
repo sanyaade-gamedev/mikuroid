@@ -7,7 +7,6 @@ import java.util.List;
 import org.naga.project.android.Information;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
-import org.naga.project.yahoo.dev.ElectricPowerUsage;
 import org.naga.project.yahoo.dev.ElectricPowerUsageInformation;
 import org.naga.project.yahoo.dev.ElectricPowerUsageService;
 
