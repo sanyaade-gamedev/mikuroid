@@ -17,6 +17,8 @@ public class ConfigureListener implements Listener {
       activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
       WidgetManager.getInstance().getContext().startActivity(activityIntent);
+      
+      return false;
     }
 
     return true;

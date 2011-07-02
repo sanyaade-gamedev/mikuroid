@@ -37,6 +37,14 @@ public class SceneWait implements Scene {
   }
 
   public void onUpdate(Intent intent) {
+    // Listen intent event.
+    for (Listener listener : this.listenerList) {
+      if (!listener.onListen(intent)) {
+        // Do nothing when return false
+        return;
+      }
+    }
+
     if (this.currentAction != null) {
       this.waiting = false;
 
@@ -73,11 +81,6 @@ public class SceneWait implements Scene {
       }
     } else {
       this.waiting = true;
-    }
-
-    // Listen intent event.
-    for (Listener listener : this.listenerList) {
-      listener.onListen(intent);
     }
   }
 
