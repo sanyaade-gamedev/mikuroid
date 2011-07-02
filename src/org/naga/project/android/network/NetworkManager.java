@@ -14,7 +14,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.naga.project.yahoo.dev.ElectricPowerUsage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +33,13 @@ public class NetworkManager {
   }
 
   private static NetworkManager instance;
-  
+
+  /**
+   * Request by HTTP protocl.
+   * 
+   * @param url
+   * @return response
+   */
   public InputStream httpRequest(String url) {
     final HttpClient httpClient = new DefaultHttpClient();
 
@@ -79,6 +84,12 @@ public class NetworkManager {
     return is;
   }
 
+  /**
+   * Load bitmap data by http.
+   * 
+   * @param url
+   * @return Bitmap
+   */
   public Bitmap load(String url) {
     HttpGet get = null;
     try {

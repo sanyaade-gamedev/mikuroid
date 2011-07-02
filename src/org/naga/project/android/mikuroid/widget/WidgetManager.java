@@ -1,22 +1,17 @@
 package org.naga.project.android.mikuroid.widget;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import org.naga.project.android.Information;
 import org.naga.project.android.mikuroid.MikuroidIntent;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.scene.Scene;
 import org.naga.project.android.mikuroid.widget.scene.SceneWait;
-import org.naga.project.nicovideo.NicovideoEntry;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.widget.RemoteViews;
 
 public class WidgetManager {
@@ -45,12 +40,9 @@ public class WidgetManager {
   private WidgetManager() {
     super();
 
-    this.nicoEntryQueue = new ConcurrentLinkedQueue<NicovideoEntry>();
-    this.images = new ConcurrentHashMap<Integer, Bitmap>();
     this.information = new Information();
 
     this.currentScene = null;
-    this.reservedScene = null;
   }
 
   public boolean create() {
@@ -175,21 +167,6 @@ public class WidgetManager {
    * Widget main scene.
    */
   private Scene currentScene;
-
-  /**
-   * Widget reserve scene. Use to switch scenes.
-   */
-  private Scene reservedScene;
-
-  /**
-   * Thread-safe nicovideo entry store.
-   */
-  private ConcurrentLinkedQueue<NicovideoEntry> nicoEntryQueue;
-
-  /**
-   * Thread-safe image store.
-   */
-  private ConcurrentHashMap<Integer, Bitmap> images;
 
   /**
    * Android information.
