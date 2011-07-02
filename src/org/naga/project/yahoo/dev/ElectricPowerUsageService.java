@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.naga.project.android.network.NetworkManager;
 import org.xmlpull.v1.XmlPullParser;
@@ -20,6 +22,7 @@ public class ElectricPowerUsageService {
 
   private static final String DATE_FORMAT = "yyyy-MM-dd";
 
+  public static final String AREA = "area";
   public static final String TOKYO = "tokyo";
   public static final String TOHOKU = "tohoku";
   public static final String KANSAI = "kansai";
@@ -28,11 +31,16 @@ public class ElectricPowerUsageService {
    * 
    * @return
    */
-  public static ElectricPowerUsage httpRequest() {
+  public static ElectricPowerUsage httpRequest(HashMap<String, String> params) {
     String request_url = ElectricPowerUsageService.API_URL + "?appid="
         + ElectricPowerUsageService.API;
-    // TODO Set request parameters
 
+    // Set request parameters
+    for (Map.Entry<String, String> e : params.entrySet()) {
+      request_url += "&" + e.getKey() + "=" + e.getValue();
+    }
+
+    Log.d("HTTP REQ", request_url);
     InputStream is = NetworkManager.getInstance().httpRequest(request_url);
 
     ElectricPowerUsage electricPowerUsage = ElectricPowerUsageService.load(is);
@@ -83,7 +91,7 @@ public class ElectricPowerUsageService {
         if (eventType == XmlPullParser.START_TAG) {
           // New entry. <ElectricPowerUsage>
           name = parser.getName();
-          
+
           Log.d("XML", name);
 
           if ("Area".equals(name)) {
@@ -103,6 +111,9 @@ public class ElectricPowerUsageService {
             }
           } else if ("Hour".equals(name)) {
             usage.hour = new Integer(parser.nextText());
+          } else if ("Error".equals(name)) {
+            // Request error
+            return null;
           }
         }
 

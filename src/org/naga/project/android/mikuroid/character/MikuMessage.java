@@ -1,6 +1,7 @@
 package org.naga.project.android.mikuroid.character;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.naga.project.android.Information;
@@ -91,16 +92,24 @@ public abstract class MikuMessage {
 
     ElectricPowerUsageInformation info = WidgetManager.getInstance().epuInformation;
 
-    info.tokyo = ElectricPowerUsageService.httpRequest();
-
     Resources res = WidgetManager.getInstance().getContext().getResources();
-    if (info.useTokyo && info.tokyo != null) {
-      String message = String.format(res.getString(
-          R.string.electric_power_usage_tokyo, (float) info.tokyo.usage
-              / (float) info.tokyo.capacity * 100));
-      messageList.add(message);
-      Log.d("MIKU MESSAGE", message);
+
+    if (info.useTokyo) {
+      if (info.tokyo == null) {
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put(ElectricPowerUsageService.AREA, ElectricPowerUsageService.TOKYO);
+        info.tokyo = ElectricPowerUsageService.httpRequest(params);
+      }
+
+      if (info.tokyo != null) {
+        String message = String.format(res.getString(
+            R.string.electric_power_usage_tokyo, (float) info.tokyo.usage
+                / (float) info.tokyo.capacity * 100));
+        messageList.add(message);
+        Log.d("MIKU MESSAGE", message);
+      }
     }
+
     if (info.useTohoku && info.tohoku != null) {
       String message = String.format(
           res.getString(R.string.electric_power_usage_tohoku),
