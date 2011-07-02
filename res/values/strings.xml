@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, MikuroidActivity!</string>
+	<string name="hello">Thank you for use Mikuroid!</string>
 	<string name="app_name">Mikuroid</string>
 	<string name="widget_loading">Loading Mikuroid...</string>
 	<string name="widget_name">Mikuroid widget</string>
@@ -15,7 +15,9 @@
 	<string name="battery_charging">充電中だよ。</string>
 	<string name="yesno">Yesなら青、Noなら赤の音符をタッチしてね。</string>
 	<string name="electric_power_corps">電力会社</string>
-	<string name="electric_power_usage_tokyo">現在の東京電力の電力使用量は%.1f％だよ。</string>
-	<string name="electric_power_usage_tohoku">現在の東北電力の電力使用量は%.1f％だよ。</string>
-	<string name="electric_power_usage_kansai">現在の関西電力の電力使用量は%.1f％だよ。</string>
+	<string name="electric_power_usage_begin">現在の各電力会社の消費電力量だよ。</string>
+	<string name="electric_power_usage_tokyo">東京電力　%.1f％</string>
+	<string name="electric_power_usage_tohoku">東北電力　%.1f％</string>
+	<string name="electric_power_usage_kansai">関西電力　%.1f％</string>
+	<string name="electric_power_usage_request_error">エラーでデータが取得出来なかったよ&gt;&lt;</string>
 </resources>

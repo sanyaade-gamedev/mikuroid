@@ -20,7 +20,7 @@ public class ElectricPowerUsageAction extends Action {
   public boolean create() {
     this.messageTalk = new MessageTalk(this.scene, 100, 100);
 
-    this.messageTalk.messageQueue.addAll(MikuMessage
+    this.messageTalk.messageQueue.add(MikuMessage
         .generateElectricPowerUsageMessage());
 
     return true;
