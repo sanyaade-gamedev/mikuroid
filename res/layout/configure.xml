@@ -7,5 +7,8 @@
     <CheckBox android:layout_height="wrap_content" android:text="東京電力" android:id="@+id/checkBoxTokyo" android:layout_width="wrap_content"></CheckBox>
     <CheckBox android:layout_height="wrap_content" android:text="東北電力" android:id="@+id/checkBoxTohoku" android:layout_width="wrap_content"></CheckBox>
     <CheckBox android:layout_height="wrap_content" android:text="関西電力" android:id="@+id/checkBoxKansai" android:layout_width="wrap_content"></CheckBox>
+    <LinearLayout android:id="@+id/linearLayout1" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:text="@string/electric_power_usage_update" android:id="@+id/buttonUpdate" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    </LinearLayout>
 
 </LinearLayout>

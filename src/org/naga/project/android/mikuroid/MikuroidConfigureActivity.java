@@ -2,12 +2,14 @@ package org.naga.project.android.mikuroid;
 
 import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.yahoo.dev.ElectricPowerUsageInformation;
+import org.naga.project.yahoo.dev.ElectricPowerUsageService;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 
 public class MikuroidConfigureActivity extends Activity {
@@ -30,6 +32,7 @@ public class MikuroidConfigureActivity extends Activity {
     final CheckBox chBoxTokyo = (CheckBox) findViewById(R.id.checkBoxTokyo);
     final CheckBox chBoxTohoku = (CheckBox) findViewById(R.id.checkBoxTohoku);
     final CheckBox chBoxkKansai = (CheckBox) findViewById(R.id.checkBoxKansai);
+    final Button buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
 
     ElectricPowerUsageInformation info = WidgetManager.getInstance().epuInformation;
 
@@ -57,6 +60,11 @@ public class MikuroidConfigureActivity extends Activity {
         CheckBox checkbox = (CheckBox) v;
         ElectricPowerUsageInformation info = WidgetManager.getInstance().epuInformation;
         info.useKansai = checkbox.isChecked();
+      }
+    });
+    buttonUpdate.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        ElectricPowerUsageService.updateElectricPowerUsage();
       }
     });
   }
