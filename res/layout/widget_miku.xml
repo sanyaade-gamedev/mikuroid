@@ -32,21 +32,6 @@
       style="@style/Text.Loading" />
   </FrameLayout>
 
-  <FrameLayout
-    android:id="@+id/nicovideo_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:visibility="invisible" >
-
-    <ImageView
-      android:id="@+id/nicovideo_image"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:maxWidth="255dip"
-      android:maxHeight="178dip"
-      android:gravity="left" />
-  </FrameLayout>
-
   <AbsoluteLayout
     android:id="@+id/yesno_layout"
     android:layout_width="fill_parent"
