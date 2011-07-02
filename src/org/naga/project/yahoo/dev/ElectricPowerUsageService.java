@@ -9,6 +9,7 @@ import org.naga.project.android.network.NetworkManager;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.util.Log;
 import android.util.Xml;
 
 public class ElectricPowerUsageService {
@@ -19,18 +20,22 @@ public class ElectricPowerUsageService {
 
   private static final String DATE_FORMAT = "yyyy-MM-dd";
 
-  public static final String tokyo = "tokyo";
-  public static final String tohoku = "tohoku";
-  public static final String kansai = "kansai";
+  public static final String TOKYO = "tokyo";
+  public static final String TOHOKU = "tohoku";
+  public static final String KANSAI = "kansai";
 
-  public ElectricPowerUsage httpRequest() {
+  /**
+   * 
+   * @return
+   */
+  public static ElectricPowerUsage httpRequest() {
     String request_url = ElectricPowerUsageService.API_URL + "?appid="
         + ElectricPowerUsageService.API;
     // TODO Set request parameters
 
     InputStream is = NetworkManager.getInstance().httpRequest(request_url);
 
-    ElectricPowerUsage electricPowerUsage = this.load(is);
+    ElectricPowerUsage electricPowerUsage = ElectricPowerUsageService.load(is);
 
     try {
       is.close();
@@ -50,8 +55,13 @@ public class ElectricPowerUsageService {
     return electricPowerUsage;
   }
 
-  private ElectricPowerUsage load(InputStream is) {
-    ElectricPowerUsage electricPowerUsage = new ElectricPowerUsage();
+  /**
+   * 
+   * @param is
+   * @return
+   */
+  private static ElectricPowerUsage load(InputStream is) {
+    ElectricPowerUsage usage = new ElectricPowerUsage();
 
     XmlPullParser parser = Xml.newPullParser();
     try {
@@ -73,35 +83,40 @@ public class ElectricPowerUsageService {
         if (eventType == XmlPullParser.START_TAG) {
           // New entry. <ElectricPowerUsage>
           name = parser.getName();
+          
+          Log.d("XML", name);
 
           if ("Area".equals(name)) {
-            electricPowerUsage.area = parser.nextText();
+            usage.area = parser.nextText();
           } else if ("Usage".equals(name)) {
-            electricPowerUsage.usage = new Integer(parser.nextText());
+            usage.usage = new Integer(parser.nextText());
+            Log.d("XML", usage.usage.toString());
           } else if ("Capacity".equals(name)) {
-            electricPowerUsage.capacity = new Integer(parser.nextText());
+            usage.capacity = new Integer(parser.nextText());
+            Log.d("XML", usage.capacity.toString());
           } else if ("Date".equals(name)) {
             try {
-              electricPowerUsage.date = simpleDateFormat.parse(parser
-                  .nextText());
+              usage.date = simpleDateFormat.parse(parser.nextText());
             } catch (ParseException e) {
               e.printStackTrace();
-              electricPowerUsage.date = null;
+              usage.date = null;
             }
           } else if ("Hour".equals(name)) {
-            electricPowerUsage.hour = new Integer(parser.nextText());
+            usage.hour = new Integer(parser.nextText());
           }
         }
+
+        eventType = parser.next();
       }
     } catch (XmlPullParserException e) {
       e.printStackTrace();
-      electricPowerUsage = null;
+      usage = null;
     } catch (IOException e) {
       e.printStackTrace();
-      electricPowerUsage = null;
+      usage = null;
     }
 
-    return electricPowerUsage;
+    return usage;
   }
 
 }

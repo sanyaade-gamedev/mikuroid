@@ -6,8 +6,12 @@ import java.util.List;
 import org.naga.project.android.Information;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
+import org.naga.project.yahoo.dev.ElectricPowerUsageInformation;
+import org.naga.project.yahoo.dev.ElectricPowerUsageService;
 
+import android.content.res.Resources;
 import android.os.BatteryManager;
+import android.util.Log;
 
 public abstract class MikuMessage {
 
@@ -49,22 +53,23 @@ public abstract class MikuMessage {
 
     int batteryLevel = info.getBatteryLevel().intValue();
 
+    Resources res = WidgetManager.getInstance().getContext().getResources();
     String levelMsg = null;
     if (batteryLevel < MikuMessage.BATTERY_DEADLY_LEVEL) {
-      levelMsg = String.format(WidgetManager.getInstance().getContext()
-          .getResources().getString(R.string.battery_deadly), batteryLevel);
+      levelMsg = String.format(res.getString(R.string.battery_deadly),
+          batteryLevel);
     } else if (batteryLevel < MikuMessage.BATTERY_DANGER_LEVEL) {
-      levelMsg = String.format(WidgetManager.getInstance().getContext()
-          .getResources().getString(R.string.battery_danger), batteryLevel);
+      levelMsg = String.format(res.getString(R.string.battery_danger),
+          batteryLevel);
     } else if (batteryLevel < MikuMessage.BATTERY_LOW_LEVEL) {
-      levelMsg = String.format(WidgetManager.getInstance().getContext()
-          .getResources().getString(R.string.battery_low), batteryLevel);
+      levelMsg = String.format(res.getString(R.string.battery_low),
+          batteryLevel);
     } else if (batteryLevel == MikuMessage.BATTERY_FULL_LEVEL) {
-      levelMsg = String.format(WidgetManager.getInstance().getContext()
-          .getResources().getString(R.string.battery_full), batteryLevel);
+      levelMsg = String.format(res.getString(R.string.battery_full),
+          batteryLevel);
     } else {
-      levelMsg = String.format(WidgetManager.getInstance().getContext()
-          .getResources().getString(R.string.battery_good), batteryLevel);
+      levelMsg = String.format(res.getString(R.string.battery_good),
+          batteryLevel);
     }
 
     if (null != statusMsg) {
@@ -76,8 +81,40 @@ public abstract class MikuMessage {
     return messageList;
   }
 
-  public static List<String> generateClockMessage() {
+  /**
+   * Generate message about electric power usage.
+   * 
+   * @return
+   */
+  public static List<String> generateElectricPowerUsageMessage() {
     List<String> messageList = new ArrayList<String>();
+
+    ElectricPowerUsageInformation info = WidgetManager.getInstance().epuInformation;
+
+    info.tokyo = ElectricPowerUsageService.httpRequest();
+
+    Resources res = WidgetManager.getInstance().getContext().getResources();
+    if (info.useTokyo && info.tokyo != null) {
+      String message = String.format(res.getString(
+          R.string.electric_power_usage_tokyo, (float) info.tokyo.usage
+              / (float) info.tokyo.capacity * 100));
+      messageList.add(message);
+      Log.d("MIKU MESSAGE", message);
+    }
+    if (info.useTohoku && info.tohoku != null) {
+      String message = String.format(
+          res.getString(R.string.electric_power_usage_tohoku),
+          (float) info.tohoku.usage / (float) info.tohoku.capacity * 100);
+      messageList.add(message);
+      Log.d("MIKU MESSAGE", message);
+    }
+    if (info.useKansai && info.kansai != null) {
+      String message = String.format(
+          res.getString(R.string.electric_power_usage_kansai),
+          (float) info.kansai.usage / (float) info.kansai.capacity * 100);
+      messageList.add(message);
+      Log.d("MIKU MESSAGE", message);
+    }
 
     return messageList;
   }
