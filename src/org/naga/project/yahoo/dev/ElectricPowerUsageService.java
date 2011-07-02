@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.network.NetworkManager;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -26,6 +27,29 @@ public class ElectricPowerUsageService {
   public static final String TOKYO = "tokyo";
   public static final String TOHOKU = "tohoku";
   public static final String KANSAI = "kansai";
+
+  public static void updateElectricPowerUsage() {
+    ElectricPowerUsageInformation info = WidgetManager.getInstance().epuInformation;
+
+    if (info.useTokyo) {
+      HashMap<String, String> params = new HashMap<String, String>();
+      params.put(ElectricPowerUsageService.AREA,
+          ElectricPowerUsageService.TOKYO);
+      info.tokyo = ElectricPowerUsageService.httpRequest(params);
+    }
+    if (info.useTohoku) {
+      HashMap<String, String> params = new HashMap<String, String>();
+      params.put(ElectricPowerUsageService.AREA,
+          ElectricPowerUsageService.TOHOKU);
+      info.tohoku = ElectricPowerUsageService.httpRequest(params);
+    }
+    if (info.useKansai) {
+      HashMap<String, String> params = new HashMap<String, String>();
+      params.put(ElectricPowerUsageService.AREA,
+          ElectricPowerUsageService.KANSAI);
+      info.kansai = ElectricPowerUsageService.httpRequest(params);
+    }
+  }
 
   /**
    * 

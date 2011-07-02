@@ -20,4 +20,5 @@
 	<string name="electric_power_usage_tohoku">東北電力　%.1f％</string>
 	<string name="electric_power_usage_kansai">関西電力　%.1f％</string>
 	<string name="electric_power_usage_request_error">エラーでデータが取得出来なかったよ&gt;&lt;</string>
+	<string name="electric_power_usage_update">更新</string>
 </resources>
