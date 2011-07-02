@@ -7,6 +7,7 @@ import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.scene.Scene;
 import org.naga.project.android.mikuroid.widget.scene.SceneWait;
+import org.naga.project.yahoo.dev.ElectricPowerUsageDaemon;
 import org.naga.project.yahoo.dev.ElectricPowerUsageInformation;
 
 import android.app.PendingIntent;
@@ -54,6 +55,10 @@ public class WidgetManager {
     if (null == this.miku) {
       this.miku = new MikuHatsune();
       this.miku.create();
+    }
+    
+    if (null == this.epuDaemon) {
+      this.epuDaemon = new ElectricPowerUsageDaemon();
     }
 
     if (null == this.currentScene) {
@@ -185,5 +190,7 @@ public class WidgetManager {
    * Widget main scene.
    */
   private Scene currentScene;
+
+  private ElectricPowerUsageDaemon epuDaemon;
 
 }
