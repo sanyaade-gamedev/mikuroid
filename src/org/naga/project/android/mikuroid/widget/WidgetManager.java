@@ -1,11 +1,13 @@
 package org.naga.project.android.mikuroid.widget;
 
 import org.naga.project.android.Information;
+import org.naga.project.android.mikuroid.MikuroidConfigure;
 import org.naga.project.android.mikuroid.MikuroidIntent;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
 import org.naga.project.android.mikuroid.widget.scene.Scene;
 import org.naga.project.android.mikuroid.widget.scene.SceneWait;
+import org.naga.project.yahoo.dev.ElectricPowerUsageInformation;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -41,6 +43,7 @@ public class WidgetManager {
     super();
 
     this.information = new Information();
+    this.epuInformation = new ElectricPowerUsageInformation();
 
     this.currentScene = null;
   }
@@ -124,6 +127,26 @@ public class WidgetManager {
   }
 
   /**
+   * Widget character Miku Hatsune.
+   */
+  public MikuHatsune miku;
+
+  /**
+   * Widget configure.
+   */
+  public MikuroidConfigure config;
+
+  /**
+   * Android information.
+   */
+  public Information information;
+
+  /**
+   * ElectricPowerUsageInformation
+   */
+  public ElectricPowerUsageInformation epuInformation;
+
+  /**
    * Context of WidgetProvider.
    */
   private Context context;
@@ -159,18 +182,8 @@ public class WidgetManager {
   private AppWidgetManager appWidgetManager;
 
   /**
-   * Widget character Miku Hatsune.
-   */
-  public MikuHatsune miku;
-
-  /**
    * Widget main scene.
    */
   private Scene currentScene;
-
-  /**
-   * Android information.
-   */
-  public Information information;
 
 }

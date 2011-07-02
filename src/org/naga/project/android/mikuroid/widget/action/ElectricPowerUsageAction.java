@@ -3,11 +3,11 @@ package org.naga.project.android.mikuroid.widget.action;
 import org.naga.project.android.message.MessageTalk;
 import org.naga.project.android.mikuroid.R;
 import org.naga.project.android.mikuroid.character.MikuHatsune;
+import org.naga.project.android.mikuroid.character.MikuMessage;
 import org.naga.project.android.mikuroid.widget.WidgetManager;
 import org.naga.project.android.mikuroid.widget.scene.Scene;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
@@ -20,9 +20,8 @@ public class ElectricPowerUsageAction extends Action {
   public boolean create() {
     this.messageTalk = new MessageTalk(this.scene, 100, 100);
 
-    Resources res = WidgetManager.getInstance().getContext().getResources();
-    this.messageTalk.messageQueue.add(res
-        .getString(R.string.electric_power_usage));
+    this.messageTalk.messageQueue.addAll(MikuMessage
+        .generateElectricPowerUsageMessage());
 
     return true;
   }
@@ -48,9 +47,9 @@ public class ElectricPowerUsageAction extends Action {
     } else {
       views.setViewVisibility(R.id.balloon_layout, ImageView.INVISIBLE);
     }
-    
+
     WidgetManager.getInstance().miku.currentSurface = MikuHatsune.SURFACE_NORMAL;
-    
+
     views.setViewVisibility(R.id.yesno_layout, ImageView.INVISIBLE);
   }
 
